@@ -8,19 +8,16 @@ public class CropContext : IDisposable {
     public int DayPlanted;
     public ReactiveProperty<int> Growth;
     public ReactiveProperty<int> Level;
+    public Action OnHarvest;
 
     private DisposableBag _bag = new();
 
-    public CropContext(TimeSystem timeSystem) {
+    public CropContext(Action<CropContext> onHarvest) {
         Id = Guid.NewGuid();
-        DayPlanted = timeSystem.DayCount.Value;
-            
+        OnHarvest = () => onHarvest(this);
+
         Growth = new ReactiveProperty<int>(0);
         Level = new ReactiveProperty<int>(0);
-            
-        timeSystem.DayCount
-                  .Subscribe(_ => Growth.Value++)
-                  .AddTo(ref _bag);
     }
 
     public void Dispose() {

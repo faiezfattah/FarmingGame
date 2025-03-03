@@ -47,6 +47,7 @@ public class Crop : MonoBehaviour, IInteractable {
 
     private void Harvest() {
         Debug.Log($"Harvested crop with value: {cropData.price}");
+        _cropContext.OnHarvest?.Invoke();
         Destroy(gameObject);
     }
 
