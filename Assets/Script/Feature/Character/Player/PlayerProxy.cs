@@ -9,8 +9,11 @@ public class PlayerProxy : MonoBehaviour {
     [SerializeField] private float speed;
     [SerializeField] private float range;
     [SerializeField] private LayerMask interactableLayer;
+    
+    [SerializeField] private Transform rotatingContainer;
+    [SerializeField] private Transform pointer;
 
-
+    private float _currentRotation;
     private InputProcessor _inputProcessor;
     private Vector2 _moveDir;
     private IDisposable _subscription;
@@ -26,8 +29,11 @@ public class PlayerProxy : MonoBehaviour {
 
     private void FixedUpdate() {
         if (_moveDir == Vector2.zero) return;
-
         gameObject.transform.position += (Vector3)_moveDir * (Time.fixedDeltaTime * speed);
+        
+        // rotate le container
+        _currentRotation = _moveDir.y * 90f + (Mathf.Approximately(_moveDir.x, 1) ? 0f : 180f);
+        rotatingContainer.rotation = Quaternion.Euler(0, 0, _currentRotation);
     }
 
     private void Interact() {

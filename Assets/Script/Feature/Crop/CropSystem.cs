@@ -53,10 +53,10 @@ public class CropSystem : MonoBehaviour {
         AddCrop(context);
         Debug.Log($"made a new plant on: {context.DayPlanted}");
 
-        var registry = _cropRegistry.GetAll();
-        foreach (var item in registry) {
-            Debug.Log(item);
-        }
+        // var registry = _cropRegistry.GetAll();
+        // foreach (var item in registry) {
+        //     Debug.Log(item);
+        // }
     }
 
     private void OnDisable() {
