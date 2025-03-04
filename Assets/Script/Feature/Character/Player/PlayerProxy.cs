@@ -32,8 +32,20 @@ public class PlayerProxy : MonoBehaviour {
         gameObject.transform.position += (Vector3)_moveDir * (Time.fixedDeltaTime * speed);
         
         // rotate le container
-        _currentRotation = _moveDir.y * 90f + (Mathf.Approximately(_moveDir.x, 1) ? 0f : 180f);
-        rotatingContainer.rotation = Quaternion.Euler(0, 0, _currentRotation);
+        if (_moveDir.x != 0 || _moveDir.y != 0) {
+            float angle = 0f;
+        
+            // Primary directions - more efficient than Atan2
+            if (Mathf.Abs(_moveDir.x) > Mathf.Abs(_moveDir.y)) {
+                // Horizontal movement is dominant
+                angle = _moveDir.x > 0 ? 0f : 180f;
+            } else {
+                // Vertical movement is dominant
+                angle = _moveDir.y > 0 ? 90f : 270f;
+            }
+        
+            rotatingContainer.rotation = Quaternion.Euler(0, 0, angle);
+        }
     }
 
     private void Interact() {
@@ -52,6 +64,7 @@ public class PlayerProxy : MonoBehaviour {
 
     private void OnDrawGizmosSelected() {
         Gizmos.DrawWireSphere(gameObject.transform.position, range);
+        Gizmos.DrawWireSphere(pointer.position, range);
     }
 }
 }
