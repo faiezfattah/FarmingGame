@@ -10,12 +10,17 @@ public class InputProcessor : PlayerInput.IDefaultActions, IDisposable {
 
     public Action<Vector2> MoveEvent;
     public Action InteractEvent;
+    public Action DebugEvent;
     public void OnMove(InputAction.CallbackContext context) {
         MoveEvent?.Invoke(context.ReadValue<Vector2>());
     }
 
     public void OnInteract(InputAction.CallbackContext context) {
         if (context.performed) InteractEvent?.Invoke();
+    }
+
+    public void OnDebug(InputAction.CallbackContext context) {
+        if (context.performed) DebugEvent?.Invoke();
     }
 
     public InputProcessor() {

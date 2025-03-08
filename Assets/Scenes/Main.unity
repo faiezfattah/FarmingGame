@@ -1277,6 +1277,54 @@ MonoBehaviour:
   farmTile: {fileID: 0}
   startPos: {x: -9, y: 1}
   endPos: {x: -2, y: -2}
+--- !u!1 &1593675283
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1593675285}
+  - component: {fileID: 1593675284}
+  m_Layer: 0
+  m_Name: ItemPool
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1593675284
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1593675283}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0a5e941993b843cfa7693c1d8c4f2f1b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  prefab: {fileID: 5160572709974910307, guid: 3f92cf21072d8584fb38612bec567a48, type: 3}
+  defaultCapacity: 10
+  maxCapacity: 100
+  collectionChecks: 1
+--- !u!4 &1593675285
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1593675283}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -4.917269, y: 0.50310344, z: 0.016301202}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2121073834
 GameObject:
   m_ObjectHideFlags: 0
@@ -3344,3 +3392,4 @@ SceneRoots:
   - {fileID: 783763883}
   - {fileID: 958656074}
   - {fileID: 1581748139}
+  - {fileID: 1593675285}
