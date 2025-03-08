@@ -181,6 +181,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   testingCrop: {fileID: 1061367037655458577, guid: 3e2b386abd26dde4394ec96ef9ab20a0, type: 3}
   spawningPointer: {fileID: 783763883}
+  debugCropData: {fileID: 11400000, guid: 42120f98f1e36a542a8caf9459ac02e4, type: 2}
 --- !u!4 &197686814
 Transform:
   m_ObjectHideFlags: 0
