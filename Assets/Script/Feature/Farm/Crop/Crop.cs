@@ -17,6 +17,7 @@ public class Crop : MonoBehaviour, IEntity<CropContext>, IInteractable {
 
     public void Initialize(CropContext context) {
         _cropContext = context;
+        _cropContext.CropItem = cropData.itemData;
 
         UpdateVisuals(_cropContext.Level.Value);
 

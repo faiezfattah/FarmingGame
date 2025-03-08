@@ -1,4 +1,5 @@
 ﻿using R3;
+using Script.Core.Interface;
 using Script.Core.Model.Crop;
 using Script.Feature.DayTime;
 using TriInspector;
@@ -9,14 +10,17 @@ namespace Script.Feature.Farm.Crop {
 public class CropSystem : MonoBehaviour {
     [SerializeField] private Crop testingCrop;
     [SerializeField] private Transform spawningPointer;
+    
 
     private CropRegistry _cropRegistry;
     private TimeSystem _timeSystem;
+    private IItemSystem _itemSystem;
     private DisposableBag _bag;
     [Inject]
-    public void Construct(CropRegistry registry, TimeSystem timeSystem) {
+    public void Construct(CropRegistry registry, TimeSystem timeSystem, IItemSystem itemSystem) {
         _cropRegistry = registry;
         _timeSystem = timeSystem;
+        _itemSystem = itemSystem;
     }
 
     private void Start() {
@@ -41,15 +45,17 @@ public class CropSystem : MonoBehaviour {
         if (!_cropRegistry.TryRemove(cropContext)) {
             Debug.LogWarning("Failed to remove crop");
         }
-        // Debug.Log("Removed crop");
+        _itemSystem.SpawnItem(cropContext.CropItem, transform.position);
     }
 
     [Button]
     private void SpawnCrop() {
         var instance = Instantiate(testingCrop, spawningPointer.position, Quaternion.identity);
         var context = new CropContext(RemoveCrop);
+        
         instance.Initialize(context);
         AddCrop(context);
+        
         Debug.Log($"made a new plant on: {context.DayPlanted}");
 
         // var registry = _cropRegistry.GetAll();

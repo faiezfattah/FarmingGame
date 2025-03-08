@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 20cfbd47c9ae46eb9092e326c9b65565, type: 3}
   m_Name: Turnip
   m_EditorClassIdentifier: 
-  itemSprite: {fileID: 0}
-  sellPrice: 0
+  itemSprite: {fileID: -6707024634718470045, guid: 137e19cf725bf8141ba6f049ed730a41, type: 3}
+  sellPrice: 5

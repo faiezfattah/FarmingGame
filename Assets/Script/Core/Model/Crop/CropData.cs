@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using JetBrains.Annotations;
+using Script.Core.Model.Item;
 using TriInspector;
 using UnityEngine;
 
@@ -7,6 +8,8 @@ namespace Script.Core.Model.Crop {
 [CreateAssetMenu(fileName = "New Crop Data", menuName = "Crop/Data")]
 public class CropData : ScriptableObject {
     public int price;
+    public ItemData itemData;
+    
 
     [TableList, ShowInInspector] [ListDrawerSettings(Draggable = true)]
     public List<CropLevelData> cropLevels;
@@ -15,7 +18,7 @@ public class CropData : ScriptableObject {
          (level < 0 || level >= cropLevels.Count) ? null : cropLevels[level];
     public bool CanHarvest(int currentStateIndex) =>
         currentStateIndex == cropLevels.Count - 1;
-    
+
 
     public bool ShouldAdvanceToNextLevel(CropContext context) {
         if (context.Level.Value >= cropLevels.Count - 1) {

@@ -1,5 +1,6 @@
 ﻿using System;
 using R3;
+using Script.Core.Model.Item;
 
 namespace Script.Core.Model.Crop {
 public class CropContext : IDisposable {
@@ -8,6 +9,7 @@ public class CropContext : IDisposable {
     public ReactiveProperty<int> Growth;
     public ReactiveProperty<int> Level;
     public Action OnHarvest;
+    public ItemData CropItem;
 
     private DisposableBag _bag = new();
 

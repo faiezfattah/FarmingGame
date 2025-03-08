@@ -232,6 +232,7 @@ MonoBehaviour:
   - {fileID: 1130781497}
   - {fileID: 197686812}
   - {fileID: 1581748137}
+  itemPool: {fileID: 1593675284}
 --- !u!4 &226083956
 Transform:
   m_ObjectHideFlags: 0
@@ -1213,6 +1214,7 @@ MonoBehaviour:
     m_Bits: 64
   rotatingContainer: {fileID: 906538380}
   pointer: {fileID: 124120363}
+  itemData: {fileID: 11400000, guid: a4dbce3fbe997fc469322a3b0d4a5ac6, type: 2}
 --- !u!1 &1581748137
 GameObject:
   m_ObjectHideFlags: 0
@@ -1223,7 +1225,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1581748139}
   - component: {fileID: 1581748138}
-  - component: {fileID: 1581748140}
   m_Layer: 0
   m_Name: Grid
   m_TagString: Untagged
@@ -1260,23 +1261,6 @@ Transform:
   - {fileID: 2121073835}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1581748140
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1581748137}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3bf496fadc6a4b1fad498a78c4521ac7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  grid: {fileID: 1581748138}
-  farmTilemap: {fileID: 783208194}
-  farmTile: {fileID: 0}
-  startPos: {x: -9, y: 1}
-  endPos: {x: -2, y: -2}
 --- !u!1 &1593675283
 GameObject:
   m_ObjectHideFlags: 0
@@ -3386,10 +3370,10 @@ SceneRoots:
   m_Roots:
   - {fileID: 226083956}
   - {fileID: 519420032}
+  - {fileID: 1593675285}
   - {fileID: 619394802}
   - {fileID: 1130781499}
   - {fileID: 197686814}
   - {fileID: 783763883}
   - {fileID: 958656074}
   - {fileID: 1581748139}
-  - {fileID: 1593675285}
