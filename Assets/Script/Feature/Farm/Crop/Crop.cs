@@ -5,7 +5,10 @@ using Script.Registry.Farm.Crop;
 using UnityEngine;
 
 namespace Script.Feature.Farm.Crop {
-public class Crop : MonoBehaviour, IInteractable {
+public class Crop : MonoBehaviour, 
+    IEntity<CropContext>, 
+    IInteractable {
+    
     [SerializeField] private SpriteRenderer sr;
     [SerializeField] private CropData cropData;
     
@@ -13,8 +16,8 @@ public class Crop : MonoBehaviour, IInteractable {
     private TimeSystem _timeSystem;
     private DisposableBag _subscriptions = new();
 
-    public void Initialize(CropContext cropContext) {
-        _cropContext = cropContext;
+    public void Initialize(CropContext context) {
+        _cropContext = context;
 
         UpdateVisuals(_cropContext.Level.Value);
 
