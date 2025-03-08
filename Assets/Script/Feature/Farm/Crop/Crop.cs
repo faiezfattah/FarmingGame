@@ -9,15 +9,15 @@ namespace Script.Feature.Farm.Crop {
 public class Crop : MonoBehaviour, IEntity<CropContext>, IInteractable {
     
     [SerializeField] private SpriteRenderer sr;
-    [SerializeField] private CropData cropData;
-    
+
+    private CropData _cropData;
     private CropContext _cropContext;
     private TimeSystem _timeSystem;
     private DisposableBag _subscriptions = new();
 
     public void Initialize(CropContext context) {
         _cropContext = context;
-        _cropContext.CropItem = cropData.itemData;
+        _cropData = _cropContext.CropData;
 
         UpdateVisuals(_cropContext.Level.Value);
 
@@ -31,24 +31,24 @@ public class Crop : MonoBehaviour, IEntity<CropContext>, IInteractable {
     }
 
     private void CheckForLevelAdvancement() {
-        if (!cropData.ShouldAdvanceToNextLevel(_cropContext)) return;
+        if (!_cropData.ShouldAdvanceToNextLevel(_cropContext)) return;
         
         _cropContext.Level.Value++;
     }
 
     private void UpdateVisuals(int level) {
-        sr.sprite = cropData.GetData(level)?.Sprite;
+        sr.sprite = _cropData.GetData(level)?.Sprite;
     }
 
     public void Interact() {
-        if (cropData.CanHarvest(_cropContext.Level.Value)) 
+        if (_cropData.CanHarvest(_cropContext.Level.Value)) 
             Harvest();
         
         else Debug.Log($"Plant is growing. Level: {_cropContext.Level.Value}, Growth: {_cropContext.Growth.Value}");
     }
 
     private void Harvest() {
-        Debug.Log($"Harvested crop with value: {cropData.price}");
+        Debug.Log("Harvested crop");
         _cropContext.OnHarvest?.Invoke();
         Destroy(gameObject);
     }

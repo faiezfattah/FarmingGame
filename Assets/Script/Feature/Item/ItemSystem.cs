@@ -12,7 +12,12 @@ public class ItemSystem : IItemSystem {
     public void SpawnItem(ItemData itemData, Vector3 position) {
         var item = _pool.Get();
         item.transform.position = position;
-        item.Initialize(itemData.Create());
+        Debug.Log($"item: {itemData.name}");
+        item.Initialize(itemData.CreateContext(HandlePickup));
+    }
+
+    private void HandlePickup(ItemContext itemContext) {
+        // todo!
     }
 }
 }

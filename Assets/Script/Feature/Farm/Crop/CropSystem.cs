@@ -10,6 +10,7 @@ namespace Script.Feature.Farm.Crop {
 public class CropSystem : MonoBehaviour {
     [SerializeField] private Crop testingCrop;
     [SerializeField] private Transform spawningPointer;
+    [SerializeField] private CropData debugCropData;
     
 
     private CropRegistry _cropRegistry;
@@ -24,44 +25,39 @@ public class CropSystem : MonoBehaviour {
     }
 
     private void Start() {
-        SpawnCrop();
+        DebugSpawnCrop();
         _timeSystem.DayCount.Subscribe(_ => UpdateCrop()).AddTo(ref _bag);
     }
 
     private void UpdateCrop() {
-        foreach (var item in _cropRegistry.cropContexts) {
+        foreach (var item in _cropRegistry.CropContexts) {
             item.Growth.Value++;
         }
     }
     
     private void AddCrop(CropContext cropContext) {
-        if (!_cropRegistry.TryAdd(cropContext)) {
-            Debug.LogWarning("Failed to add new crop");
-        }
-        // Debug.Log("Added new crop");
+        _cropRegistry.CropContexts.Add(cropContext);
     }
 
     private void RemoveCrop(CropContext cropContext) {
-        if (!_cropRegistry.TryRemove(cropContext)) {
+        if (!_cropRegistry.CropContexts.Remove(cropContext)) {
             Debug.LogWarning("Failed to remove crop");
         }
-        _itemSystem.SpawnItem(cropContext.CropItem, transform.position);
+        _itemSystem.SpawnItem(cropContext.CropData.itemData, transform.position);
     }
 
     [Button]
-    private void SpawnCrop() {
+    private void DebugSpawnCrop() {
+        SpawnCrop(debugCropData);
+    }
+    private void SpawnCrop(CropData cropData) {
         var instance = Instantiate(testingCrop, spawningPointer.position, Quaternion.identity);
-        var context = new CropContext(RemoveCrop);
+        var context = cropData.CreateContext(RemoveCrop);
         
         instance.Initialize(context);
         AddCrop(context);
         
         Debug.Log($"made a new plant on: {context.DayPlanted}");
-
-        // var registry = _cropRegistry.GetAll();
-        // foreach (var item in registry) {
-        //     Debug.Log(item);
-        // }
     }
 
     private void OnDisable() {
