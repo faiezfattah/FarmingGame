@@ -5,12 +5,9 @@ using UnityEngine;
 namespace Script.Core.Model.Item {
 [CreateAssetMenu(fileName = "New Item Data", menuName = "Item/Data")]
 public class ItemData : ScriptableObject {
-    [SerializeField] private Sprite itemSprite;
-    [SerializeField] private int sellPrice;
+    public Sprite itemSprite;
+    public int sellPrice;
 
-    public ItemContext CreateContext(Action<ItemContext> onPickup) => new(onPickup) {
-        Sprite = itemSprite,
-        Price = sellPrice,
-    };
+    public ItemContext CreateContext(Action<ItemContext> onPickup) => new(this, onPickup);
 }
 }

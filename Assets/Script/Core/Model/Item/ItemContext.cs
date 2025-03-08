@@ -3,12 +3,11 @@ using UnityEngine;
 
 namespace Script.Core.Model.Item {
 public class ItemContext {
-    public Sprite Sprite;
-    public int Price;
-
+    public ItemData ItemData;
     public Action OnPickup;
 
-    public ItemContext(Action<ItemContext> onPickup) {
+    public ItemContext(ItemData itemData, Action<ItemContext> onPickup) {
+        ItemData = itemData;
         OnPickup = () => onPickup?.Invoke(this);
     }
 }

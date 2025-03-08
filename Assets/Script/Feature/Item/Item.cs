@@ -11,7 +11,7 @@ public class Item : MonoBehaviour, IEntity<ItemContext> {
     
     public void Initialize(ItemContext context) {
         _itemContext = context;
-        spriteRenderer.sprite = context.Sprite;
+        spriteRenderer.sprite = context.ItemData.itemSprite;
     }
 }
 }
