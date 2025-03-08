@@ -1,12 +1,11 @@
-﻿using System;
-using R3;
+﻿using R3;
 using Script.Feature.DayTime;
-using Script.Registry.Crop;
+using Script.Registry.Farm.Crop;
 using TriInspector;
 using UnityEngine;
 using VContainer;
 
-namespace Script.Feature.Crop {
+namespace Script.Feature.Farm.Crop {
 public class CropSystem : MonoBehaviour {
     [SerializeField] private Crop testingCrop;
     [SerializeField] private Transform spawningPointer;

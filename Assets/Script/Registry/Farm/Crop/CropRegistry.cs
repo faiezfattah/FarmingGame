@@ -1,9 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using R3;
 using Script.Core;
 
-namespace Script.Registry.Crop {
+namespace Script.Registry.Farm.Crop {
 public class CropRegistry : IRegistry<CropContext> {
     public HashSet<CropContext> cropContexts = new();
     

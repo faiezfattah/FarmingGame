@@ -1,7 +1,7 @@
 ﻿using System;
 using UnityEngine;
 
-namespace Script.Registry.Crop {
+namespace Script.Registry.Farm.Crop {
 [Serializable]
 public class CropLevelData {
     public Sprite Sprite;

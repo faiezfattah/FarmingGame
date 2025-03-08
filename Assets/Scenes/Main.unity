@@ -231,6 +231,7 @@ MonoBehaviour:
   autoInjectGameObjects:
   - {fileID: 1130781497}
   - {fileID: 197686812}
+  - {fileID: 1581748137}
 --- !u!4 &226083956
 Transform:
   m_ObjectHideFlags: 0
@@ -543,7 +544,7 @@ TilemapRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 1
+  m_SortingOrder: -9
   m_ChunkSize: {x: 32, y: 32, z: 32}
   m_ChunkCullingBounds: {x: 0, y: 0, z: 0}
   m_MaxChunkCount: 16
@@ -801,16 +802,6 @@ Tilemap:
       m_TileObjectToInstantiateIndex: 65535
       dummyAlignment: 0
       m_AllTileFlags: 1073741825
-  - first: {x: -9, y: 1, z: 0}
-    second:
-      serializedVersion: 2
-      m_TileIndex: 0
-      m_TileSpriteIndex: 0
-      m_TileMatrixIndex: 0
-      m_TileColorIndex: 0
-      m_TileObjectToInstantiateIndex: 65535
-      dummyAlignment: 0
-      m_AllTileFlags: 1073741825
   - first: {x: -8, y: 1, z: 0}
     second:
       serializedVersion: 2
@@ -883,13 +874,13 @@ Tilemap:
       m_AllTileFlags: 1073741825
   m_AnimatedTiles: {}
   m_TileAssetArray:
-  - m_RefCount: 32
+  - m_RefCount: 31
     m_Data: {fileID: 11400000, guid: 58bdd9c2e5930c04e84e4478fb2c5cb6, type: 2}
   m_TileSpriteArray:
-  - m_RefCount: 32
+  - m_RefCount: 31
     m_Data: {fileID: 1552182969, guid: 412d6ffb7e8cd5d44ab64c0531b6dbd7, type: 3}
   m_TileMatrixArray:
-  - m_RefCount: 32
+  - m_RefCount: 31
     m_Data:
       e00: 1
       e01: 0
@@ -908,7 +899,7 @@ Tilemap:
       e32: 0
       e33: 1
   m_TileColorArray:
-  - m_RefCount: 32
+  - m_RefCount: 31
     m_Data: {r: 1, g: 1, b: 1, a: 1}
   m_TileObjectToInstantiateArray: []
   m_AnimationFrameRate: 1
@@ -1232,6 +1223,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1581748139}
   - component: {fileID: 1581748138}
+  - component: {fileID: 1581748140}
   m_Layer: 0
   m_Name: Grid
   m_TagString: Untagged
@@ -1260,7 +1252,7 @@ Transform:
   m_GameObject: {fileID: 1581748137}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0.1, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -1268,6 +1260,24 @@ Transform:
   - {fileID: 2121073835}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1581748140
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1581748137}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3bf496fadc6a4b1fad498a78c4521ac7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  farmTilemap: {fileID: 783208194}
+  grid: {fileID: 1581748138}
+  farmSoil: {fileID: 1552182969, guid: 412d6ffb7e8cd5d44ab64c0531b6dbd7, type: 3}
+  tile: {fileID: 11400000, guid: 58bdd9c2e5930c04e84e4478fb2c5cb6, type: 2}
+  startPos: {x: -9, y: 1}
+  endPos: {x: -2, y: -2}
 --- !u!1 &2121073834
 GameObject:
   m_ObjectHideFlags: 0
@@ -1344,7 +1354,7 @@ TilemapRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: -10
   m_ChunkSize: {x: 32, y: 32, z: 32}
   m_ChunkCullingBounds: {x: 0, y: 0, z: 0}
   m_MaxChunkCount: 16

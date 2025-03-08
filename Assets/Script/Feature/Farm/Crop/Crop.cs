@@ -1,11 +1,10 @@
 ﻿using R3;
 using Script.Core;
 using Script.Feature.DayTime;
-using Script.Registry.Crop;
+using Script.Registry.Farm.Crop;
 using UnityEngine;
-using VContainer;
 
-namespace Script.Feature.Crop {
+namespace Script.Feature.Farm.Crop {
 public class Crop : MonoBehaviour, IInteractable {
     [SerializeField] private SpriteRenderer sr;
     [SerializeField] private CropData cropData;
