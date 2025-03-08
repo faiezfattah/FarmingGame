@@ -1,7 +1,9 @@
 ﻿using System.Collections.Generic;
+using ObservableCollections;
+using Script.Core.Model.Item;
 
 namespace Script.Feature.Item {
 public class ItemRegistry {
-    public List<ItemContext> Items = new List<ItemContext>();
+    public ObservableList<ItemContext> ItemsList = new();
 }
 }

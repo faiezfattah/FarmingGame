@@ -2,6 +2,7 @@
 using System.Linq;
 using R3;
 using Script.Core;
+using Script.Core.Base;
 
 namespace Script.Feature.Farm.Soil {
 public class SoilRegistry : IRegistry<SoilContext> {

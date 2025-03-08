@@ -1,5 +1,6 @@
 ﻿using System;
 using Script.Core;
+using Script.Core.Interface;
 using Script.Feature.Input;
 using UnityEngine;
 using VContainer;

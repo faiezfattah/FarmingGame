@@ -1,4 +1,5 @@
 ﻿using R3;
+using Script.Core.Model.Crop;
 using Script.Feature.DayTime;
 using TriInspector;
 using UnityEngine;

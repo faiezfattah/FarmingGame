@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace Script.Core {
+namespace Script.Core.Base {
 public interface IRegistry<T> {
     public T TryGet(string id);
     public bool TryAdd(T value);

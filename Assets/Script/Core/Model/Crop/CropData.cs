@@ -3,7 +3,7 @@ using JetBrains.Annotations;
 using TriInspector;
 using UnityEngine;
 
-namespace Script.Feature.Farm.Crop {
+namespace Script.Core.Model.Crop {
 [CreateAssetMenu(fileName = "New Crop Data", menuName = "Crop/Data")]
 public class CropData : ScriptableObject {
     public int price;
