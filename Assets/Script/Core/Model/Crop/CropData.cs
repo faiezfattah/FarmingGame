@@ -8,7 +8,7 @@ using UnityEngine;
 
 namespace Script.Core.Model.Crop {
 [CreateAssetMenu(fileName = "New Crop Data", menuName = "Crop/Data")]
-public class CropData : ScriptableObject, IContextFactory<CropContext> {
+public class CropData : ScriptableObject {
     public ItemData itemData;
     
     [TableList, ShowInInspector] [ListDrawerSettings(Draggable = true)]
