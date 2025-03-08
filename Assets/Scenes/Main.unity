@@ -1267,15 +1267,14 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1581748137}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3bf496fadc6a4b1fad498a78c4521ac7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  farmTilemap: {fileID: 783208194}
   grid: {fileID: 1581748138}
-  farmSoil: {fileID: 1552182969, guid: 412d6ffb7e8cd5d44ab64c0531b6dbd7, type: 3}
-  tile: {fileID: 11400000, guid: 58bdd9c2e5930c04e84e4478fb2c5cb6, type: 2}
+  farmTilemap: {fileID: 783208194}
+  farmTile: {fileID: 0}
   startPos: {x: -9, y: 1}
   endPos: {x: -2, y: -2}
 --- !u!1 &2121073834

@@ -3,7 +3,7 @@ using System.Linq;
 using R3;
 using Script.Core;
 
-namespace Script.Registry.Farm.Soil {
+namespace Script.Feature.Farm.Soil {
 public class SoilRegistry : IRegistry<SoilContext> {
     public ReactiveProperty<HashSet<SoilContext>> SoilContexts = new();
 

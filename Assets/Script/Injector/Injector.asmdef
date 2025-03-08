@@ -1,0 +1,18 @@
+{
+    "name": "Injector",
+    "rootNamespace": "",
+    "references": [
+        "GUID:8dc9a6133a112ad4495b37108174df69",
+        "GUID:dab9e4f19bb630d4da92f46e311312ec",
+        "GUID:b0214a6008ed146ff8f122a6a9c2f6cc"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

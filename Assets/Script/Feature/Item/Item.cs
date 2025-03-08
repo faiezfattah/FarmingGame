@@ -1,5 +1,4 @@
 ﻿using Script.Core;
-using Script.Registry.Item;
 using UnityEngine;
 
 namespace Script.Feature.Item {

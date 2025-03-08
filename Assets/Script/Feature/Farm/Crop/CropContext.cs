@@ -1,7 +1,7 @@
 ﻿using System;
 using R3;
 
-namespace Script.Registry.Farm.Crop {
+namespace Script.Feature.Farm.Crop {
 public class CropContext : IDisposable {
     public Guid Id;
     public int DayPlanted;

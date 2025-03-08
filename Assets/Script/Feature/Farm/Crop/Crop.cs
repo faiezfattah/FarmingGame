@@ -1,7 +1,6 @@
 ﻿using R3;
 using Script.Core;
 using Script.Feature.DayTime;
-using Script.Registry.Farm.Crop;
 using UnityEngine;
 
 namespace Script.Feature.Farm.Crop {

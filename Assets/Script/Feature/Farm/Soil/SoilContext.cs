@@ -1,7 +1,7 @@
 ﻿using System;
 using UnityEngine;
 
-namespace Script.Registry.Farm.Soil {
+namespace Script.Feature.Farm.Soil {
 public class SoilContext {
     public Guid Id;
     public Vector2Int Position;
