@@ -1,4 +1,5 @@
-﻿using R3;
+﻿using System;
+using R3;
 using Script.Core;
 using Script.Core.Interface;
 using Script.Core.Model.Crop;
@@ -14,9 +15,11 @@ public class Crop : MonoBehaviour, IEntity<CropContext>, IInteractable {
     private CropContext _cropContext;
     private TimeSystem _timeSystem;
     private DisposableBag _subscriptions = new();
+    private Action _onHarvest;
 
-    public void Initialize(CropContext context) {
+    public void Initialize(CropContext context, Action onHarvest) {
         _cropContext = context;
+        _onHarvest = onHarvest;
         _cropData = _cropContext.CropData;
 
         UpdateVisuals(_cropContext.Level.Value);
@@ -49,11 +52,11 @@ public class Crop : MonoBehaviour, IEntity<CropContext>, IInteractable {
 
     private void Harvest() {
         Debug.Log("Harvested crop");
-        _cropContext.OnHarvest?.Invoke();
+        _onHarvest?.Invoke();
         Destroy(gameObject);
     }
 
-    private void OnDestroy() {
+    private void OnDisable() {
         _subscriptions.Dispose();
         _cropContext?.Dispose();
     }

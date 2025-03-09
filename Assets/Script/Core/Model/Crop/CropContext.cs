@@ -8,14 +8,12 @@ public class CropContext : IDisposable {
     public int DayPlanted;
     public ReactiveProperty<int> Growth;
     public ReactiveProperty<int> Level;
-    public Action OnHarvest;
     public CropData CropData;
 
     private DisposableBag _bag = new();
 
-    public CropContext(CropData cropData, Action<CropContext> onHarvest) {
+    public CropContext(CropData cropData) {
         CropData = cropData;
-        OnHarvest = () => onHarvest(this);
 
         Id = Guid.NewGuid();
         Growth = new ReactiveProperty<int>(0);

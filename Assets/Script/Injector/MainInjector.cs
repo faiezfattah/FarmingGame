@@ -23,6 +23,7 @@ public class MainInjector : LifetimeScope {
         builder.Register<CropRegistry>(Lifetime.Singleton);
 
         builder.Register<ItemSystem>(Lifetime.Singleton).As<IItemSystem>();
+        builder.Register<ItemRegistry>(Lifetime.Singleton);
         builder.RegisterInstance(itemPool);
     }
 }

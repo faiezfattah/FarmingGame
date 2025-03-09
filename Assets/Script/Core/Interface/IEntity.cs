@@ -1,5 +1,7 @@
-﻿namespace Script.Core.Interface {
+﻿using System;
+
+namespace Script.Core.Interface {
 public interface IEntity<in T> {
-    public void Initialize(T context);
+    public void Initialize(T context, Action onDestroy);
 }
 }

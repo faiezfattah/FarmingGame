@@ -8,6 +8,6 @@ public class ItemData : ScriptableObject {
     public Sprite itemSprite;
     public int sellPrice;
 
-    public ItemContext CreateContext(Action<ItemContext> onPickup) => new(this, onPickup);
+    public ItemContext CreateContext() => new(this);
 }
 }

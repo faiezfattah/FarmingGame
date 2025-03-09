@@ -52,9 +52,9 @@ public class CropSystem : MonoBehaviour {
     }
     private void SpawnCrop(CropData cropData) {
         var instance = Instantiate(testingCrop, spawningPointer.position, Quaternion.identity);
-        var context = cropData.CreateContext(RemoveCrop);
+        var context = cropData.CreateContext();
         
-        instance.Initialize(context);
+        instance.Initialize(context, () => RemoveCrop(context));
         AddCrop(context);
         
         Debug.Log($"made a new plant on: {context.DayPlanted}");

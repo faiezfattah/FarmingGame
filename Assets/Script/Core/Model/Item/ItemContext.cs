@@ -4,11 +4,9 @@ using UnityEngine;
 namespace Script.Core.Model.Item {
 public class ItemContext {
     public ItemData ItemData;
-    public Action OnPickup;
 
-    public ItemContext(ItemData itemData, Action<ItemContext> onPickup) {
+    public ItemContext(ItemData itemData) {
         ItemData = itemData;
-        OnPickup = () => onPickup?.Invoke(this);
     }
 }
 }

@@ -14,7 +14,7 @@ public class CropData : ScriptableObject {
     [TableList, ShowInInspector] [ListDrawerSettings(Draggable = true)]
     public List<CropLevelData> cropLevels;
 
-    public CropContext CreateContext(Action<CropContext> onHarvest) => new CropContext(this, onHarvest);
+    public CropContext CreateContext() => new CropContext(this);
     [CanBeNull] public CropLevelData GetData(int level) =>
          (level < 0 || level >= cropLevels.Count) ? null : cropLevels[level];
     public bool CanHarvest(int currentStateIndex) =>
