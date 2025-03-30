@@ -20,13 +20,11 @@ public class InputProcessor : PlayerInput.IDefaultActions, IDisposable {
     }
 
     public void OnInteract(InputAction.CallbackContext context) {
-        // if (context.performed) InteractEvent?.Invoke();
-        _interactSubject.OnNext(Unit.Default);
+        if (context.performed) _interactSubject.OnNext(Unit.Default);
     }
 
     public void OnDebug(InputAction.CallbackContext context) {
-        // if (context.performed) DebugEvent?.Invoke();
-        _debugSubject.OnNext(Unit.Default);
+        if (context.performed) _debugSubject.OnNext(Unit.Default);
     }
 
     public InputProcessor() {
