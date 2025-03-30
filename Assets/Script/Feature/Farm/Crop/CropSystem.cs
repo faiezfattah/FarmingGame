@@ -30,9 +30,10 @@ public class CropSystem : MonoBehaviour {
     }
 
     private void UpdateCrop() {
-        foreach (var item in _cropRegistry.CropContexts) {
-            item.Growth.Value++;
-        }
+        _cropRegistry.CropContexts.ForEach(item => item.Growth.Value++);
+        // foreach (var item in _cropRegistry.CropContexts) {
+        //     item.Growth.Value++;
+        // }
     }
     
     private void AddCrop(CropContext cropContext) {

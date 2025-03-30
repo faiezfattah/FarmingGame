@@ -1292,9 +1292,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   prefab: {fileID: 5160572709974910307, guid: 3f92cf21072d8584fb38612bec567a48, type: 3}
-  defaultCapacity: 10
+  defaultCapacity: 5
   maxCapacity: 100
-  collectionChecks: 1
+  collectionChecks: 0
 --- !u!4 &1593675285
 Transform:
   m_ObjectHideFlags: 0

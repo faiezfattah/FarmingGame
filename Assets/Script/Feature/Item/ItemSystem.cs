@@ -19,6 +19,7 @@ public class ItemSystem : IItemSystem {
         var context = itemData.CreateContext();
         
         _itemRegistry.ItemsList.Add(context);
+        
         item.Initialize(context, () => {
             HandlePickup(context);
             _pool.Release(item);
