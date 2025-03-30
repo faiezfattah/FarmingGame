@@ -7,7 +7,7 @@ using UnityEngine;
 namespace Script.Feature.Item {
 public class Item : MonoBehaviour, IEntity<ItemContext> {
     [SerializeField] private SpriteRenderer spriteRenderer;
-    [SerializeField] private CircleCollider2D collider2d;
+    [SerializeField] private SphereCollider sphereRollider;
     
     [SerializeField] private float itemPickupRadius = 1;
 
@@ -19,16 +19,16 @@ public class Item : MonoBehaviour, IEntity<ItemContext> {
         _onPickup = onPickup;
         
         spriteRenderer.sprite = context.ItemData.itemSprite;
-        collider2d.radius = itemPickupRadius;
+        sphereRollider.radius = itemPickupRadius;
     }
 
-    private void OnTriggerEnter2D(Collider2D other) {
+    private void OnTriggerEnter(Collider other) {
         if (other.CompareTag("Player")) {
             _onPickup?.Invoke();
         }
     }
 
-    private void OnDrawGizmos() {
+        private void OnDrawGizmos() {
         Gizmos.DrawWireSphere(transform.position, itemPickupRadius);
     }
 }

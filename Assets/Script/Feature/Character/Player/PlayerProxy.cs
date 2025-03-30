@@ -1,5 +1,6 @@
 ﻿using System;
-using Script.Core;
+using System.Linq;
+using R3;
 using Script.Core.Interface;
 using Script.Core.Model.Item;
 using Script.Feature.Input;
@@ -14,60 +15,63 @@ public class PlayerProxy : MonoBehaviour {
     
     [SerializeField] private Transform rotatingContainer;
     [SerializeField] private Transform pointer;
-
+    [SerializeField] private Rigidbody rb;
+    [SerializeField] private SpriteRenderer sr;
+    [Header("debug")]
     [SerializeField] private ItemData itemData;
     
 
     private float _currentRotation;
     private InputProcessor _inputProcessor;
-    private Vector2 _moveDir;
-    private IDisposable _subscription;
+    private Vector3 _moveDir = Vector3.zero;
+    private DisposableBag _bag;
     
     private IItemSystem _itemSystem;
     [Inject]
     public void Construct(InputProcessor inputProcessor, IItemSystem itemSystem) {
         _inputProcessor = inputProcessor;
-        _inputProcessor.MoveEvent += UpdateMoveDir;
-        _inputProcessor.InteractEvent += Interact;
-        _inputProcessor.DebugEvent += HandleDebug;
-        
+
+        _inputProcessor.MoveEvent.Subscribe(UpdateMoveDir).AddTo(ref _bag);
+        _inputProcessor.InteractEvent.Subscribe(_ => Interact()).AddTo(ref _bag);
+        _inputProcessor.DebugEvent.Subscribe(_ => HandleDebug()).AddTo(ref _bag);
+
         _itemSystem = itemSystem;
     }
 
-    private void UpdateMoveDir(Vector2 val) => _moveDir = val;
+    private void UpdateMoveDir(Vector2 val) {
+        _moveDir.x = val.x;
+        _moveDir.z = val.y;
+    }
 
     private void FixedUpdate() {
-        if (_moveDir == Vector2.zero) return;
-        gameObject.transform.position += (Vector3)_moveDir * (Time.fixedDeltaTime * speed);
+        if (_moveDir == Vector3.zero) return;
+        gameObject.transform.position += (Vector3) _moveDir * (Time.fixedDeltaTime * speed);
 
-        if (_moveDir.x == 0 && _moveDir.y == 0) return;
-        var angle = 0f;
-        if (Mathf.Abs(_moveDir.x) > Mathf.Abs(_moveDir.y)) {
-            angle = _moveDir.x > 0 ? 0f : 180f;
-        } else {
-            angle = _moveDir.y > 0 ? 90f : 270f;
-        }
+        var angle = _moveDir.x > 0 ? 0f : 180f;
         
-        rotatingContainer.rotation = Quaternion.Euler(0, 0, angle);
+        rotatingContainer.rotation = Quaternion.Euler(0, angle, 0);
+        sr.flipX = _moveDir.x < 0;
     }
 
     private void HandleDebug() {
         _itemSystem.SpawnItem(itemData, transform.position);
     }
     private void Interact() {
-        var hit = Physics2D.OverlapCircle(gameObject.transform.position, range, interactableLayer);
-        if (!hit) return;
+        Debug.Log("trying to interact");
+        var hit = Physics.OverlapSphere(gameObject.transform.position, range, interactableLayer);
+        if (hit.Count() == 0) return;
 
-        if (hit.TryGetComponent<IInteractable>(out var interactable)) {
-            interactable.Interact();
+        foreach (var h in hit) {
+            if (h.TryGetComponent<IInteractable>(out var interactable)) {
+                Debug.Log("interaction started");
+                interactable.Interact();
+                return;
+            }
         }
     }
 
     private void OnDisable() {
-        _subscription?.Dispose();
-        _inputProcessor.MoveEvent -= UpdateMoveDir;
-        _inputProcessor.InteractEvent -= Interact;
-        _inputProcessor.DebugEvent -= HandleDebug;
+        _bag.Dispose();
     }
 
     private void OnDrawGizmosSelected() {

@@ -43,6 +43,7 @@ public class CropSystem : MonoBehaviour {
     private void RemoveCrop(CropContext cropContext) {
         if (!_cropRegistry.CropContexts.Remove(cropContext)) {
             Debug.LogWarning("Failed to remove crop");
+            return;
         }
         _itemSystem.SpawnItem(cropContext.CropData.itemData, transform.position);
     }
