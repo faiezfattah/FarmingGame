@@ -22,18 +22,16 @@ public class PlayerProxy : MonoBehaviour {
     
 
     private float _currentRotation;
-    private InputProcessor _inputProcessor;
     private Vector3 _moveDir = Vector3.zero;
     private DisposableBag _bag;
     
     private IItemSystem _itemSystem;
     [Inject]
     public void Construct(InputProcessor inputProcessor, IItemSystem itemSystem) {
-        _inputProcessor = inputProcessor;
 
-        _inputProcessor.MoveEvent.Subscribe(UpdateMoveDir).AddTo(ref _bag);
-        _inputProcessor.InteractEvent.Subscribe(_ => Interact()).AddTo(ref _bag);
-        _inputProcessor.DebugEvent.Subscribe(_ => HandleDebug()).AddTo(ref _bag);
+        inputProcessor.MoveEvent.Subscribe(UpdateMoveDir).AddTo(ref _bag);
+        inputProcessor.InteractEvent.Subscribe(_ => Interact()).AddTo(ref _bag);
+        inputProcessor.DebugEvent.Subscribe(_ => HandleDebug()).AddTo(ref _bag);
 
         _itemSystem = itemSystem;
     }
@@ -57,7 +55,6 @@ public class PlayerProxy : MonoBehaviour {
         _itemSystem.SpawnItem(itemData, transform.position);
     }
     private void Interact() {
-        Debug.Log("trying to interact");
         var hit = Physics.OverlapSphere(gameObject.transform.position, range, interactableLayer);
         if (hit.Count() == 0) return;
 
