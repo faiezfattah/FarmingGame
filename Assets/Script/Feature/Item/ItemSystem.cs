@@ -1,4 +1,5 @@
 ﻿using Script.Core.Interface;
+using Script.Core.Interface.Systems;
 using Script.Core.Model.Item;
 using UnityEngine;
 
@@ -6,11 +7,11 @@ namespace Script.Feature.Item {
 public class ItemSystem : IItemSystem {
     private ItemPool _pool;
     private ItemRegistry _itemRegistry;
-    private InventoryRegistry _inventoryRegistry;
-    public ItemSystem(ItemPool pool, ItemRegistry itemRegistry, InventoryRegistry inventoryRegistry) {
+    private IInventorySystem _inventorySystem;
+    public ItemSystem(ItemPool pool, ItemRegistry itemRegistry, IInventorySystem inventorySystem) {
         _pool = pool;
         _itemRegistry = itemRegistry;
-        _inventoryRegistry = inventoryRegistry;
+        _inventorySystem = inventorySystem;
     }
 
     public void SpawnItem(ItemData itemData, Vector3 position) {
@@ -21,7 +22,7 @@ public class ItemSystem : IItemSystem {
         var context = itemData.CreateContext();
         
 
-        _itemRegistry.ItemsList.Add(context);
+        _itemRegistry.Registry.Add(context);
         
         item.Initialize(context, () => {
             HandlePickup(context);
@@ -30,8 +31,8 @@ public class ItemSystem : IItemSystem {
     }
 
     private void HandlePickup(ItemContext itemContext) {
-        _itemRegistry.ItemsList.Remove(itemContext);
-        _inventoryRegistry.Inventory.Add(itemContext);
+        _itemRegistry.Registry.Remove(itemContext);
+        _inventorySystem.AddItem(itemContext);
     }
 }
 }

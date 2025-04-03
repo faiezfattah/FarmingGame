@@ -2,8 +2,8 @@
 using R3;
 using Script.Core;
 using Script.Core.Interface;
+using Script.Core.Interface.Systems;
 using Script.Core.Model.Crop;
-using Script.Feature.DayTime;
 using UnityEngine;
 
 namespace Script.Feature.Farm.Crop {
@@ -13,7 +13,6 @@ public class Crop : MonoBehaviour, IEntity<CropContext>, IInteractable {
 
     private CropData _cropData;
     private CropContext _cropContext;
-    private TimeSystem _timeSystem;
     private DisposableBag _subscriptions = new();
     private Action _onHarvest;
 

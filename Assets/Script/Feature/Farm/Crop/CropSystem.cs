@@ -1,7 +1,7 @@
 ﻿using R3;
 using Script.Core.Interface;
+using Script.Core.Interface.Systems;
 using Script.Core.Model.Crop;
-using Script.Feature.DayTime;
 using TriInspector;
 using UnityEngine;
 using VContainer;
@@ -14,11 +14,11 @@ public class CropSystem : MonoBehaviour {
     
 
     private CropRegistry _cropRegistry;
-    private TimeSystem _timeSystem;
+    private ITimeSystem _timeSystem;
     private IItemSystem _itemSystem;
     private DisposableBag _bag;
     [Inject]
-    public void Construct(CropRegistry registry, TimeSystem timeSystem, IItemSystem itemSystem) {
+    public void Construct(CropRegistry registry, ITimeSystem timeSystem, IItemSystem itemSystem) {
         _cropRegistry = registry;
         _timeSystem = timeSystem;
         _itemSystem = itemSystem;
@@ -30,18 +30,15 @@ public class CropSystem : MonoBehaviour {
     }
 
     private void UpdateCrop() {
-        _cropRegistry.CropContexts.ForEach(item => item.Growth.Value++);
-        // foreach (var item in _cropRegistry.CropContexts) {
-        //     item.Growth.Value++;
-        // }
+        _cropRegistry._registry.ForEach(item => item.Growth.Value++);
     }
     
     private void AddCrop(CropContext cropContext) {
-        _cropRegistry.CropContexts.Add(cropContext);
+        _cropRegistry._registry.Add(cropContext);
     }
 
     private void RemoveCrop(CropContext cropContext) {
-        if (!_cropRegistry.CropContexts.Remove(cropContext)) {
+        if (!_cropRegistry._registry.Remove(cropContext)) {
             Debug.LogWarning("Failed to remove crop");
             return;
         }

@@ -1,11 +1,8 @@
 {
-    "name": "Injector",
+    "name": "Item",
     "rootNamespace": "",
     "references": [
-        "GUID:8dc9a6133a112ad4495b37108174df69",
-        "GUID:fa684e2137b99e741943781c33095b36",
-        "GUID:66f11b32ecc8fa747b53b3e0f873df3d",
-        "GUID:56fccb16cfe87eb47be1442f9970846a",
+        "GUID:77221876cc6b8244180b96e320b1bcd4",
         "GUID:dab9e4f19bb630d4da92f46e311312ec",
         "GUID:b0214a6008ed146ff8f122a6a9c2f6cc"
     ],

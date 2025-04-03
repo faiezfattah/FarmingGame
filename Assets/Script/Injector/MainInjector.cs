@@ -1,4 +1,5 @@
 ﻿using Script.Core.Interface;
+using Script.Core.Interface.Systems;
 using Script.Feature.DayTime;
 using Script.Feature.Farm.Crop;
 using Script.Feature.Farm.Soil;
@@ -15,18 +16,17 @@ public class MainInjector : LifetimeScope {
     protected override void Configure(IContainerBuilder builder) {
         builder.Register<InputProcessor>(Lifetime.Singleton);
 
-        builder.Register<TimeSystem>(Lifetime.Singleton);
-        
+        // Systems
+        builder.Register<TimeSystem>(Lifetime.Singleton).As<ITimeSystem>();
         builder.Register<SoilSystem>(Lifetime.Singleton);
-        builder.Register<SoilRegistry>(Lifetime.Singleton);
-
-        builder.Register<CropRegistry>(Lifetime.Singleton);
-
         builder.Register<ItemSystem>(Lifetime.Singleton).As<IItemSystem>();
-        builder.Register<ItemRegistry>(Lifetime.Singleton);
+        builder.Register<InventorySystem>(Lifetime.Singleton).As<IInventorySystem>();
+        // Registry
+        builder.Register<InventoryRegistry>(Lifetime.Singleton).As<IInventoryRegistry>().AsSelf();
+        builder.Register<ItemRegistry>(Lifetime.Singleton).As<IItemRegistry>().AsSelf();
+        builder.Register<SoilRegistry>(Lifetime.Singleton).As<ISoilRegistry>().AsSelf();
+        builder.Register<CropRegistry>(Lifetime.Singleton).As<ICropRegistry>().AsSelf();
 
-        builder.Register<InventoryRegistry>(Lifetime.Singleton);
-        
         builder.RegisterInstance(itemPool);
     }
 }

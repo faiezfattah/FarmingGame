@@ -11,11 +11,11 @@ public class Hotbar : MonoBehaviour {
     [SerializeField] private UIDocument _hotbarDocument;
     private VisualElement _container;
     private List<ItemDisplay> _slots = new();
-    private InventoryRegistry _inventory;
+    private IInventoryRegistry _inventory;
     private DisposableBag _bag = new();
 
-    [Inject] public void Construct(InventoryRegistry inventoryRegistry) {
-        inventoryRegistry.Inventory.ObserveChanged().Subscribe(_ => Refresh()).AddTo(ref _bag);
+    [Inject] public void Construct(IInventoryRegistry inventoryRegistry) {
+        inventoryRegistry.ReadonlyRegistry.ObserveChanged().Subscribe(_ => Refresh()).AddTo(ref _bag);
         _inventory = inventoryRegistry;
     }
     private void Start() {
@@ -31,10 +31,10 @@ public class Hotbar : MonoBehaviour {
     public void Refresh() {
         Debug.Log("refreshing");
 
-        var item = _inventory.Inventory[0];
+        var item = _inventory.ReadonlyRegistry[0];
 
         _slots[0].itemSprite = item.ItemData.itemSprite;
-        _slots[0].itemCount = _inventory.Inventory.Count(x => x.ItemData == item.ItemData);
+        _slots[0].itemCount = _inventory.ReadonlyRegistry.Count(x => x.ItemData == item.ItemData);
         
     }
     private void OnDisable() {
