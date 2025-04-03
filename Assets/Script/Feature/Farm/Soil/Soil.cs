@@ -14,6 +14,15 @@ public class Soil : MonoBehaviour, ISelectable {
     }
     private void Start() {
         mesh = GetComponent<MeshFilter>();
+    }
+    public void Select() {
+        // mesh.mesh = _context.Data.tilled;
+        _onSelect?.Invoke();
+    }
+
+    public void SetContext(SoilContext context, Action onSelect) {
+        _context = context;
+        _onSelect = onSelect;
 
          _context.State.Subscribe(state => {
             switch (state) {
@@ -33,17 +42,6 @@ public class Soil : MonoBehaviour, ISelectable {
                     throw new ArgumentOutOfRangeException(nameof(state), state, null);
             }
         });
-    }
-    public void Select() {
-        // mesh.mesh = _context.Data.tilled;
-        _onSelect?.Invoke();
-    }
-
-    public void SetContext(SoilContext context, Action onSelect) {
-        _context = context;
-        _onSelect = onSelect;
-
-
     }
 }
 }
