@@ -6,18 +6,21 @@ namespace Script.Feature.Item {
 public class ItemSystem : IItemSystem {
     private ItemPool _pool;
     private ItemRegistry _itemRegistry;
-    public ItemSystem(ItemPool pool, ItemRegistry itemRegistry) {
+    private InventoryRegistry _inventoryRegistry;
+    public ItemSystem(ItemPool pool, ItemRegistry itemRegistry, InventoryRegistry inventoryRegistry) {
         _pool = pool;
         _itemRegistry = itemRegistry;
+        _inventoryRegistry = inventoryRegistry;
     }
 
     public void SpawnItem(ItemData itemData, Vector3 position) {
         var item = _pool.Get();
         item.transform.position = position;
-        Debug.Log($"item: {itemData.name}");
+        // Debug.Log($"item: {itemData.name}");
 
         var context = itemData.CreateContext();
         
+
         _itemRegistry.ItemsList.Add(context);
         
         item.Initialize(context, () => {
@@ -27,8 +30,8 @@ public class ItemSystem : IItemSystem {
     }
 
     private void HandlePickup(ItemContext itemContext) {
-        Debug.Log("picked");
         _itemRegistry.ItemsList.Remove(itemContext);
+        _inventoryRegistry.Inventory.Add(itemContext);
     }
 }
 }

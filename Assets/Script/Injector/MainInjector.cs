@@ -24,6 +24,9 @@ public class MainInjector : LifetimeScope {
 
         builder.Register<ItemSystem>(Lifetime.Singleton).As<IItemSystem>();
         builder.Register<ItemRegistry>(Lifetime.Singleton);
+
+        builder.Register<InventoryRegistry>(Lifetime.Singleton);
+        
         builder.RegisterInstance(itemPool);
     }
 }

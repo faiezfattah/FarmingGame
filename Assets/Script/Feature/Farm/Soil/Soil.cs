@@ -24,7 +24,7 @@ public class Soil : MonoBehaviour, ISelectable {
                     mesh.mesh = _context.Data.tilled;
                     break;
                 case SoilState.Watered:
-                    mesh.mesh = _context.Data.watered;
+                    // mesh.mesh = _context.Data.watered;
                     break;
                 case SoilState.Planted:
                     // mesh.mesh = _context.Data.planted;

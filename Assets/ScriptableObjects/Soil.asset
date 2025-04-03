@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6aadb7664405a3c4a9df96737365d457, type: 3}
   m_Name: Soil
   m_EditorClassIdentifier: 
-  initial: {fileID: 0}
-  tilled: {fileID: 0}
-  watered: {fileID: 0}
+  initial: {fileID: -4855243574250553854, guid: af87a506a4061ca429908f2a5bb84590, type: 3}
+  tilled: {fileID: 4164624499741299792, guid: bd535d8be913b254e8d5361af468354f, type: 3}
+  watered: {fileID: -4529347935720394536, guid: 807a3e00333a65c429ba4732757234de, type: 3}

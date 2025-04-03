@@ -11,7 +11,7 @@ public class TimeSystem : IDisposable {
     public TimeSystem() {
         _subscription = Observable
                        .Interval(TimeSpan.FromSeconds(_dayTimeInSeconds))
-                       .Subscribe(_ => { DayCount.Value++; Debug.Log($"Day advanced: {DayCount.Value}"); });
+                       .Subscribe(_ => { DayCount.Value++; });
     }
 
     public void Dispose() {

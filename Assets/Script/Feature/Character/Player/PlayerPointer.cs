@@ -8,7 +8,7 @@ using VContainer;
 namespace Script.Feature.Character.Player {
 public class PlayerPointer : MonoBehaviour {
     [SerializeField] private GameObject indicator;
-    [ShowInInspector, ReadOnly] private ISelectable _currentSelection; 
+    private ISelectable _currentSelection; 
 
     private DisposableBag _bag;
     [Inject] public void Construct(InputProcessor inputProcessor) {

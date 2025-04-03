@@ -1,12 +1,12 @@
 <engine:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:engine="UnityEngine.UIElements" xmlns:editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
     <Style src="project://database/Assets/UI/HUD/style.uss?fileID=7433441132597879392&amp;guid=46254a75713401848a893bb46d1a3ea0&amp;type=3#style" />
     <engine:VisualElement focusable="false" picking-mode="Ignore" style="flex-grow: 1; position: absolute; bottom: 0; right: auto; left: auto; align-self: center; margin-bottom: 16px;">
-        <engine:VisualElement style="flex-grow: 1; justify-content: center; align-content: center; flex-direction: row; background-image: url(&quot;project://database/Assets/Art/UI/tilemap_packed.png?fileID=-4657764202658221571&amp;guid=ab2cf5e7e2a82394ebc5bd35cea2ed8f&amp;type=3#tilemap_packed_3&quot;); background-repeat: no-repeat no-repeat; -unity-slice-left: 0; -unity-slice-top: 0; -unity-slice-right: 0; -unity-slice-bottom: 0; -unity-slice-scale: 1px; background-position-y: center 0; background-position-x: center 0; -unity-background-scale-mode: stretch-to-fill; margin-left: 0; margin-right: 0; padding-top: 13px; padding-right: 13px; padding-bottom: 13px; padding-left: 13px; width: auto;">
-            <engine:VisualElement name="VisualElement" class="hotbaritem" style="flex-grow: 1;" />
-            <engine:VisualElement name="VisualElement" class="hotbaritem" style="flex-grow: 1;" />
-            <engine:VisualElement name="VisualElement" class="hotbaritem" style="flex-grow: 1;" />
-            <engine:VisualElement name="VisualElement" class="hotbaritem" style="flex-grow: 1;" />
-            <engine:VisualElement name="VisualElement" class="hotbaritem" style="flex-grow: 1;" />
+        <engine:VisualElement name="container" style="flex-grow: 1; justify-content: center; align-content: center; flex-direction: row; background-image: url(&quot;project://database/Assets/Art/UI/tilemap_packed.png?fileID=-4657764202658221571&amp;guid=ab2cf5e7e2a82394ebc5bd35cea2ed8f&amp;type=3#tilemap_packed_3&quot;); background-repeat: no-repeat no-repeat; -unity-slice-left: 0; -unity-slice-top: 0; -unity-slice-right: 0; -unity-slice-bottom: 0; -unity-slice-scale: 1px; background-position-y: center 0; background-position-x: center 0; -unity-background-scale-mode: stretch-to-fill; margin-left: 0; margin-right: 0; padding-top: 13px; padding-right: 13px; padding-bottom: 13px; padding-left: 13px; width: auto;">
+            <ItemDisplay item-sprite="project://database/Assets/Art/Farming&amp;Foragin/farming%20n%20foraging%20-%20all.png?fileID=-6707024634718470045&amp;guid=137e19cf725bf8141ba6f049ed730a41&amp;type=3#farming n foraging - all_1" item-count="5" />
+            <ItemDisplay />
+            <ItemDisplay />
+            <ItemDisplay />
+            <ItemDisplay />
         </engine:VisualElement>
     </engine:VisualElement>
 </engine:UXML>
