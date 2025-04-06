@@ -53,6 +53,15 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Toolbar"",
+                    ""type"": ""Button"",
+                    ""id"": ""1b9ee767-345f-47b5-83ce-4a641add6516"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -132,6 +141,17 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
                     ""action"": ""Debug"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""e751cf55-0c68-4ff7-be0d-cb9b3f6b8382"",
+                    ""path"": ""<Keyboard>/e"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Toolbar"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -143,6 +163,7 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         m_Default_Move = m_Default.FindAction("Move", throwIfNotFound: true);
         m_Default_Interact = m_Default.FindAction("Interact", throwIfNotFound: true);
         m_Default_Debug = m_Default.FindAction("Debug", throwIfNotFound: true);
+        m_Default_Toolbar = m_Default.FindAction("Toolbar", throwIfNotFound: true);
     }
 
     ~@PlayerInput()
@@ -212,6 +233,7 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
     private readonly InputAction m_Default_Move;
     private readonly InputAction m_Default_Interact;
     private readonly InputAction m_Default_Debug;
+    private readonly InputAction m_Default_Toolbar;
     public struct DefaultActions
     {
         private @PlayerInput m_Wrapper;
@@ -219,6 +241,7 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         public InputAction @Move => m_Wrapper.m_Default_Move;
         public InputAction @Interact => m_Wrapper.m_Default_Interact;
         public InputAction @Debug => m_Wrapper.m_Default_Debug;
+        public InputAction @Toolbar => m_Wrapper.m_Default_Toolbar;
         public InputActionMap Get() { return m_Wrapper.m_Default; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -237,6 +260,9 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
             @Debug.started += instance.OnDebug;
             @Debug.performed += instance.OnDebug;
             @Debug.canceled += instance.OnDebug;
+            @Toolbar.started += instance.OnToolbar;
+            @Toolbar.performed += instance.OnToolbar;
+            @Toolbar.canceled += instance.OnToolbar;
         }
 
         private void UnregisterCallbacks(IDefaultActions instance)
@@ -250,6 +276,9 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
             @Debug.started -= instance.OnDebug;
             @Debug.performed -= instance.OnDebug;
             @Debug.canceled -= instance.OnDebug;
+            @Toolbar.started -= instance.OnToolbar;
+            @Toolbar.performed -= instance.OnToolbar;
+            @Toolbar.canceled -= instance.OnToolbar;
         }
 
         public void RemoveCallbacks(IDefaultActions instance)
@@ -272,5 +301,6 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         void OnMove(InputAction.CallbackContext context);
         void OnInteract(InputAction.CallbackContext context);
         void OnDebug(InputAction.CallbackContext context);
+        void OnToolbar(InputAction.CallbackContext context);
     }
 }

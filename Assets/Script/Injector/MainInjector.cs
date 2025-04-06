@@ -21,8 +21,9 @@ public class MainInjector : LifetimeScope {
         builder.Register<SoilSystem>(Lifetime.Singleton);
         builder.Register<ItemSystem>(Lifetime.Singleton).As<IItemSystem>();
         builder.Register<InventorySystem>(Lifetime.Singleton).As<IInventorySystem>();
+
         // Registry
-        builder.Register<InventoryRegistry>(Lifetime.Singleton).As<IInventoryRegistry>().AsSelf();
+        builder.Register<InventoryRegistry>(Lifetime.Singleton).As<IInventoryRegistry, IToolbarRegistry>().AsSelf();
         builder.Register<ItemRegistry>(Lifetime.Singleton).As<IItemRegistry>().AsSelf();
         builder.Register<SoilRegistry>(Lifetime.Singleton).As<ISoilRegistry>().AsSelf();
         builder.Register<CropRegistry>(Lifetime.Singleton).As<ICropRegistry>().AsSelf();

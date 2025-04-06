@@ -16,7 +16,7 @@ public class PlayerPointer : MonoBehaviour {
     }
     private void Interact() {
         if (_currentSelection == null) return;
-        Debug.Log("interacted with soil");
+        // Debug.Log("interacted with soil");
         _currentSelection.Select();
     }
     private void OnTriggerEnter(Collider other) {

@@ -3,12 +3,17 @@ using R3;
 using Script.Core.Interface;
 using Script.Core.Model.Soil;
 using UnityEngine;
+using VContainer;
 
 namespace Script.Feature.Farm.Soil {
 public class Soil : MonoBehaviour, ISelectable {
     [SerializeField] private MeshFilter mesh;
     private SoilContext _context;
     private Action _onSelect;
+    private IToolbarRegistry _toolbar;
+    [Inject] public void Construct(IToolbarRegistry tool) {
+        _toolbar = tool;
+    }
     public Vector3 GetPointerPosition() {
         return transform.position + Vector3.up * 0.2f;
     }
@@ -17,6 +22,8 @@ public class Soil : MonoBehaviour, ISelectable {
     }
     public void Select() {
         // mesh.mesh = _context.Data.tilled;
+        if (_toolbar.tool != "Shovel") return;
+
         _onSelect?.Invoke();
     }
 
