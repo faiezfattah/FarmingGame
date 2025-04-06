@@ -12,8 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e997aed65cd84f9fac70373b2c073a1b, type: 3}
   m_Name: Turnip
   m_EditorClassIdentifier: 
-  price: 16
-  itemData: {fileID: 11400000, guid: a4dbce3fbe997fc469322a3b0d4a5ac6, type: 2}
+  itemData: {fileID: 11400000, guid: 6a8d0a8d0428837438a6958db43d078b, type: 2}
   cropLevels:
   - Sprite: {fileID: -3091123446569971342, guid: 137e19cf725bf8141ba6f049ed730a41, type: 3}
     GrowthLevel: 1

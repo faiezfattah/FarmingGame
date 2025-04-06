@@ -1,8 +1,8 @@
 using UnityEngine;
 
 namespace Script.Core.Interface {
-public interface ISelectable {
+public interface IActionable {
     public Vector3 GetPointerPosition();
-    public void Select();
+    public void Action(IUseable item);
 }
 }

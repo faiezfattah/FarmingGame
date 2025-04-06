@@ -9,7 +9,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 74f46be37ddb3134faf1a389751e2950, type: 3}
-  m_Name: Turnip
+  m_Script: {fileID: 11500000, guid: 2f5893e2e42e57a4a95921ac8364334f, type: 3}
+  m_Name: Pickaxe
   m_EditorClassIdentifier: 
-  itemSprite: {fileID: -6707024634718470045, guid: 137e19cf725bf8141ba6f049ed730a41, type: 3}
+  itemSprite: {fileID: 0}
+  sellPrice: 0
+  Name: New Tools

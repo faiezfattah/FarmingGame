@@ -17,10 +17,9 @@ public class ItemSystem : IItemSystem {
     public void SpawnItem(ItemData itemData, Vector3 position) {
         var item = _pool.Get();
         item.transform.position = position;
-        // Debug.Log($"item: {itemData.name}");
+        Debug.Log($"item: {itemData.name}");
 
-        var context = itemData.CreateContext();
-        
+        var context = itemData.CreateBaseContext();
 
         _itemRegistry.Registry.Add(context);
         

@@ -7,9 +7,7 @@ public class InventoryRegistry : IInventoryRegistry, IToolbarRegistry {
     public IReadOnlyObservableList<ItemContext> ReadonlyRegistry => registry;
 
 
-    public ObservableList<string> toolbarRegistry = new(){
-        "Shovel", "None", "None", "None", "None", "None"
-    };
-    public ReactiveProperty<string> activeTool = new();
-    public string tool => activeTool.Value;
+    public ObservableList<ToolContext> toolbarRegistry = new(){};
+    public ReactiveProperty<ToolContext> activeTool = new();
+    public ToolContext tool => activeTool.Value;
 }

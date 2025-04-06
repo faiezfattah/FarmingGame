@@ -13,5 +13,5 @@ public interface ICropRegistry : IRegistry<CropContext> {};
 public interface IItemRegistry : IRegistry<ItemContext> {};
 public interface IInventoryRegistry : IRegistry<ItemContext> {};
 public interface IToolbarRegistry {
-    public string tool {get;}
+    public ToolContext tool {get;}
 };

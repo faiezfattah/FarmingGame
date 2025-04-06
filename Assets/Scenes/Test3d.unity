@@ -3654,6 +3654,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   uIDocument: {fileID: 1152984860}
+  toolDatas:
+  - {fileID: 11400000, guid: 4f10e3b8d7c7a124a975af1afd212963, type: 2}
+  - {fileID: 11400000, guid: f136d3c464d64f7478737e63f0d6c376, type: 2}
 --- !u!1001 &1169125689
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -6,12 +6,12 @@ using UnityEngine;
 using VContainer;
 
 namespace Script.Feature.Farm.Soil {
-public class Soil : MonoBehaviour, ISelectable {
+public class Soil : MonoBehaviour, IActionable {
     [SerializeField] private MeshFilter mesh;
     private SoilContext _context;
     private Action _onSelect;
     private IToolbarRegistry _toolbar;
-    [Inject] public void Construct(IToolbarRegistry tool) {
+    [Inject] public void Construct(IToolbarRegistry tool) { // TODO: remove this 
         _toolbar = tool;
     }
     public Vector3 GetPointerPosition() {
@@ -20,9 +20,15 @@ public class Soil : MonoBehaviour, ISelectable {
     private void Start() {
         mesh = GetComponent<MeshFilter>();
     }
-    public void Select() {
-        // mesh.mesh = _context.Data.tilled;
-        if (_toolbar.tool != "Shovel") return;
+    // public void Action() {
+    //     // mesh.mesh = _context.Data.tilled;
+    //     if (_toolbar.tool.data.name != "Shovel") return;
+
+    //     _onSelect?.Invoke();
+    // }
+    
+    public void Action(IUseable item) {
+        if (_toolbar.tool.ItemData.name != "Shovel") return;
 
         _onSelect?.Invoke();
     }

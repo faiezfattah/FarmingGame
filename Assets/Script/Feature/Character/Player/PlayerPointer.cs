@@ -8,32 +8,34 @@ using VContainer;
 namespace Script.Feature.Character.Player {
 public class PlayerPointer : MonoBehaviour {
     [SerializeField] private GameObject indicator;
-    private ISelectable _currentSelection; 
-
+    private IActionable _currentSelection; 
     private DisposableBag _bag;
-    [Inject] public void Construct(InputProcessor inputProcessor) {
+    private InventoryRegistry _inventoryRegistry;
+    [Inject] public void Construct(InputProcessor inputProcessor, InventoryRegistry inventoryRegistry) {
         inputProcessor.InteractEvent.Subscribe(_ => Interact()).AddTo(ref _bag);
+        _inventoryRegistry = inventoryRegistry;
     }
     private void Interact() {
         if (_currentSelection == null) return;
+        if (_inventoryRegistry.activeTool.Value == null) return;
         // Debug.Log("interacted with soil");
-        _currentSelection.Select();
+        _currentSelection.Action(_inventoryRegistry.activeTool.Value);
     }
     private void OnTriggerEnter(Collider other) {
-        other.TryGetComponent<ISelectable>(out var selectable);
-        if (selectable == null) return;
+        other.TryGetComponent<IActionable>(out var actionable);
+        if (actionable == null) return;
         
         if (_currentSelection == null) {
-            _currentSelection = selectable;
+            _currentSelection = actionable;
             indicator.SetActive(true);
-            indicator.transform.position = selectable.GetPointerPosition();
+            indicator.transform.position = actionable.GetPointerPosition();
         } else {
-            _currentSelection = selectable;
-            indicator.transform.position = selectable.GetPointerPosition();
+            _currentSelection = actionable;
+            indicator.transform.position = actionable.GetPointerPosition();
         }
     }
     private void OnTriggerExit(Collider other){
-        other.TryGetComponent<ISelectable>(out var selectable);
+        other.TryGetComponent<IActionable>(out var selectable);
         if (selectable == null) return;
         _currentSelection = null;
         indicator.SetActive(false);

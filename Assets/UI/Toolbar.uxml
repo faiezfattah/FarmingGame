@@ -5,7 +5,7 @@
             <engine:Button text="Shovel" style="align-self: center;" />
             <engine:VisualElement style="flex-grow: 0; flex-direction: row; justify-content: space-between; margin-bottom: 0;">
                 <engine:Button text="None" style="align-self: center;" />
-                <engine:Button text="None" style="align-self: center;" />
+                <engine:Button text="Pickaxe" style="align-self: center;" />
             </engine:VisualElement>
             <engine:VisualElement style="flex-grow: 0; flex-direction: row; justify-content: space-between; margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0;">
                 <engine:Button text="None" style="align-self: center;" />
