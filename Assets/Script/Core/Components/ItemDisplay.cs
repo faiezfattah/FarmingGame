@@ -7,6 +7,7 @@ public partial class ItemDisplay : VisualElement {
     private Sprite _itemSprite;
     private int _itemCount;
     private Label _countLabel;
+    private string _itemName;
 
     [UxmlAttribute]
     public Sprite itemSprite { 
@@ -16,14 +17,21 @@ public partial class ItemDisplay : VisualElement {
             UpdateDisplaySprite();
         }
     }
+
     [UxmlAttribute]
-    public int itemCount
-    {
+    public int itemCount {
         get => _itemCount;
-        set
-        {
+        set {
             _itemCount = value;
             UpdateCountLabel();
+        }
+    }
+
+    [UxmlAttribute] 
+    public string itemName {
+        get => _itemName;
+        set {
+            _itemName = value;
         }
     }
     public ItemDisplay() {

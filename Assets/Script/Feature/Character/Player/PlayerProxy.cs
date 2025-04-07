@@ -18,10 +18,7 @@ public class PlayerProxy : MonoBehaviour {
     [SerializeField] private Transform pointer;
     [SerializeField] private Rigidbody rb;
     [SerializeField] private SpriteRenderer sr;
-    [Header("debug")]
-    [SerializeField] private ItemData itemData;
     
-
     private float _currentRotation;
     private Vector3 _moveDir = Vector3.zero;
     private DisposableBag _bag;
@@ -32,7 +29,6 @@ public class PlayerProxy : MonoBehaviour {
 
         inputProcessor.MoveEvent.Subscribe(UpdateMoveDir).AddTo(ref _bag);
         inputProcessor.InteractEvent.Subscribe(_ => Interact()).AddTo(ref _bag);
-        inputProcessor.DebugEvent.Subscribe(_ => HandleDebug()).AddTo(ref _bag);
 
         _itemSystem = itemSystem;
     }
@@ -50,10 +46,6 @@ public class PlayerProxy : MonoBehaviour {
         
         rotatingContainer.rotation = Quaternion.Euler(0, angle, 0);
         sr.flipX = _moveDir.x < 0;
-    }
-
-    private void HandleDebug() {
-        _itemSystem.SpawnItem(itemData, transform.position);
     }
     private void Interact() {
         var hit = Physics.OverlapSphere(gameObject.transform.position, range, interactableLayer);

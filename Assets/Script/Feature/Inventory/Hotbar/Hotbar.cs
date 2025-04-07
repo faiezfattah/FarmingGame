@@ -11,12 +11,11 @@ public class Hotbar : MonoBehaviour {
     [SerializeField] private UIDocument _hotbarDocument;
     private VisualElement _container;
     private List<ItemDisplay> _slots = new();
-    private IInventoryRegistry _inventory;
     private DisposableBag _bag = new();
-
-    [Inject] public void Construct(IInventoryRegistry inventoryRegistry) {
-        inventoryRegistry.ReadonlyRegistry.ObserveChanged().Subscribe(_ => Refresh()).AddTo(ref _bag);
-        _inventory = inventoryRegistry;
+    private ItemDisplay activeDisplay;
+    [Inject] public void Construct(InventoryRegistry inventoryRegistry) {
+        inventoryRegistry.ReadonlyRegistry.ObserveChanged().Subscribe(_ => Refresh(inventoryRegistry.ReadonlyRegistry)).AddTo(ref _bag);
+        inventoryRegistry.activeItem.Subscribe(x => HandleSelect(x)).AddTo(ref _bag);
     }
     private void Start() {
         _container = _hotbarDocument.rootVisualElement.Q<VisualElement>("container");
@@ -24,18 +23,25 @@ public class Hotbar : MonoBehaviour {
         for (int i = 0; i < 5; i++) {
             var slot = new ItemDisplay();
             slot.AddToClassList("hotbaritem");
+            slot.name = "empty";
             _slots.Add(slot);
             _container.Add(slot);
         }
     }
-    public void Refresh() {
+    private void HandleSelect(ItemContext context) {
+        activeDisplay?.RemoveFromClassList("active-tool");
+
+        activeDisplay = _slots.Where(x => x.name == context.ItemData.name).FirstOrDefault();
+        activeDisplay.AddToClassList("active-tool");
+    }
+    private void Refresh(IReadOnlyObservableList<ItemContext> readonlyRegistry) {
         Debug.Log("refreshing");
 
-        var item = _inventory.ReadonlyRegistry[0];
+        var item = readonlyRegistry[0];
 
         _slots[0].itemSprite = item.ItemData.itemSprite;
-        _slots[0].itemCount = _inventory.ReadonlyRegistry.Count(x => x.ItemData == item.ItemData);
-        
+        _slots[0].itemCount = readonlyRegistry.Count(x => x.ItemData == item.ItemData);
+        _slots[0].name = item.ItemData.name;
     }
     private void OnDisable() {
         _bag.Dispose();

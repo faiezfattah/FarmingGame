@@ -62,6 +62,51 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""1"",
+                    ""type"": ""Button"",
+                    ""id"": ""187498f9-a93a-4782-a48e-c06e6ead00ff"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""2"",
+                    ""type"": ""Button"",
+                    ""id"": ""3670f694-9c55-42f8-86a0-6c10ff4bbb54"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""3"",
+                    ""type"": ""Button"",
+                    ""id"": ""119ec8f1-4722-4eaa-949c-ce026d617ed3"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""4"",
+                    ""type"": ""Button"",
+                    ""id"": ""2273b079-42da-4832-a80c-1370bb412559"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""5"",
+                    ""type"": ""Button"",
+                    ""id"": ""40eef37f-bcf8-4493-828a-3fe0468a05fd"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -152,6 +197,61 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
                     ""action"": ""Toolbar"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""d4e4ad47-3dfe-4908-869f-42885fdbc52e"",
+                    ""path"": ""<Keyboard>/1"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""1"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""2c93c3ec-2644-42d2-ba46-f2a6d9921562"",
+                    ""path"": ""<Keyboard>/2"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""2"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""bb5ec522-ef4f-4721-9e80-f12bafe86a8e"",
+                    ""path"": ""<Keyboard>/3"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""3"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""24a88363-a473-4a62-8cbd-409972511018"",
+                    ""path"": ""<Keyboard>/4"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""4"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""c86a540f-556d-43af-89a1-153802e5c88b"",
+                    ""path"": ""<Keyboard>/5"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""5"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -164,6 +264,11 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         m_Default_Interact = m_Default.FindAction("Interact", throwIfNotFound: true);
         m_Default_Debug = m_Default.FindAction("Debug", throwIfNotFound: true);
         m_Default_Toolbar = m_Default.FindAction("Toolbar", throwIfNotFound: true);
+        m_Default__1 = m_Default.FindAction("1", throwIfNotFound: true);
+        m_Default__2 = m_Default.FindAction("2", throwIfNotFound: true);
+        m_Default__3 = m_Default.FindAction("3", throwIfNotFound: true);
+        m_Default__4 = m_Default.FindAction("4", throwIfNotFound: true);
+        m_Default__5 = m_Default.FindAction("5", throwIfNotFound: true);
     }
 
     ~@PlayerInput()
@@ -234,6 +339,11 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
     private readonly InputAction m_Default_Interact;
     private readonly InputAction m_Default_Debug;
     private readonly InputAction m_Default_Toolbar;
+    private readonly InputAction m_Default__1;
+    private readonly InputAction m_Default__2;
+    private readonly InputAction m_Default__3;
+    private readonly InputAction m_Default__4;
+    private readonly InputAction m_Default__5;
     public struct DefaultActions
     {
         private @PlayerInput m_Wrapper;
@@ -242,6 +352,11 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         public InputAction @Interact => m_Wrapper.m_Default_Interact;
         public InputAction @Debug => m_Wrapper.m_Default_Debug;
         public InputAction @Toolbar => m_Wrapper.m_Default_Toolbar;
+        public InputAction @_1 => m_Wrapper.m_Default__1;
+        public InputAction @_2 => m_Wrapper.m_Default__2;
+        public InputAction @_3 => m_Wrapper.m_Default__3;
+        public InputAction @_4 => m_Wrapper.m_Default__4;
+        public InputAction @_5 => m_Wrapper.m_Default__5;
         public InputActionMap Get() { return m_Wrapper.m_Default; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -263,6 +378,21 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
             @Toolbar.started += instance.OnToolbar;
             @Toolbar.performed += instance.OnToolbar;
             @Toolbar.canceled += instance.OnToolbar;
+            @_1.started += instance.On_1;
+            @_1.performed += instance.On_1;
+            @_1.canceled += instance.On_1;
+            @_2.started += instance.On_2;
+            @_2.performed += instance.On_2;
+            @_2.canceled += instance.On_2;
+            @_3.started += instance.On_3;
+            @_3.performed += instance.On_3;
+            @_3.canceled += instance.On_3;
+            @_4.started += instance.On_4;
+            @_4.performed += instance.On_4;
+            @_4.canceled += instance.On_4;
+            @_5.started += instance.On_5;
+            @_5.performed += instance.On_5;
+            @_5.canceled += instance.On_5;
         }
 
         private void UnregisterCallbacks(IDefaultActions instance)
@@ -279,6 +409,21 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
             @Toolbar.started -= instance.OnToolbar;
             @Toolbar.performed -= instance.OnToolbar;
             @Toolbar.canceled -= instance.OnToolbar;
+            @_1.started -= instance.On_1;
+            @_1.performed -= instance.On_1;
+            @_1.canceled -= instance.On_1;
+            @_2.started -= instance.On_2;
+            @_2.performed -= instance.On_2;
+            @_2.canceled -= instance.On_2;
+            @_3.started -= instance.On_3;
+            @_3.performed -= instance.On_3;
+            @_3.canceled -= instance.On_3;
+            @_4.started -= instance.On_4;
+            @_4.performed -= instance.On_4;
+            @_4.canceled -= instance.On_4;
+            @_5.started -= instance.On_5;
+            @_5.performed -= instance.On_5;
+            @_5.canceled -= instance.On_5;
         }
 
         public void RemoveCallbacks(IDefaultActions instance)
@@ -302,5 +447,10 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         void OnInteract(InputAction.CallbackContext context);
         void OnDebug(InputAction.CallbackContext context);
         void OnToolbar(InputAction.CallbackContext context);
+        void On_1(InputAction.CallbackContext context);
+        void On_2(InputAction.CallbackContext context);
+        void On_3(InputAction.CallbackContext context);
+        void On_4(InputAction.CallbackContext context);
+        void On_5(InputAction.CallbackContext context);
     }
 }

@@ -43,7 +43,6 @@ public class Crop : MonoBehaviour, IEntity<CropContext>, IInteractable {
     }
 
     public void Interact() {
-        Debug.Log(_cropData);
         if (_cropData.CanHarvest(_cropContext.Level.Value)) 
             Harvest();
         
