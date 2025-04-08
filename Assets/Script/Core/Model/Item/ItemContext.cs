@@ -14,8 +14,12 @@ public class ItemContext<TData> : ItemContext where TData : ItemData {
     }
 }
 
-public class PackedItemContext<TContext> where TContext : ItemContext {
+public class PackedItemContext {
     public ReactiveProperty<int> Count;
-    public ItemContext Item;
+    public ItemContext ItemContext;
+    public PackedItemContext(ItemContext context) {
+        Count = new(1);
+        ItemContext = context;
+    }
 }
 }

@@ -71,7 +71,7 @@ public class CropSystem : MonoBehaviour {
         return context;
     }
     public CropContext SpawnCrop(CropContext context, Vector3 position) {
-        var instance = Instantiate(testingCrop, position, Quaternion.identity);
+        var instance = Instantiate(testingCrop, position, Quaternion.identity, transform);
         
         instance.Initialize(context, () => RemoveCrop(context));
         AddCrop(context);

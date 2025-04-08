@@ -5,8 +5,9 @@ using Script.Core.Model.Item;
 public class InventoryRegistry : IInventoryRegistry, IToolbarRegistry {
 
     // actual inventory
-    public ObservableList<ItemContext> registry = new();
-    public IReadOnlyObservableList<ItemContext> ReadonlyRegistry => registry;
+    // public ObservableList<ItemContext> registry = new();
+    public ObservableList<PackedItemContext> registry = new();
+    public IReadOnlyObservableList<PackedItemContext> ReadonlyRegistry => registry;
     
     // hotbar located active item
     public  ReactiveProperty<ItemContext> activeItem = new();

@@ -11,7 +11,7 @@ public interface IRegistry<T> {
 public interface ISoilRegistry : IRegistry<SoilContext> {};
 public interface ICropRegistry : IRegistry<CropContext> {};
 public interface IItemRegistry : IRegistry<ItemContext> {};
-public interface IInventoryRegistry : IRegistry<ItemContext> {};
+public interface IInventoryRegistry : IRegistry<PackedItemContext> {};
 public interface IToolbarRegistry {
     public ToolContext tool {get;}
 };
