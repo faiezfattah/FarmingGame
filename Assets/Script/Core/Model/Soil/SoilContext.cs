@@ -9,8 +9,9 @@ public class SoilContext : IDisposable {
     public Guid Id;
     public Vector3 Position;
     public SoilData Data;
-    public CropContext CropPlanted;
+    public ReactiveProperty<CropContext> CropPlanted = new(null);
     public ReactiveProperty<SoilState> State = new(SoilState.Initial);
+    public DisposableBag bag;
     public SoilContext(SoilData data) {
         Data = data;
     }
@@ -19,7 +20,10 @@ public class SoilContext : IDisposable {
         Position = position;   
         return this;
     }
-
+    public void HarvestReset() {
+        bag.Dispose();
+        CropPlanted = new(null);
+    }
     public void Dispose() {
         State.Dispose();
     }

@@ -2,6 +2,7 @@
 using ObservableCollections;
 using R3;
 using Script.Core.Interface;
+using Script.Core.Model.Crop;
 using Script.Core.Model.Item;
 using Script.Core.Model.Soil;
 using Script.Feature.Farm.Crop;
@@ -26,34 +27,49 @@ public class SoilSystem : MonoBehaviour {
         foreach (var tile in farmTiles) {
             var context = soilData.CreateContext()
                                   .SetPosition(tile.transform.position);
+            context.CropPlanted.Where(x => x != null).Subscribe(_ => HandlePlanting(context));
             tile.SetContext(context, (useable) => HandleSelect(context, useable));
         }
     }
+    private void HandlePlanting(SoilContext context) {
+        _cropSystem.SpawnCrop(context.CropPlanted.Value, context.Position);
+
+        _cropRegistry.registry.ObserveRemove()
+                              .Where(x => x.Value == context.CropPlanted.Value)
+                              .Subscribe(_ => context.HarvestReset())
+                              .AddTo(ref context.bag);
+        
+    }
     private void HandleSelect(SoilContext context, IUseable useable) {
-        switch (context.State.Value) {
-            case SoilState.Initial:
-                if (useable is ToolContext) {
-                    context.State.Value = SoilState.Tilled;
-                }
-                break;
-            case SoilState.Tilled:
-                if (useable is ToolContext) {
-                    context.State.Value = SoilState.Watered;
-                }
-                break;
-            case SoilState.Watered:
-                if (useable is SeedContext seed && context.CropPlanted == null) {
-                    var data = (SeedData) seed.ItemData;
-                    context.CropPlanted = _cropSystem.SpawnCrop(data.CropData, context.Position);
-                    _cropRegistry.registry
-                                          .ObserveRemove()
-                                          .Where(x => x.Value == context.CropPlanted)
-                                          .Subscribe(_ => context.CropPlanted = null);
-                }
-                break;
-            default:
-                throw new ArgumentOutOfRangeException(nameof(context.State), context.State.Value, null);
+        if (useable is IUseable<SoilContext> item) {
+            Debug.Log("context given");
+            item.Use(context);
         }
+
+        // switch (context.State.Value) {
+        //     case SoilState.Initial:
+        //         if (useable is ToolContext) {
+        //             context.State.Value = SoilState.Tilled;
+        //         }
+        //         break;
+        //     case SoilState.Tilled:
+        //         if (useable is ToolContext) {
+        //             context.State.Value = SoilState.Watered;
+        //         }
+        //         break;
+        //     case SoilState.Watered:
+        //         if (useable is SeedContext seed && context.CropPlanted == null) {
+        //             var data = (SeedData) seed.ItemData;
+        //             context.CropPlanted = _cropSystem.SpawnCrop(data.CropData, context.Position);
+        //             _cropRegistry.registry
+        //                                   .ObserveRemove()
+        //                                   .Where(x => x.Value == context.CropPlanted)
+        //                                   .Subscribe(_ => context.CropPlanted = null);
+        //         }
+        //         break;
+        //     default:
+        //         throw new ArgumentOutOfRangeException(nameof(context.State), context.State.Value, null);
+        // }
     }
 }
 }

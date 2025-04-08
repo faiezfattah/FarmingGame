@@ -2,16 +2,16 @@
     <Style src="project://database/Assets/UI/style.uss?fileID=7433441132597879392&amp;guid=46254a75713401848a893bb46d1a3ea0&amp;type=3#style" />
     <engine:VisualElement style="position: absolute; top: 0; left: 0; bottom: 0; right: 0; flex-shrink: 0; align-items: center; justify-content: space-around;">
         <engine:VisualElement style="width: 250px; justify-content: space-between; height: 200px; margin-top: 50px; margin-bottom: 20px;">
-            <engine:Button text="Shovel" style="align-self: center;" />
+            <ToolButton tool-name="None" text="Shovel" style="align-self: center;" />
             <engine:VisualElement style="flex-grow: 0; flex-direction: row; justify-content: space-between; margin-bottom: 0;">
-                <engine:Button text="None" style="align-self: center;" />
-                <engine:Button text="Pickaxe" style="align-self: center;" />
+                <ToolButton tool-name="None" style="align-self: center;" />
+                <ToolButton tool-name="None" style="align-self: center;" />
             </engine:VisualElement>
             <engine:VisualElement style="flex-grow: 0; flex-direction: row; justify-content: space-between; margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0;">
-                <engine:Button text="None" style="align-self: center;" />
-                <engine:Button text="None" style="align-self: center;" />
+                <ToolButton tool-name="None" style="align-self: center;" />
+                <ToolButton tool-name="None" style="align-self: center;" />
             </engine:VisualElement>
-            <engine:Button text="None" style="align-self: center;" />
+            <ToolButton tool-name="None" style="align-self: center;" />
         </engine:VisualElement>
     </engine:VisualElement>
 </engine:UXML>

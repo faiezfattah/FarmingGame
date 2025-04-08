@@ -21,12 +21,12 @@ public class PlayerPointer : MonoBehaviour {
         if (_inventoryRegistry.activeTool.Value == null) return;
         
         if (_inventoryRegistry.activeItem.Value != null 
-            && _inventoryRegistry.activeItem.Value is IUseable useable) {
-            useable.Use(_currentSelection);
+            && _inventoryRegistry.activeItem.Value is IUseable item) {
+        _currentSelection.Action(item);
         } 
         else {
             _currentSelection.Action(_inventoryRegistry.activeTool.Value);
-        }
+        } 
 
     }
     private void OnTriggerEnter(Collider other) {

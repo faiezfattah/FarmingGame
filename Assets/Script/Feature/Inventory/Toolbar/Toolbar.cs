@@ -25,13 +25,13 @@ public class Toolbar : MonoBehaviour {
         foreach (var data in toolDatas) {
             var context = data.CreateContext();
             _inventoryRegistry.toolbarRegistry.Add(context);
-            // Debug.Log("added context: " + context.ItemData.name);
+            Debug.Log("added context: " + context.BaseData.name);
         }
     }
     private void HandleClick(ClickEvent e) {
         var btn = e.currentTarget as Button;
-        _inventoryRegistry.activeTool.Value = _inventoryRegistry.toolbarRegistry.Where(x => x.ItemData.name == btn.text).First();
-        // Debug.Log("equipped: " + _inventoryRegistry.activeTool.CurrentValue.ItemData.name);
+        _inventoryRegistry.activeTool.Value = _inventoryRegistry.toolbarRegistry.Where(x => x.BaseData.name == btn.text).First();
+        Debug.Log("equipped: " + _inventoryRegistry.activeTool.CurrentValue.BaseData.name);
         ToggleVisibility();
     }
     private void ToggleVisibility() {
@@ -40,12 +40,17 @@ public class Toolbar : MonoBehaviour {
         if (!uIDocument.enabled) return;
 
         _root = uIDocument.rootVisualElement;
-        var rootChildrens = _root.Query<Button>().ToList();
+        
+        var buttons = _root.Query<ToolButton>().ToList();
+        var tools = _inventoryRegistry.toolbarRegistry.ToList();
 
-        foreach (var item in rootChildrens) {
-            if (item is Button button) {
-                // Debug.Log("registered" + button.name);
-                button.RegisterCallback<ClickEvent>(HandleClick);
+        for (int i = 0; i < _inventoryRegistry.toolbarRegistry.Count; i++) {
+            var tool = _inventoryRegistry.toolbarRegistry[i];
+            
+            if (tool is not null) {
+                buttons[i].SetData(tool);
+                buttons[i].RegisterCallback<ClickEvent>(HandleClick);
+                buttons[i].toolName = tools[i].BaseData.name;
             }
         }
     }

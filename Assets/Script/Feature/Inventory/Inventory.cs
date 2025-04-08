@@ -14,10 +14,10 @@ public class Inventory : MonoBehaviour {
         inventoryRegistry.ReadonlyRegistry.ObserveRemove().Subscribe(item => HandleRemove(item.Value)).AddTo(ref _bag);
     }
     public void HandleAdd(ItemContext item) {
-        Debug.Log($"added {item.ItemData.name}");
+        Debug.Log($"added {item.BaseData.name}");
     }
     public void HandleRemove(ItemContext item) {
-        Debug.Log($"removed {item.ItemData.name}");
+        Debug.Log($"removed {item.BaseData.name}");
     }
     public void OnDisable() {
         _bag.Dispose();

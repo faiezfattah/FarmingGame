@@ -22,7 +22,7 @@ public class InventorySystem : IInventorySystem {
     private void HandleSelect(int num) {
         _inventoryRegistry.activeItem.Value = _inventoryRegistry.registry[num - 1]; 
         foreach (var item in _inventoryRegistry.registry) {
-            Debug.Log(item.ItemData.name );
+            Debug.Log(item.BaseData.name );
         }
     }
 }

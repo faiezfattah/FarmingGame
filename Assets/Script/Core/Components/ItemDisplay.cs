@@ -1,3 +1,4 @@
+using Script.Core.Model.Item;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -34,6 +35,7 @@ public partial class ItemDisplay : VisualElement {
             _itemName = value;
         }
     }
+    public ItemContext contextData;
     public ItemDisplay() {
         AddToClassList("hotbaritem");
         

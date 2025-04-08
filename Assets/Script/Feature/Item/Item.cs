@@ -18,7 +18,7 @@ public class Item : MonoBehaviour, IEntity<ItemContext> {
         _itemContext = context;
         _onPickup = onPickup;
         
-        spriteRenderer.sprite = context.ItemData.itemSprite;
+        spriteRenderer.sprite = context.BaseData.itemSprite;
         sphereRollider.radius = itemPickupRadius;
     }
 

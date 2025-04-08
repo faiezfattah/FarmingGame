@@ -13,6 +13,7 @@ public class Hotbar : MonoBehaviour {
     private List<ItemDisplay> _slots = new();
     private DisposableBag _bag = new();
     private ItemDisplay activeDisplay;
+    private InventoryRegistry _inventoryRegistry;
     [Inject] public void Construct(InventoryRegistry inventoryRegistry) {
         inventoryRegistry.ReadonlyRegistry.ObserveChanged().Subscribe(_ => Refresh(inventoryRegistry.ReadonlyRegistry)).AddTo(ref _bag);
         inventoryRegistry.activeItem.Subscribe(x => HandleSelect(x)).AddTo(ref _bag);
@@ -29,9 +30,10 @@ public class Hotbar : MonoBehaviour {
         }
     }
     private void HandleSelect(ItemContext context) {
-        activeDisplay?.RemoveFromClassList("active-tool");
-
-        activeDisplay = _slots.Where(x => x.name == context.ItemData.name).FirstOrDefault();
+        if (activeDisplay != null) {
+            activeDisplay.RemoveFromClassList("active-tool");
+        }
+        activeDisplay = _slots.Where(x => x.contextData == context).FirstOrDefault();
         activeDisplay.AddToClassList("active-tool");
     }
     private void Refresh(IReadOnlyObservableList<ItemContext> readonlyRegistry) {
@@ -39,9 +41,9 @@ public class Hotbar : MonoBehaviour {
 
         var item = readonlyRegistry[0];
 
-        _slots[0].itemSprite = item.ItemData.itemSprite;
-        _slots[0].itemCount = readonlyRegistry.Count(x => x.ItemData == item.ItemData);
-        _slots[0].name = item.ItemData.name;
+        _slots[0].itemSprite = item.BaseData.itemSprite;
+        _slots[0].itemCount = readonlyRegistry.Count(x => x.BaseData == item.BaseData);
+        _slots[0].contextData = item;
     }
     private void OnDisable() {
         _bag.Dispose();
