@@ -2586,11 +2586,13 @@ MonoBehaviour:
   autoInjectGameObjects:
   - {fileID: 1335049116}
   - {fileID: 442487200}
-  - {fileID: 1741819176}
   - {fileID: 1281231085}
   - {fileID: 737138078}
   - {fileID: 1152984859}
+  - {fileID: 1741819176}
+  - {fileID: 581986899}
   itemPool: {fileID: 164159152}
+  cropSystem: {fileID: 1281231086}
 --- !u!4 &805581513
 Transform:
   m_ObjectHideFlags: 0
@@ -4367,7 +4369,6 @@ MonoBehaviour:
   pointer: {fileID: 422567074}
   rb: {fileID: 1335049122}
   sr: {fileID: 1335049119}
-  itemData: {fileID: 11400000, guid: a4dbce3fbe997fc469322a3b0d4a5ac6, type: 2}
 --- !u!1001 &1353638596
 PrefabInstance:
   m_ObjectHideFlags: 0

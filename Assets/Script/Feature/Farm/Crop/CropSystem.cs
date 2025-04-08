@@ -30,15 +30,15 @@ public class CropSystem : MonoBehaviour {
     }
 
     private void UpdateCrop() {
-        _cropRegistry._registry.ForEach(item => item.Growth.Value++);
+        _cropRegistry.registry.ForEach(item => item.Growth.Value++);
     }
     
     private void AddCrop(CropContext cropContext) {
-        _cropRegistry._registry.Add(cropContext);
+        _cropRegistry.registry.Add(cropContext);
     }
 
     private void RemoveCrop(CropContext cropContext) {
-        if (!_cropRegistry._registry.Remove(cropContext)) {
+        if (!_cropRegistry.registry.Remove(cropContext)) {
             Debug.LogWarning("Failed to remove crop");
             return;
         }
@@ -49,7 +49,7 @@ public class CropSystem : MonoBehaviour {
     private void DebugSpawnCrop() {
         SpawnCrop(debugCropData);
     }
-    private void SpawnCrop(CropData cropData) {
+    public void SpawnCrop(CropData cropData) {
         var instance = Instantiate(testingCrop, spawningPointer.position, Quaternion.identity);
         var context = cropData.CreateContext();
         
@@ -58,7 +58,17 @@ public class CropSystem : MonoBehaviour {
         
         Debug.Log($"made a new plant on: {context.DayPlanted}");
     }
+    public CropContext SpawnCrop(CropData cropData, Vector3 position) {
+        var instance = Instantiate(testingCrop, position, Quaternion.identity);
+        var context = cropData.CreateContext();
+        
+        instance.Initialize(context, () => RemoveCrop(context));
+        AddCrop(context);
+        
+        Debug.Log($"made a new plant on: {context.DayPlanted}");
 
+        return context;
+    }
     private void OnDisable() {
         _bag.Dispose();
     }

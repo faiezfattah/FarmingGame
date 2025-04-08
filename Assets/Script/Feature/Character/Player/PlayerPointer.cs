@@ -1,3 +1,4 @@
+using System;
 using R3;
 using Script.Core.Interface;
 using Script.Feature.Input;
@@ -18,8 +19,15 @@ public class PlayerPointer : MonoBehaviour {
     private void Interact() {
         if (_currentSelection == null) return;
         if (_inventoryRegistry.activeTool.Value == null) return;
-        // Debug.Log("interacted with soil");
-        _currentSelection.Action(_inventoryRegistry.activeTool.Value);
+        
+        if (_inventoryRegistry.activeItem.Value != null 
+            && _inventoryRegistry.activeItem.Value is IUseable useable) {
+            useable.Use(_currentSelection);
+        } 
+        else {
+            _currentSelection.Action(_inventoryRegistry.activeTool.Value);
+        }
+
     }
     private void OnTriggerEnter(Collider other) {
         other.TryGetComponent<IActionable>(out var actionable);
@@ -29,7 +37,8 @@ public class PlayerPointer : MonoBehaviour {
             _currentSelection = actionable;
             indicator.SetActive(true);
             indicator.transform.position = actionable.GetPointerPosition();
-        } else {
+        } 
+        else {
             _currentSelection = actionable;
             indicator.transform.position = actionable.GetPointerPosition();
         }

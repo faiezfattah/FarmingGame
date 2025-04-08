@@ -12,7 +12,7 @@ using VContainer.Unity;
 namespace Script.Injector {
 public class MainInjector : LifetimeScope {
     [SerializeField] private ItemPool itemPool;
-    
+    [SerializeField] private CropSystem cropSystem;
     protected override void Configure(IContainerBuilder builder) {
         builder.Register<InputProcessor>(Lifetime.Singleton);
 
@@ -21,6 +21,7 @@ public class MainInjector : LifetimeScope {
         builder.Register<SoilSystem>(Lifetime.Singleton);
         builder.Register<ItemSystem>(Lifetime.Singleton).As<IItemSystem>();
         builder.Register<InventorySystem>(Lifetime.Singleton).As<IInventorySystem>();
+        builder.RegisterInstance(cropSystem).As<CropSystem>();
 
         // Registry
         builder.Register<InventoryRegistry>(Lifetime.Singleton).As<IInventoryRegistry, IToolbarRegistry>().AsSelf();

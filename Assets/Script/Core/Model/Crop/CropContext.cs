@@ -9,7 +9,6 @@ public class CropContext : IDisposable {
     public ReactiveProperty<int> Growth;
     public ReactiveProperty<int> Level;
     public CropData CropData;
-
     private DisposableBag _bag = new();
 
     public CropContext(CropData cropData) {

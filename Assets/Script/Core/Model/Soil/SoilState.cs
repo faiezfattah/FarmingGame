@@ -6,6 +6,5 @@ public enum SoilState {
     Initial,
     Tilled,
     Watered,
-    Planted
 }
 }

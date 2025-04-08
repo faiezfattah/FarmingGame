@@ -7,7 +7,7 @@ using Script.Core.Model.Crop;
 
 namespace Script.Feature.Farm.Crop {
 public class CropRegistry : ICropRegistry {
-    public ObservableList<CropContext> _registry = new();
-    public IReadOnlyObservableList<CropContext> ReadonlyRegistry => _registry;
+    public ObservableList<CropContext> registry = new();
+    public IReadOnlyObservableList<CropContext> ReadonlyRegistry => registry;
 }
 }

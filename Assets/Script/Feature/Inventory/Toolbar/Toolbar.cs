@@ -25,13 +25,13 @@ public class Toolbar : MonoBehaviour {
         foreach (var data in toolDatas) {
             var context = data.CreateContext();
             _inventoryRegistry.toolbarRegistry.Add(context);
-            Debug.Log("added context: " + context.ItemData.name);
+            // Debug.Log("added context: " + context.ItemData.name);
         }
     }
     private void HandleClick(ClickEvent e) {
         var btn = e.currentTarget as Button;
         _inventoryRegistry.activeTool.Value = _inventoryRegistry.toolbarRegistry.Where(x => x.ItemData.name == btn.text).First();
-        Debug.Log("equipped: " + _inventoryRegistry.activeTool.CurrentValue.ItemData.name);
+        // Debug.Log("equipped: " + _inventoryRegistry.activeTool.CurrentValue.ItemData.name);
         ToggleVisibility();
     }
     private void ToggleVisibility() {
@@ -44,7 +44,7 @@ public class Toolbar : MonoBehaviour {
 
         foreach (var item in rootChildrens) {
             if (item is Button button) {
-                Debug.Log("registered" + button.name);
+                // Debug.Log("registered" + button.name);
                 button.RegisterCallback<ClickEvent>(HandleClick);
             }
         }

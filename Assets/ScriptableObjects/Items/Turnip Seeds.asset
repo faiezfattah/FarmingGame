@@ -1,0 +1,16 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 12f00cdcf4659344783c15728f93661b, type: 3}
+  m_Name: Turnip Seeds
+  m_EditorClassIdentifier: 
+  itemSprite: {fileID: -3929210282832488046, guid: 137e19cf725bf8141ba6f049ed730a41, type: 3}
+  CropData: {fileID: 11400000, guid: 42120f98f1e36a542a8caf9459ac02e4, type: 2}
