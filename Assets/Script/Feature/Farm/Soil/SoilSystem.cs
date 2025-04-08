@@ -42,34 +42,8 @@ public class SoilSystem : MonoBehaviour {
     }
     private void HandleSelect(SoilContext context, IUseable useable) {
         if (useable is IUseable<SoilContext> item) {
-            Debug.Log("context given");
             item.Use(context);
         }
-
-        // switch (context.State.Value) {
-        //     case SoilState.Initial:
-        //         if (useable is ToolContext) {
-        //             context.State.Value = SoilState.Tilled;
-        //         }
-        //         break;
-        //     case SoilState.Tilled:
-        //         if (useable is ToolContext) {
-        //             context.State.Value = SoilState.Watered;
-        //         }
-        //         break;
-        //     case SoilState.Watered:
-        //         if (useable is SeedContext seed && context.CropPlanted == null) {
-        //             var data = (SeedData) seed.ItemData;
-        //             context.CropPlanted = _cropSystem.SpawnCrop(data.CropData, context.Position);
-        //             _cropRegistry.registry
-        //                                   .ObserveRemove()
-        //                                   .Where(x => x.Value == context.CropPlanted)
-        //                                   .Subscribe(_ => context.CropPlanted = null);
-        //         }
-        //         break;
-        //     default:
-        //         throw new ArgumentOutOfRangeException(nameof(context.State), context.State.Value, null);
-        // }
     }
 }
 }
