@@ -5,6 +5,7 @@ using Script.Feature.DayTime;
 using Script.Feature.Farm.Crop;
 using Script.Feature.Farm.Soil;
 using Script.Feature.Input;
+using Script.Feature.Inventory;
 using Script.Feature.Item;
 using UnityEngine;
 using VContainer;
@@ -27,6 +28,7 @@ public class MainInjector : LifetimeScope {
         builder.Register<ItemSystem>(Lifetime.Singleton).As<IItemSystem>();
         builder.Register<InventorySystem>(Lifetime.Singleton).As<IInventorySystem>();
         builder.RegisterInstance(cropSystem).As<CropSystem>();
+        builder.Register<MoneySystem>(Lifetime.Singleton).As<IMoneySystem>();
 
         // Registry
         builder.Register<InventoryRegistry>(Lifetime.Singleton).As<IInventoryRegistry, IToolbarRegistry>().AsSelf();

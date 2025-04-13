@@ -10,16 +10,24 @@ using Script.Core.Interface.Systems;
 
 namespace Script.Feature.Character.NPC {
 public class NPCVendor : MonoBehaviour, IInteractable {
-    [SerializeField] public UIDocument uIDocument;
-    [SerializeField] public SeedData seedData;
+    [SerializeField] private UIDocument uIDocument;
+    [SerializeField] private SeedData seedData;
+    [SerializeField] private int price;
     private InputProcessor _inputSystem;
     private IInventorySystem _inventorySystem;
     private IDisposable subscription;
     private IItemContextFactory _itemContextFactory;
-    [Inject] public void Construct(InputProcessor inputSystem, IInventorySystem inventorySystem, IItemContextFactory itemContextFactory) {
+    private IMoneySystem _moneySystem;
+    [Inject] public void Construct(
+        InputProcessor inputSystem, 
+        IInventorySystem inventorySystem, 
+        IItemContextFactory itemContextFactory,
+        IMoneySystem moneySystem) {
+
         _inputSystem = inputSystem;
         _inventorySystem = inventorySystem;
         _itemContextFactory = itemContextFactory;
+        _moneySystem = moneySystem;
     }
     private void Start() {
         uIDocument.enabled = false;
@@ -36,8 +44,14 @@ public class NPCVendor : MonoBehaviour, IInteractable {
                                     .RegisterCallback<ClickEvent>(_ => Close());
     }
     public void Close() {
-        Debug.Log("Sold!: " + GetValue());
-        _inventorySystem.AddItem(_itemContextFactory.Create(seedData), GetValue());
+        var itemCount = GetValue();
+        
+        if (_moneySystem.TryTransfer(-itemCount * price)) {
+            Debug.Log("Sold!: " + itemCount);
+            _inventorySystem.AddItem(_itemContextFactory.Create(seedData), GetValue());
+        } else {
+            Debug.Log("not enough money :<");
+        }
 
         subscription.Dispose();
         uIDocument.enabled = false;
