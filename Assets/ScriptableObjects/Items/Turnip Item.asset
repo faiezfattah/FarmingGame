@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 74f46be37ddb3134faf1a389751e2950, type: 3}
   m_Name: Turnip Item
   m_EditorClassIdentifier: 
-  itemSprite: {fileID: 0}
+  itemSprite: {fileID: -6707024634718470045, guid: 137e19cf725bf8141ba6f049ed730a41, type: 3}
   MaxStackable: 64
-  price: 0
+  price: 4

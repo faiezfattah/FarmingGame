@@ -44,6 +44,8 @@ public class InventorySystem : IInventorySystem, IDisposable {
         }
     }
     private void HandleSelect(int num) {
+        if (_inventoryRegistry.registry.Count < num-1) return; // check for empty slots
+
         if (_inventoryRegistry.activeItem.Value == null) {
             var item = _inventoryRegistry.registry[num - 1];
             _inventoryRegistry.activeItem.Value = item.ItemContext;

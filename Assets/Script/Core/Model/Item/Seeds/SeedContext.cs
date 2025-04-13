@@ -11,6 +11,9 @@ public class SeedContext : ItemContext<SeedData>, IUseable<SoilContext> {
     [Inject] private IPublisher<SeedUsed> usedEvent;
 
     public void Use(SoilContext context) {
+        if (context.State.Value != SoilState.Watered) return;
+        if (context.CropPlanted.Value != null) return;
+        
         var data = (SeedData) BaseData;
         context.CropPlanted.Value = data.CropData.CreateContext();
         usedEvent.Publish(new(this));

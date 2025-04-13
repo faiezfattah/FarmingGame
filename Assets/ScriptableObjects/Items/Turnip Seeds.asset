@@ -14,5 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemSprite: {fileID: -3929210282832488046, guid: 137e19cf725bf8141ba6f049ed730a41, type: 3}
   MaxStackable: 64
-  price: 12
+  price: 1
   CropData: {fileID: 11400000, guid: 42120f98f1e36a542a8caf9459ac02e4, type: 2}
