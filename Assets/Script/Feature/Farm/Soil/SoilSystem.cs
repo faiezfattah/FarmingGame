@@ -33,6 +33,7 @@ public class SoilSystem : MonoBehaviour {
     private void HandlePlanting(SoilContext context) {
         _cropSystem.SpawnCrop(context.CropPlanted.Value, context.Position);
 
+        // reset context when cropcontext is removed from the cropregistry
         _cropRegistry.registry.ObserveRemove()
                               .Where(x => x.Value == context.CropPlanted.Value)
                               .Subscribe(_ => context.HarvestReset())

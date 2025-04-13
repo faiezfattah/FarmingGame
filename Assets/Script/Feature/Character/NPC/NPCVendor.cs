@@ -32,6 +32,8 @@ public class NPCVendor : MonoBehaviour, IInteractable {
     public void Interact() {
         uIDocument.enabled = true;
         subscription = _inputSystem.DebugEvent.Subscribe(_ => Close());
+        uIDocument.rootVisualElement.Q<Button>("Buy")
+                                    .RegisterCallback<ClickEvent>(_ => Close());
     }
     public void Close() {
         Debug.Log("Sold!: " + GetValue());

@@ -25,7 +25,6 @@ public class CropSystem : MonoBehaviour {
     }
 
     private void Start() {
-        DebugSpawnCrop();
         _timeSystem.DayCount.Subscribe(_ => UpdateCrop()).AddTo(ref _bag);
     }
 
@@ -37,33 +36,19 @@ public class CropSystem : MonoBehaviour {
         _cropRegistry.registry.Add(cropContext);
     }
 
-    private void RemoveCrop(CropContext cropContext) {
+    private void RemoveCrop(CropContext cropContext, Vector3 itemSpawnPosition) {
         if (!_cropRegistry.registry.Remove(cropContext)) {
             Debug.LogWarning("Failed to remove crop");
             return;
         }
-        _itemSystem.SpawnItem(cropContext.CropData.itemData, transform.position);
-    }
-
-    [Button]
-    private void DebugSpawnCrop() {
-        SpawnCrop(debugCropData);
-    }
-    public void SpawnCrop(CropData cropData) {
-        var instance = Instantiate(testingCrop, spawningPointer.position, Quaternion.identity);
-        var context = cropData.CreateContext();
-        
-        instance.Initialize(context, () => RemoveCrop(context));
-        AddCrop(context);
-        
-        Debug.Log($"made a new plant on: {context.DayPlanted}");
+        _itemSystem.SpawnItem(cropContext.CropData.itemData, itemSpawnPosition);
     }
     
     public CropContext SpawnCrop(CropData cropData, Vector3 position) {
         var instance = Instantiate(testingCrop, position, Quaternion.identity);
         var context = cropData.CreateContext();
         
-        instance.Initialize(context, () => RemoveCrop(context));
+        instance.Initialize(context, () => RemoveCrop(context, position));
         AddCrop(context);
         
         Debug.Log($"made a new plant on: {context.DayPlanted}");
@@ -73,7 +58,7 @@ public class CropSystem : MonoBehaviour {
     public CropContext SpawnCrop(CropContext context, Vector3 position) {
         var instance = Instantiate(testingCrop, position, Quaternion.identity, transform);
         
-        instance.Initialize(context, () => RemoveCrop(context));
+        instance.Initialize(context, () => RemoveCrop(context, position));
         AddCrop(context);
         
         Debug.Log($"made a new plant on: {context.DayPlanted}");

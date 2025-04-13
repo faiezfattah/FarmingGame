@@ -4,7 +4,7 @@
         <engine:VisualElement style="flex-grow: 0;">
             <engine:VisualElement style="flex-grow: 1; flex-direction: row;">
                 <engine:SliderInt label="Turnip Seeds" value="8" high-value="64" fill="true" show-input-field="true" style="width: 482px; margin-right: 64px;" />
-                <engine:Button text="Button" />
+                <engine:Button text="Button" name="Buy" />
             </engine:VisualElement>
         </engine:VisualElement>
     </engine:VisualElement>
