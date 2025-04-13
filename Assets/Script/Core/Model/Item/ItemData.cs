@@ -8,6 +8,7 @@ public abstract class ItemData : ScriptableObject {
     // public abstract ItemContext CreateContext();
     public Sprite itemSprite;
     public int MaxStackable = 64;
+    public int price;
     public abstract ItemContext CreateBaseContext();
 }
 

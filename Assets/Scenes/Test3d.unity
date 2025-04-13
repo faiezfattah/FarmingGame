@@ -2184,7 +2184,8 @@ GameObject:
   - component: {fileID: 606005585}
   - component: {fileID: 606005584}
   - component: {fileID: 606005583}
-  m_Layer: 0
+  - component: {fileID: 606005587}
+  m_Layer: 6
   m_Name: SellingBin
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2280,6 +2281,18 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &606005587
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 606005582}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 678c89efc00e5dd4c90878d81f95395a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &665130505
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2958,6 +2971,7 @@ MonoBehaviour:
   - {fileID: 570390607}
   - {fileID: 369148111}
   - {fileID: 217341067}
+  - {fileID: 606005582}
   itemPool: {fileID: 164159152}
   cropSystem: {fileID: 1281231086}
 --- !u!4 &805581513

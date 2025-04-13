@@ -13,7 +13,8 @@ public class InventoryRegistry : IInventoryRegistry, IToolbarRegistry {
     public  ReactiveProperty<ItemContext> activeItem = new();
 
     // toolbar
-    public ObservableList<ToolContext> toolbarRegistry = new(){};
+    public ObservableList<ToolContext> toolbarRegistry = new();
     public ReactiveProperty<ToolContext> activeTool = new();
     public ToolContext tool => activeTool.Value;
 }
+
