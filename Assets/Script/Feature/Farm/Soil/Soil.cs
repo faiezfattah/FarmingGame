@@ -8,7 +8,7 @@ using TriInspector;
 namespace Script.Feature.Farm.Soil {
 public class Soil : MonoBehaviour, IActionable {
     [SerializeField] private MeshFilter mesh;
-    [ShowInInspector, ReadOnly] private bool HasCropContext => _context.CropPlanted != null;
+    [ShowInInspector, ReadOnly] private bool HasCropContext => _context?.CropPlanted != null;
     private SoilContext _context;
     private Action<IUseable> _onAction;
     private IToolbarRegistry _toolbar;

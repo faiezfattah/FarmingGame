@@ -8,11 +8,7 @@ using VContainer;
 namespace Script.Core.Model.Item{
 public class SeedContext : ItemContext<SeedData>, IUseable<SoilContext> {
     public SeedContext(SeedData data) : base(data) {}
-    private IPublisher<SeedUsed> usedEvent;
-    [Inject] public void Construct(IPublisher<SeedUsed> usedEvent) {
-        this.usedEvent = usedEvent;
-        Debug.Log("injected");
-    }
+    [Inject] private IPublisher<SeedUsed> usedEvent;
 
     public void Use(SoilContext context) {
         var data = (SeedData) BaseData;
