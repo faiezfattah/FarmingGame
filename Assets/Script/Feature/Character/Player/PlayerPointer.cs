@@ -27,7 +27,6 @@ public class PlayerPointer : MonoBehaviour {
         else {
             _currentSelection.Action(_inventoryRegistry.activeTool.Value);
         } 
-
     }
     private void OnTriggerEnter(Collider other) {
         other.TryGetComponent<IActionable>(out var actionable);
@@ -48,6 +47,9 @@ public class PlayerPointer : MonoBehaviour {
         if (selectable == null) return;
         _currentSelection = null;
         indicator.SetActive(false);
+    }
+    private void OnDisable() {
+        _bag.Dispose();
     }
 }
 }

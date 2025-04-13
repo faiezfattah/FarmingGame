@@ -14,8 +14,10 @@ public class Hotbar : MonoBehaviour {
     private DisposableBag _bag = new();
     private ItemDisplay activeDisplay;
     private InventoryRegistry _inventoryRegistry;
+    private IEnumerable<PackedItemContext> hotbarView;
     [Inject] public void Construct(InventoryRegistry inventoryRegistry) {
-        inventoryRegistry.ReadonlyRegistry.ObserveChanged().Subscribe(_ => Refresh(inventoryRegistry.registry)).AddTo(ref _bag);
+        inventoryRegistry.ReadonlyRegistry.ObserveAdd().Subscribe(_ => Refresh(inventoryRegistry.registry)).AddTo(ref _bag); 
+        inventoryRegistry.ReadonlyRegistry.ObserveRemove().Subscribe(_ => Refresh(inventoryRegistry.registry)).AddTo(ref _bag);
         inventoryRegistry.activeItem.Subscribe(x => HandleSelect(x)).AddTo(ref _bag);
     }
     private void Start() {
@@ -28,21 +30,46 @@ public class Hotbar : MonoBehaviour {
             _slots.Add(slot);
             _container.Add(slot);
         }
+    }  
+    private void ResetHotbar() {
+        _slots.ForEach(item => {
+            item.itemSprite = null;
+            item.itemCount = 0;
+            item.contextData = null;
+            item.RemoveFromClassList("active-tool");
+        });
     }
     private void HandleSelect(ItemContext context) {
-        if (activeDisplay != null) {
-            activeDisplay.RemoveFromClassList("active-tool");
+        if (context == null) { // basically un equiping
+            if (activeDisplay != null) {
+                activeDisplay.RemoveFromClassList("active-tool");
+            }
+
+            if (activeDisplay == null) {}
+            return;
         }
-        activeDisplay = _slots.Where(x => x.contextData == context).FirstOrDefault();
-        activeDisplay.AddToClassList("active-tool");
+        if (context != null) { // switching the active item
+            if (activeDisplay != null) {
+                activeDisplay.RemoveFromClassList("active-tool");
+                
+                activeDisplay = _slots.Where(x => x.contextData == context).First();
+                activeDisplay.AddToClassList("active-tool");
+            }
+
+            if (activeDisplay == null) {
+                activeDisplay = _slots.Where(x => x.contextData == context).First();
+                activeDisplay.AddToClassList("active-tool");
+            }
+        }
     }
     private void Refresh(IReadOnlyObservableList<PackedItemContext> readonlyRegistry) {
         Debug.Log("refreshing");
-
+        ResetHotbar();
+        
         for (var i = 0; i < Mathf.Min(readonlyRegistry.Count, 5); i++) {
             var item = readonlyRegistry[i];
             _slots[i].itemSprite = item.ItemContext.BaseData.itemSprite;
-            _slots[i].itemCount = readonlyRegistry.Count(x => x.ItemContext.BaseData.name == item.ItemContext.BaseData.name);
+            _slots[i].itemCount = item.Count.Value;
             _slots[i].contextData = item.ItemContext;   
         }
     }

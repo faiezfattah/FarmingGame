@@ -1,3 +1,4 @@
+using System;
 using Script.Core.Interface;
 
 namespace Script.Core.Model.Item{

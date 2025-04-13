@@ -19,7 +19,6 @@ public class SoilSystem : MonoBehaviour {
     [Inject] public void Construct(CropSystem cropSystem, CropRegistry cropRegistry) {
         _cropSystem = cropSystem;
         _cropRegistry = cropRegistry;
-        Debug.Log("injected");
     }
     private void Start() {
         var farmTiles = farmContainer.GetComponentsInChildren<Soil>();

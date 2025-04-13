@@ -1,24 +1,28 @@
-﻿using Script.Core.Interface;
-using Script.Core.Interface.Systems;
+﻿using Script.Core.Interface.Systems;
 using Script.Core.Model.Item;
 using UnityEngine;
-
+using VContainer;
 namespace Script.Feature.Item {
 public class ItemSystem : IItemSystem {
     private ItemPool _pool;
     private ItemRegistry _itemRegistry;
     private IInventorySystem _inventorySystem;
-    public ItemSystem(ItemPool pool, ItemRegistry itemRegistry, IInventorySystem inventorySystem) {
+    private ItemContextFactory _factory;
+    public ItemSystem(
+        ItemPool pool, 
+        ItemRegistry itemRegistry, 
+        IInventorySystem inventorySystem, 
+        ItemContextFactory factory) {
         _pool = pool;
         _itemRegistry = itemRegistry;
         _inventorySystem = inventorySystem;
+        _factory = factory;
     }
-
     public void SpawnItem(ItemData itemData, Vector3 position) {
         var item = _pool.Get();
         item.transform.position = position;
 
-        var context = itemData.CreateBaseContext();
+        var context = _factory.Create(itemData);
 
         _itemRegistry.Registry.Add(context);
         

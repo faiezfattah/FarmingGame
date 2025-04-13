@@ -21,5 +21,9 @@ public class PackedItemContext {
         Count = new(1);
         ItemContext = context;
     }
+    public PackedItemContext(ItemContext context, int amount) {
+        Count = new(amount);
+        ItemContext = context;
+    }
 }
 }

@@ -1,4 +1,5 @@
-﻿using Script.Core.Interface;
+﻿using MessagePipe;
+using Script.Core.Interface;
 using Script.Core.Interface.Systems;
 using Script.Feature.DayTime;
 using Script.Feature.Farm.Crop;
@@ -14,6 +15,10 @@ public class MainInjector : LifetimeScope {
     [SerializeField] private ItemPool itemPool;
     [SerializeField] private CropSystem cropSystem;
     protected override void Configure(IContainerBuilder builder) {
+        var options = builder.RegisterMessagePipe(/* configure option */);
+        builder.RegisterBuildCallback(c => GlobalMessagePipe.SetProvider(c.AsServiceProvider()));
+        
+        // mine
         builder.Register<InputProcessor>(Lifetime.Singleton);
 
         // Systems
@@ -28,6 +33,9 @@ public class MainInjector : LifetimeScope {
         builder.Register<ItemRegistry>(Lifetime.Singleton).As<IItemRegistry>().AsSelf();
         builder.Register<SoilRegistry>(Lifetime.Singleton).As<ISoilRegistry>().AsSelf();
         builder.Register<CropRegistry>(Lifetime.Singleton).As<ICropRegistry>().AsSelf();
+
+        //factory
+        builder.Register<ItemContextFactory>(Lifetime.Transient).As<IItemContextFactory>().AsSelf();
 
         builder.RegisterInstance(itemPool);
     }
