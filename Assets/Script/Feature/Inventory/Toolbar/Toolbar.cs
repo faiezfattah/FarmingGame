@@ -25,7 +25,7 @@ public class Toolbar : MonoBehaviour {
         foreach (var data in toolDatas) {
             var context = data.CreateContext();
             _inventoryRegistry.toolbarRegistry.Add(context);
-            Debug.Log("added context: " + context.BaseData.name);
+            // Debug.Log("added context: " + context.BaseData.name);
         }
     }
     private void HandleClick(ClickEvent e) {

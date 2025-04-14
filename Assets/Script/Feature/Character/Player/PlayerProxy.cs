@@ -53,7 +53,7 @@ public class PlayerProxy : MonoBehaviour {
 
         foreach (var h in hit) {
             if (h.TryGetComponent<IInteractable>(out var interactable)) {
-                Debug.Log("interaction started");
+                // Debug.Log("interaction started");
                 interactable.Interact();
                 return;
             }

@@ -1,14 +1,17 @@
+using System;
 using Script.Core.Model.Item;
 using UnityEngine;
 using UnityEngine.UIElements;
+using R3;
 
 [UxmlElement]
-public partial class ItemDisplay : VisualElement {
+public partial class ItemDisplay : VisualElement, IDisposable {
     
     private Sprite _itemSprite;
     private int _itemCount;
     private Label _countLabel;
     private string _itemName;
+    private IDisposable subscription;
 
     [UxmlAttribute]
     public Sprite itemSprite { 
@@ -37,7 +40,7 @@ public partial class ItemDisplay : VisualElement {
     }
     public ItemContext contextData;
     public ItemDisplay() {
-        AddToClassList("hotbaritem");
+        AddToClassList("item-display");
         
          _countLabel = new Label();
         _countLabel.AddToClassList("item-count");
@@ -48,6 +51,13 @@ public partial class ItemDisplay : VisualElement {
         Add(_countLabel);
         
         UpdateCountLabel();
+    }
+    public ItemDisplay SetContextBinding(PackedItemContext packedItemContext) {
+        itemSprite = packedItemContext.ItemContext.BaseData.itemSprite;
+        // itemCount = packedItemContext.Count.Value;
+        contextData = packedItemContext.ItemContext;
+        subscription = packedItemContext.Count.Subscribe(x => itemCount = x);
+        return this;
     }
     private void UpdateCountLabel() {
         if (_itemCount <= 1) {
@@ -64,5 +74,9 @@ public partial class ItemDisplay : VisualElement {
         } else {
             style.backgroundImage = new StyleBackground();
         }
+    }
+
+    public void Dispose() {
+        subscription.Dispose();
     }
 }

@@ -47,7 +47,7 @@ public class NPCVendor : MonoBehaviour, IInteractable {
         var itemCount = GetValue();
         
         if (_moneySystem.TryTransfer(-itemCount * price)) {
-            Debug.Log("Sold!: " + itemCount);
+            // Debug.Log("Sold!: " + itemCount);
             _inventorySystem.AddItem(_itemContextFactory.Create(seedData), GetValue());
         } else {
             Debug.Log("not enough money :<");

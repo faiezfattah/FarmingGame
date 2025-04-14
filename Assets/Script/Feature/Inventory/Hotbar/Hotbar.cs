@@ -63,14 +63,14 @@ public class Hotbar : MonoBehaviour {
         }
     }
     private void Refresh(IReadOnlyObservableList<PackedItemContext> readonlyRegistry) {
-        Debug.Log("refreshing");
         ResetHotbar();
         
         for (var i = 0; i < Mathf.Min(readonlyRegistry.Count, 5); i++) {
             var item = readonlyRegistry[i];
-            _slots[i].itemSprite = item.ItemContext.BaseData.itemSprite;
-            _slots[i].itemCount = item.Count.Value;
-            _slots[i].contextData = item.ItemContext;   
+            // _slots[i].itemSprite = item.ItemContext.BaseData.itemSprite;
+            // _slots[i].itemCount = item.Count.Value;
+            // _slots[i].contextData = item.ItemContext;   
+            _slots[i].SetContextBinding(item);
         }
     }
     private void OnDisable() {
