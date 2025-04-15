@@ -5,21 +5,24 @@ using Script.Core.Model.Item;
 using UnityEngine.UIElements;
 using R3;
 using UnityEngine;
+using System.Linq;
 
 [UxmlElement]
 public partial class InventoryDisplay : VisualElement, IDisposable {
     private HashSet<ItemDisplay> _itemDisplay = new();
     private ISynchronizedView<PackedItemContext, PackedItemContext> _inventoryView;
-    private int _tileCount = 20;
-    
+    private int _rowCount = 4;
+    private int _tilePerRow = 5;
+    private DisposableBag _bag = new();
+    public ItemDisplay CurrentHover { private set; get; }
+    public ItemDisplay CurrentSelected { private set; get; }
     [UxmlAttribute]
-    public int TileCount { 
-        get => _tileCount;
+    public int RowCount { 
+        get => _rowCount;
         set {
-            _tileCount = value;
+            _rowCount = value;
         }
     }
-    private int _tilePerRow = 5;
     
     [UxmlAttribute]
     public int TilePerRow { 
@@ -33,12 +36,12 @@ public partial class InventoryDisplay : VisualElement, IDisposable {
     }
     public InventoryDisplay SetInventoryBinding(IInventoryRegistry inventoryRegistry) {
         _inventoryView = inventoryRegistry.ReadonlyRegistry.CreateView(x => x);
-        _inventoryView.ObserveChanged().Subscribe(_ => UpdateTile());
+        _inventoryView.ObserveChanged().Subscribe(_ => UpdateTile()).AddTo(ref _bag);
         UpdateTile();
         return this;
     }
-    public InventoryDisplay SetTileCount(int value) {
-        TileCount = value;
+    public InventoryDisplay SetRowCount(int value) {
+        RowCount = value;
         return this;
     }
     public InventoryDisplay SetTilePerRow(int value = 5) {
@@ -57,7 +60,7 @@ public partial class InventoryDisplay : VisualElement, IDisposable {
         Clear();
         _itemDisplay.Clear();
 
-        for (int i = 0; i < _tileCount / _tilePerRow; i++) {
+        for (int i = 0; i < _rowCount; i++) {
             var container = new VisualElement();
             container.AddToClassList("item-group");
             Add(container);
@@ -65,10 +68,27 @@ public partial class InventoryDisplay : VisualElement, IDisposable {
             for (int j = 0; j < _tilePerRow; j++) {
                 var item = new ItemDisplay();
 
+                item.PointerEnter.Subscribe(HandleHoverEnter).AddTo(ref _bag);
+                item.PointerExit.Subscribe(HandleHoverExit).AddTo(ref _bag);
+
                 _itemDisplay.Add(item);
                 container.Add(item);
             }
         }
+    }
+    private void HandleHoverEnter(ItemDisplay display) {
+        if (display.contextData == null) return;
+
+        CurrentHover = display;
+
+        CurrentHover.AddToClassList("active-tool");
+    }
+    
+    private void HandleHoverExit(ItemDisplay display) {
+        if (display.contextData == null) return;
+
+        CurrentHover.RemoveFromClassList("active-tool");
+        CurrentHover = CurrentHover == display ? null : CurrentHover;
     }
     private void FillGrid() {
         foreach(var item in _inventoryView) {
@@ -83,5 +103,6 @@ public partial class InventoryDisplay : VisualElement, IDisposable {
     public void Dispose() {
         _inventoryView.Dispose();
         _itemDisplay.Clear();
+        _bag.Dispose();
     }
 }

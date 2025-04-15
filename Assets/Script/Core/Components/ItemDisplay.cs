@@ -12,6 +12,13 @@ public partial class ItemDisplay : VisualElement, IDisposable {
     private Label _countLabel;
     private string _itemName;
     private IDisposable subscription;
+    public ItemContext contextData;
+
+    // events
+    private Subject<ItemDisplay> _pointerEnter = new();
+    public Observable<ItemDisplay> PointerEnter => _pointerEnter;
+    private Subject<ItemDisplay> _pointerExit = new();
+    public Observable<ItemDisplay> PointerExit => _pointerExit;
 
     [UxmlAttribute]
     public Sprite itemSprite { 
@@ -38,7 +45,6 @@ public partial class ItemDisplay : VisualElement, IDisposable {
             _itemName = value;
         }
     }
-    public ItemContext contextData;
     public ItemDisplay() {
         AddToClassList("item-display");
         
@@ -47,9 +53,12 @@ public partial class ItemDisplay : VisualElement, IDisposable {
         _countLabel.style.position = Position.Absolute;
         _countLabel.style.bottom = 0;
         _countLabel.style.right = 0;
+
+        
+        RegisterCallback<PointerEnterEvent>(_ => _pointerEnter.OnNext(this));
+        RegisterCallback<PointerLeaveEvent>(_ => _pointerExit.OnNext(this));
         
         Add(_countLabel);
-        
         UpdateCountLabel();
     }
     public ItemDisplay SetContextBinding(PackedItemContext packedItemContext) {
@@ -78,5 +87,6 @@ public partial class ItemDisplay : VisualElement, IDisposable {
 
     public void Dispose() {
         subscription.Dispose();
+        _pointerEnter.Dispose();
     }
 }
