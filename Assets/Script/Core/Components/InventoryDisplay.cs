@@ -17,7 +17,6 @@ public partial class InventoryDisplay : VisualElement, IDisposable {
         get => _tileCount;
         set {
             _tileCount = value;
-            UpdateTile();
         }
     }
     private int _tilePerRow = 5;
@@ -27,7 +26,6 @@ public partial class InventoryDisplay : VisualElement, IDisposable {
         get => _tilePerRow;
         set {
             _tilePerRow = value;
-            UpdateTile();
         }
     }
     public InventoryDisplay() {
@@ -36,6 +34,7 @@ public partial class InventoryDisplay : VisualElement, IDisposable {
     public InventoryDisplay SetInventoryBinding(IInventoryRegistry inventoryRegistry) {
         _inventoryView = inventoryRegistry.ReadonlyRegistry.CreateView(x => x);
         _inventoryView.ObserveChanged().Subscribe(_ => UpdateTile());
+        UpdateTile();
         return this;
     }
     public InventoryDisplay SetTileCount(int value) {

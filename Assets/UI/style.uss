@@ -25,6 +25,11 @@
 
 .inventory-container {
     justify-content: space-between;
-    width: 250px;
-    height: 300px;
+    width: 275px;
+    height: 350px;
+    background-image: url("project://database/Assets/Art/UI/tilemap_packed.png?fileID=-2015757070&guid=ab2cf5e7e2a82394ebc5bd35cea2ed8f&type=3#tilemap_packed_19");
+    padding-top: 24px;
+    padding-right: 24px;
+    padding-bottom: 24px;
+    padding-left: 24px;
 }
