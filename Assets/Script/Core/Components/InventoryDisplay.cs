@@ -32,7 +32,7 @@ public partial class InventoryDisplay : VisualElement, IDisposable {
         }
     }
     public InventoryDisplay() {
-        AddToClassList("inventory-container");
+        AddToClassList("inventory--container");
     }
     public InventoryDisplay SetInventoryBinding(IInventoryRegistry inventoryRegistry) {
         _inventoryView = inventoryRegistry.ReadonlyRegistry.CreateView(x => x);
@@ -62,7 +62,7 @@ public partial class InventoryDisplay : VisualElement, IDisposable {
 
         for (int i = 0; i < _rowCount; i++) {
             var container = new VisualElement();
-            container.AddToClassList("item-group");
+            container.AddToClassList("item--group");
             Add(container);
 
             for (int j = 0; j < _tilePerRow; j++) {
@@ -77,23 +77,18 @@ public partial class InventoryDisplay : VisualElement, IDisposable {
         }
     }
     private void HandleHoverEnter(ItemDisplay display) {
-        if (display.contextData == null) return;
-
         CurrentHover = display;
-
-        CurrentHover.AddToClassList("active-tool");
+        CurrentHover.AddToClassList("item--active");
     }
     
     private void HandleHoverExit(ItemDisplay display) {
-        if (display.contextData == null) return;
-
-        CurrentHover.RemoveFromClassList("active-tool");
+        CurrentHover.RemoveFromClassList("item--active");
         CurrentHover = CurrentHover == display ? null : CurrentHover;
     }
     private void FillGrid() {
         foreach(var item in _inventoryView) {
             foreach(var display in _itemDisplay) {
-                if (display.contextData == null) {
+                if (display.itemContext == null) {
                     display.SetContextBinding(item);
                     break;
                 }

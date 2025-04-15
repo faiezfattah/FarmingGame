@@ -25,8 +25,6 @@ public class Hotbar : MonoBehaviour {
         _container.Clear();
         for (int i = 0; i < 5; i++) {
             var slot = new ItemDisplay();
-            slot.AddToClassList("hotbaritem");
-            slot.name = "empty";
             _slots.Add(slot);
             _container.Add(slot);
         }
@@ -35,14 +33,14 @@ public class Hotbar : MonoBehaviour {
         _slots.ForEach(item => {
             item.itemSprite = null;
             item.itemCount = 0;
-            item.contextData = null;
-            item.RemoveFromClassList("active-tool");
+            item.itemContext = null;
+            item.RemoveFromClassList("item--active");
         });
     }
     private void HandleSelect(ItemContext context) {
         if (context == null) { // basically un equiping
             if (activeDisplay != null) {
-                activeDisplay.RemoveFromClassList("active-tool");
+                activeDisplay.RemoveFromClassList("item--active");
             }
 
             if (activeDisplay == null) {}
@@ -50,15 +48,15 @@ public class Hotbar : MonoBehaviour {
         }
         if (context != null) { // switching the active item
             if (activeDisplay != null) {
-                activeDisplay.RemoveFromClassList("active-tool");
+                activeDisplay.RemoveFromClassList("item--active");
                 
-                activeDisplay = _slots.Where(x => x.contextData == context).First();
-                activeDisplay.AddToClassList("active-tool");
+                activeDisplay = _slots.Where(x => x.itemContext == context).First();
+                activeDisplay.AddToClassList("item--active");
             }
 
             if (activeDisplay == null) {
-                activeDisplay = _slots.Where(x => x.contextData == context).First();
-                activeDisplay.AddToClassList("active-tool");
+                activeDisplay = _slots.Where(x => x.itemContext == context).First();
+                activeDisplay.AddToClassList("item--active");
             }
         }
     }

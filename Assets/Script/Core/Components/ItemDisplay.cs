@@ -12,9 +12,9 @@ public partial class ItemDisplay : VisualElement, IDisposable {
     private Label _countLabel;
     private string _itemName;
     private IDisposable subscription;
-    public ItemContext contextData;
+    public ItemContext itemContext;
 
-    // events
+    // events will not fire if there no item context
     private Subject<ItemDisplay> _pointerEnter = new();
     public Observable<ItemDisplay> PointerEnter => _pointerEnter;
     private Subject<ItemDisplay> _pointerExit = new();
@@ -46,26 +46,28 @@ public partial class ItemDisplay : VisualElement, IDisposable {
         }
     }
     public ItemDisplay() {
-        AddToClassList("item-display");
+        AddToClassList("item--display");
         
          _countLabel = new Label();
-        _countLabel.AddToClassList("item-count");
-        _countLabel.style.position = Position.Absolute;
-        _countLabel.style.bottom = 0;
-        _countLabel.style.right = 0;
+        _countLabel.AddToClassList("item--count-label");
+        // _countLabel.style.position = Position.Absolute;
+        // _countLabel.style.bottom = 0;
+        // _countLabel.style.right = 0;
 
         
-        RegisterCallback<PointerEnterEvent>(_ => _pointerEnter.OnNext(this));
-        RegisterCallback<PointerLeaveEvent>(_ => _pointerExit.OnNext(this));
         
         Add(_countLabel);
         UpdateCountLabel();
     }
     public ItemDisplay SetContextBinding(PackedItemContext packedItemContext) {
         itemSprite = packedItemContext.ItemContext.BaseData.itemSprite;
-        // itemCount = packedItemContext.Count.Value;
-        contextData = packedItemContext.ItemContext;
+        itemContext = packedItemContext.ItemContext;
         subscription = packedItemContext.Count.Subscribe(x => itemCount = x);
+
+        RegisterCallback<PointerEnterEvent>(_ => _pointerEnter.OnNext(this));
+        RegisterCallback<PointerLeaveEvent>(_ => _pointerExit.OnNext(this));
+
+
         return this;
     }
     private void UpdateCountLabel() {
