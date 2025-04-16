@@ -1,10 +1,8 @@
 using System.Linq;
-using Codice.Client.Common.GameUI;
 using R3;
 using Script.Core.Model.Item;
 using Script.Feature.Input;
 using TriInspector;
-using Unity.Android.Gradle.Manifest;
 using UnityEngine;
 using UnityEngine.UIElements;
 using VContainer;
