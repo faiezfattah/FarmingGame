@@ -26,8 +26,7 @@ public class Inventory : MonoBehaviour {
 
         var root = uIDocument.rootVisualElement;
         var inventory = root.Query<InventoryDisplay>().First();
-        inventory.SetInventoryBinding(_inventoryRegistry);
-                  
+        inventory.SetInventoryBinding(_inventoryRegistry);                  
     }
     private void OnDisable() {
         _subscription.Dispose();
