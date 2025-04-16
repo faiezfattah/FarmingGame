@@ -73,6 +73,15 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": false
                 },
                 {
+                    ""name"": ""Escape"",
+                    ""type"": ""Button"",
+                    ""id"": ""341aa11f-d8ba-4598-a2f2-d4049125a9ec"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
                     ""name"": ""1"",
                     ""type"": ""Button"",
                     ""id"": ""187498f9-a93a-4782-a48e-c06e6ead00ff"",
@@ -272,6 +281,17 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
                     ""action"": ""Inventory"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""b6815e3b-8301-4299-88e8-a04cbd9c8adf"",
+                    ""path"": ""<Keyboard>/escape"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Escape"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -285,6 +305,7 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         m_Default_Debug = m_Default.FindAction("Debug", throwIfNotFound: true);
         m_Default_Toolbar = m_Default.FindAction("Toolbar", throwIfNotFound: true);
         m_Default_Inventory = m_Default.FindAction("Inventory", throwIfNotFound: true);
+        m_Default_Escape = m_Default.FindAction("Escape", throwIfNotFound: true);
         m_Default__1 = m_Default.FindAction("1", throwIfNotFound: true);
         m_Default__2 = m_Default.FindAction("2", throwIfNotFound: true);
         m_Default__3 = m_Default.FindAction("3", throwIfNotFound: true);
@@ -361,6 +382,7 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
     private readonly InputAction m_Default_Debug;
     private readonly InputAction m_Default_Toolbar;
     private readonly InputAction m_Default_Inventory;
+    private readonly InputAction m_Default_Escape;
     private readonly InputAction m_Default__1;
     private readonly InputAction m_Default__2;
     private readonly InputAction m_Default__3;
@@ -375,6 +397,7 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         public InputAction @Debug => m_Wrapper.m_Default_Debug;
         public InputAction @Toolbar => m_Wrapper.m_Default_Toolbar;
         public InputAction @Inventory => m_Wrapper.m_Default_Inventory;
+        public InputAction @Escape => m_Wrapper.m_Default_Escape;
         public InputAction @_1 => m_Wrapper.m_Default__1;
         public InputAction @_2 => m_Wrapper.m_Default__2;
         public InputAction @_3 => m_Wrapper.m_Default__3;
@@ -404,6 +427,9 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
             @Inventory.started += instance.OnInventory;
             @Inventory.performed += instance.OnInventory;
             @Inventory.canceled += instance.OnInventory;
+            @Escape.started += instance.OnEscape;
+            @Escape.performed += instance.OnEscape;
+            @Escape.canceled += instance.OnEscape;
             @_1.started += instance.On_1;
             @_1.performed += instance.On_1;
             @_1.canceled += instance.On_1;
@@ -438,6 +464,9 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
             @Inventory.started -= instance.OnInventory;
             @Inventory.performed -= instance.OnInventory;
             @Inventory.canceled -= instance.OnInventory;
+            @Escape.started -= instance.OnEscape;
+            @Escape.performed -= instance.OnEscape;
+            @Escape.canceled -= instance.OnEscape;
             @_1.started -= instance.On_1;
             @_1.performed -= instance.On_1;
             @_1.canceled -= instance.On_1;
@@ -477,6 +506,7 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         void OnDebug(InputAction.CallbackContext context);
         void OnToolbar(InputAction.CallbackContext context);
         void OnInventory(InputAction.CallbackContext context);
+        void OnEscape(InputAction.CallbackContext context);
         void On_1(InputAction.CallbackContext context);
         void On_2(InputAction.CallbackContext context);
         void On_3(InputAction.CallbackContext context);

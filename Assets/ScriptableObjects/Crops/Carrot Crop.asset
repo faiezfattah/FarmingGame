@@ -10,16 +10,16 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e997aed65cd84f9fac70373b2c073a1b, type: 3}
-  m_Name: Turnip Crop
+  m_Name: Carrot Crop
   m_EditorClassIdentifier: 
-  itemData: {fileID: 11400000, guid: ccf8f5c89da8b894788d44e72d532837, type: 2}
+  itemData: {fileID: 11400000, guid: 4b309eb690463ae44b24dda6c412fe6a, type: 2}
   cropLevels:
-  - Sprite: {fileID: -4076789495288235770, guid: 21beff7426739a04195af3d78eba3edd, type: 3}
+  - Sprite: {fileID: 6041210287702828680, guid: 5386d624a77665a48a0893afca5c28de, type: 3}
     GrowthLevel: 1
     WitherLevel: 0
-  - Sprite: {fileID: 2543323265235970494, guid: 21beff7426739a04195af3d78eba3edd, type: 3}
-    GrowthLevel: 2
+  - Sprite: {fileID: 7418867011399055208, guid: 5386d624a77665a48a0893afca5c28de, type: 3}
+    GrowthLevel: 4
     WitherLevel: 0
-  - Sprite: {fileID: -4027935505151845901, guid: 21beff7426739a04195af3d78eba3edd, type: 3}
-    GrowthLevel: 3
+  - Sprite: {fileID: -7245266088934790402, guid: 5386d624a77665a48a0893afca5c28de, type: 3}
+    GrowthLevel: 9
     WitherLevel: 0

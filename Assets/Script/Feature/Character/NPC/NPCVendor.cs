@@ -11,49 +11,58 @@ using Script.Core.Interface.Systems;
 namespace Script.Feature.Character.NPC {
 public class NPCVendor : MonoBehaviour, IInteractable {
     [SerializeField] private UIDocument uIDocument;
-    [SerializeField] private SeedData seedData;
+    [SerializeField] private SeedData[] seedData;
     [SerializeField] private int price;
-    private InputProcessor _inputSystem;
     private IInventorySystem _inventorySystem;
-    private IDisposable subscription;
     private IItemContextFactory _itemContextFactory;
+    private InputProcessor _inputProcessor;
     private IMoneySystem _moneySystem;
+    private DisposableBag _bag = new();
     [Inject] public void Construct(
-        InputProcessor inputSystem, 
-        IInventorySystem inventorySystem, 
+        IInventorySystem inventorySystem,
+        InputProcessor inputProcessor,
         IItemContextFactory itemContextFactory,
         IMoneySystem moneySystem) {
 
-        _inputSystem = inputSystem;
         _inventorySystem = inventorySystem;
+        _inputProcessor = inputProcessor;
         _itemContextFactory = itemContextFactory;
         _moneySystem = moneySystem;
     }
     private void Start() {
         uIDocument.enabled = false;
     }
-    private int GetValue() {
-        var slider = uIDocument.rootVisualElement.Q<SliderInt>();
-        return slider.value;
-    }
+    private void GenerateShop() {
+        var container = uIDocument.rootVisualElement.Q<VisualElement>("container");
+        container.Clear();
 
-    public void Interact() {
-        uIDocument.enabled = true;
-        subscription = _inputSystem.DebugEvent.Subscribe(_ => Close());
-        uIDocument.rootVisualElement.Q<Button>("Buy")
-                                    .RegisterCallback<ClickEvent>(_ => Close());
+        foreach (var seed in seedData) {
+            var slider = new SliderWithButton();
+            slider.SetInputDisplay(true)
+                  .SetMaxValue(seed.MaxStackable)
+                  .SetMinValue(1)
+                  .SetLabel(seed.name);
+
+            slider.OnClick.Subscribe(x => HandleBuy(seed, x)).AddTo(ref _bag);
+            container.Add(slider);
+        }
     }
-    public void Close() {
-        var itemCount = GetValue();
-        
-        if (_moneySystem.TryTransfer(-itemCount * price)) {
+    private void HandleBuy(SeedData seedData, int amount) {
+        if (_moneySystem.TryTransfer(-amount * price)) {
             // Debug.Log("Sold!: " + itemCount);
-            _inventorySystem.AddItem(_itemContextFactory.Create(seedData), GetValue());
+            _inventorySystem.AddItem(_itemContextFactory.Create(seedData), amount);
         } else {
             Debug.Log("not enough money :<");
         }
-
-        subscription.Dispose();
+    }
+    public void Interact() {
+        uIDocument.enabled = true;
+        _inputProcessor.EscapeEvent.Subscribe(_ => Close()).AddTo(ref _bag);
+        GenerateShop();
+    }
+    public void Close() {
+        _bag.Dispose();
+        _bag = new();
         uIDocument.enabled = false;
     }
 }

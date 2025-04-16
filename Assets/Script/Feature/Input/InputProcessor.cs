@@ -13,12 +13,15 @@ public class InputProcessor : PlayerInput.IDefaultActions, IDisposable {
     private readonly Subject<Unit> _toolbarSubject = new();
     private readonly Subject<int> _numberSubject = new();
     private readonly Subject<Unit> _inventorySubject = new();
+    private readonly Subject<Unit> _escapeSubject = new();
+
     public Observable<Vector2> MoveEvent =>  _moveSubject;
     public Observable<Unit> InteractEvent => _interactSubject;
     public Observable<Unit> DebugEvent =>  _debugSubject;
     public Observable<Unit> ToolbarEvent => _toolbarSubject;
     public Observable<int> NumberEvent => _numberSubject;
     public Observable<Unit> InventoryEvent => _inventorySubject;
+    public Observable<Unit> EscapeEvent => _escapeSubject;
     public void OnMove(InputAction.CallbackContext context) {
         _moveSubject.OnNext(context.ReadValue<Vector2>());
     }
@@ -35,6 +38,12 @@ public class InputProcessor : PlayerInput.IDefaultActions, IDisposable {
         if (context.performed) _toolbarSubject.OnNext(Unit.Default);
     }
 
+    public void OnInventory(InputAction.CallbackContext context) {
+        if (context.performed) _inventorySubject.OnNext(Unit.Default);
+    }
+    public void OnEscape(InputAction.CallbackContext context) {
+        if (context.performed) _escapeSubject.OnNext(Unit.Default);
+    }
     public void On_1(InputAction.CallbackContext context) {
         if (context.performed) _numberSubject.OnNext(1);
     }
@@ -53,9 +62,6 @@ public class InputProcessor : PlayerInput.IDefaultActions, IDisposable {
 
     public void On_5(InputAction.CallbackContext context) {
         if (context.performed) _numberSubject.OnNext(5);
-    }
-    public void OnInventory(InputAction.CallbackContext context) {
-        if (context.performed) _inventorySubject.OnNext(Unit.Default);
     }
     public InputProcessor() {
         _input.Enable();
