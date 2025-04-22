@@ -5,6 +5,7 @@ using Script.Core.Model.Item;
 using UnityEngine.UIElements;
 using R3;
 using UnityEngine;
+using System.Linq;
 
 [UxmlElement]
 public partial class InventoryDisplay : VisualElement, IDisposable {
@@ -14,8 +15,8 @@ public partial class InventoryDisplay : VisualElement, IDisposable {
     private int _tilePerRow = 5;
     private DisposableBag _bag = new();
     private ReactiveProperty<ItemDisplay> _currentHover = new();
-    public Observable<ItemDisplay> CurrentHover => _currentHover;
-    // public ReactiveProperty<ItemDisplay> CurrentSelected { private set; get; } 
+    public Observable<ItemDisplay> OnHover => _currentHover;
+    public Subject<PackedItemContext> OnSelected { private set; get; } = new();
     [UxmlAttribute]
     public int RowCount { 
         get => _rowCount;
@@ -70,6 +71,7 @@ public partial class InventoryDisplay : VisualElement, IDisposable {
 
                 item.PointerEnter.Subscribe(HandleHoverEnter).AddTo(ref _bag);
                 item.PointerExit.Subscribe(HandleHoverExit).AddTo(ref _bag);
+                item.OnClick.Subscribe(HandleClick).AddTo(ref _bag);
 
                 _itemDisplay.Add(item);
                 container.Add(item);
@@ -84,6 +86,9 @@ public partial class InventoryDisplay : VisualElement, IDisposable {
     private void HandleHoverExit(ItemDisplay display) {
         _currentHover.Value.RemoveFromClassList("item--active");
         _currentHover.Value = _currentHover.Value == display ? null : _currentHover.Value;
+    }
+    private void HandleClick(ItemDisplay display) {
+        OnSelected.OnNext(_inventoryView.Where(x => x.ItemContext == display.itemContext).First());
     }
     private void FillGrid() {
         foreach(var item in _inventoryView) {

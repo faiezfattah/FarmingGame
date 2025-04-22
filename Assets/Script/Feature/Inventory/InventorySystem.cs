@@ -31,7 +31,7 @@ public class InventorySystem : IInventorySystem, IDisposable {
         Debug.Log("added: " + item.BaseData.name + " : " + amount);
     }
     public void RemoveItem(ItemContext item, int amount = 1) {
-        var pack =_inventoryRegistry.registry
+        var pack = _inventoryRegistry.registry
                           .Where(x => x.ItemContext.BaseData.name == item.BaseData.name)
                           .FirstOrDefault();
         if (pack != null) {

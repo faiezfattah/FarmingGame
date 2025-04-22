@@ -16,9 +16,11 @@ public partial class ItemDisplay : VisualElement, IDisposable {
 
     // events will not fire if there no item context
     private Subject<ItemDisplay> _pointerEnter = new();
-    public Observable<ItemDisplay> PointerEnter => _pointerEnter;
     private Subject<ItemDisplay> _pointerExit = new();
+    private Subject<ItemDisplay> _onClick = new();
+    public Observable<ItemDisplay> PointerEnter => _pointerEnter;
     public Observable<ItemDisplay> PointerExit => _pointerExit;
+    public Observable<ItemDisplay> OnClick => _onClick;
 
     [UxmlAttribute]
     public Sprite itemSprite { 
@@ -66,7 +68,7 @@ public partial class ItemDisplay : VisualElement, IDisposable {
 
         RegisterCallback<PointerEnterEvent>(_ => _pointerEnter.OnNext(this));
         RegisterCallback<PointerLeaveEvent>(_ => _pointerExit.OnNext(this));
-
+        RegisterCallback<ClickEvent>(_ => _onClick.OnNext(this));
 
         return this;
     }
