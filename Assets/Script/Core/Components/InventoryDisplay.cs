@@ -50,7 +50,7 @@ public partial class InventoryDisplay : VisualElement, IDisposable {
         return this;
     }
     private void UpdateTile() {
-        Debug.Log("refreshed!");
+        // Debug.Log("refreshed!");
         ResetGrid();
 
         if (_inventoryView == null) return;

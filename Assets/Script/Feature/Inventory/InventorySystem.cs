@@ -1,50 +1,72 @@
 using System;
 using System.Linq;
 using MessagePipe;
-using ObservableCollections;
 using R3;
 using Script.Core.Model.Item;
-using Script.Core.Model.Item.Seeds;
 using Script.Feature.Input;
 using UnityEngine;
 
 public class InventorySystem : IInventorySystem, IDisposable {
     private InventoryRegistry _inventoryRegistry;
-    private IDisposable subscription;
-    private ISubscriber<SeedUsed> _seedUsedEvent;
     private IDisposable hotbarSyncSubscription;
     private R3.DisposableBag _bag = new();
-    public InventorySystem(InventoryRegistry inventoryRegistry, InputProcessor input, ISubscriber<SeedUsed> seedUsedEvent) {
+    public InventorySystem(InventoryRegistry inventoryRegistry, InputProcessor input) {
         _inventoryRegistry = inventoryRegistry;
-        subscription = input.NumberEvent.Subscribe(x => HandleSelect(x)).AddTo(ref _bag);
-        seedUsedEvent.Subscribe(x => RemoveItem(x.context)).AddTo(ref _bag);
+        input.NumberEvent.Subscribe(x => HandleSelect(x)).AddTo(ref _bag);
+        SeedContext.Event.OnUsed.Subscribe(x => RemoveItem(x.BaseData)).AddTo(ref _bag);
     }
-    public void AddItem(ItemContext item, int amount = 1) {
-        var pack =_inventoryRegistry.registry
-                          .Where(x => x.ItemContext.BaseData.name == item.BaseData.name)
+    public void AddItem(ItemData item, int amount = 1) {
+        var pack = _inventoryRegistry.registry
+                          .Where(x => x.ItemContext.BaseData.name == item.name)
                           .FirstOrDefault();
         if (pack != null) {
             pack.Count.Value += amount;
-        } else {
-            _inventoryRegistry.registry.Add(new(item, amount));
         }
-        Debug.Log("added: " + item.BaseData.name + " : " + amount);
+        else {
+            _inventoryRegistry.registry.Add(new(item.CreateBaseContext(), amount));
+        }
+        Debug.Log("added: " + item.name + " : " + amount);
     }
-    public void RemoveItem(ItemContext item, int amount = 1) {
+    public void AddItem(PackedItemContext packedItem, int amount = 1) {
         var pack = _inventoryRegistry.registry
-                          .Where(x => x.ItemContext.BaseData.name == item.BaseData.name)
+                          .Where(x => x.ItemContext.BaseData.name == packedItem.ItemContext.BaseData.name)
                           .FirstOrDefault();
+        if (pack != null) {
+            pack.Count.Value += amount;
+        }
+        else {
+            _inventoryRegistry.registry.Add(packedItem);
+        }
+        Debug.Log("added: " + packedItem.ItemContext.BaseData.name + " : " + amount);
+    }
+
+    public void RemoveItem(ItemData item, int amount = 1) {
+        var pack = _inventoryRegistry.registry
+                          .Where(x => x.ItemContext.BaseData.name == item.name)
+                          .First();
         if (pack != null) {
             pack.Count.Value -= amount;
             if (pack.Count.Value == 0) {
                 _inventoryRegistry.registry.Remove(pack);
             }
-        } else {
+        }
+        else {
+            Debug.LogWarning("Attempting to reduce null pack");
+        }
+    }
+    public void RemoveItem(PackedItemContext packedItem, int amount = 1) {
+        if (packedItem != null) {
+            packedItem.Count.Value -= amount;
+            if (packedItem.Count.Value == 0) {
+                _inventoryRegistry.registry.Remove(packedItem);
+            }
+        }
+        else {
             Debug.LogWarning("Attempting to reduce null pack");
         }
     }
     private void HandleSelect(int num) {
-        if (_inventoryRegistry.registry.Count < num-1) return; // check for empty slots
+        if (_inventoryRegistry.registry.Count < num - 1) return; // check for empty slots
 
         if (_inventoryRegistry.activeItem.Value == null) {
             var item = _inventoryRegistry.registry[num - 1];
@@ -52,7 +74,8 @@ public class InventorySystem : IInventorySystem, IDisposable {
             hotbarSyncSubscription = item.Count
                                          .Where(x => x <= 0)
                                          .Subscribe(_ => _inventoryRegistry.activeItem.Value = null);
-        } else {
+        }
+        else {
             _inventoryRegistry.activeItem.Value = null;
             hotbarSyncSubscription?.Dispose();
         }

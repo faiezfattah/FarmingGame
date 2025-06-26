@@ -34,7 +34,7 @@ public class ItemSystem : IItemSystem {
 
     private void HandlePickup(ItemContext itemContext) {
         _itemRegistry.Registry.Remove(itemContext);
-        _inventorySystem.AddItem(itemContext);
+        _inventorySystem.AddItem(new PackedItemContext(itemContext, 1)); // Todo: change later to handle entity cramming
     }
 }
 }

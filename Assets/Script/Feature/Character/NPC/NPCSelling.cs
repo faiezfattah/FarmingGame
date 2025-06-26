@@ -18,7 +18,6 @@ public class NPCSelling : MonoBehaviour, IInteractable {
     IInventorySystem _inventorySystem;
     DisposableBag _bag;
     InputProcessor _inputProcessor;
-    ItemContext _currentItemContext;
     [Inject] public void Construct(IMoneySystem moneySystem, InputProcessor inputProcessor, InventoryRegistry inventoryRegistry, IInventorySystem inventorySystem) {
         _moneySystem = moneySystem;
         _inventoryRegistry = inventoryRegistry;
@@ -42,19 +41,13 @@ public class NPCSelling : MonoBehaviour, IInteractable {
         inventory.OnSelected
                  .WhereNotNull()
                  .Subscribe(x => HandleSell(x));
-        // var inventory = _inventoryRegistry.ReadonlyRegistry.ToList();
-        // var price = 0;
-        // inventory.ForEach(x => {
-        //     price += x.ItemContext.BaseData.price * x.Count.Value;
-        //     _inventorySystem.RemoveItem(x.ItemContext, x.Count.Value);
-        // });
-        // _moneySystem.TryTransfer(price);
     }
     private void HandleSell(PackedItemContext pic) {
         var price = pic.ItemContext.BaseData.price * pic.Count.Value;
         
         if (_moneySystem.TryTransfer(price)) {
-            _inventorySystem.RemoveItem(pic.ItemContext, pic.Count.Value);
+            _inventorySystem.RemoveItem(pic, pic.Count.Value);
+            // pic.Count.Value = 0;
         }
     }
     private void HandleLabel(ItemContext hoveredContext, Label label) {
