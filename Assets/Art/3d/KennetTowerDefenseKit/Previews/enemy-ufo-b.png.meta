@@ -160,7 +160,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      enemy-ufo-b_0: -2576631875259045485
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

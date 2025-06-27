@@ -160,7 +160,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      tile-corner-square_0: -7008862566589937413
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

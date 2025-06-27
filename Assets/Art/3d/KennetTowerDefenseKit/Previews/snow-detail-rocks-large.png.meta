@@ -160,7 +160,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      snow-detail-rocks-large_0: -8209614358208347749
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

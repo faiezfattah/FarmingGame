@@ -160,7 +160,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      snow-tile-tree-quad_0: -1898860702512375753
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

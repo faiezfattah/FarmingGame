@@ -160,7 +160,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      snow-tile-corner-large_0: -8280812868800124924
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

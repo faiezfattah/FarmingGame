@@ -160,7 +160,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      snow-tile-crossing_0: 445581422050860503
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

@@ -160,7 +160,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      tower-round-build-a_0: 44818039475798567
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

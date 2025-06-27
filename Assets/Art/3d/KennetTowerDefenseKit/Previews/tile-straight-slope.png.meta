@@ -160,7 +160,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      tile-straight-slope_0: 6991304396081830537
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

@@ -160,7 +160,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      tile-spawn-end-round_0: -2868793029519700230
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

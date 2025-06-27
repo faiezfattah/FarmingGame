@@ -1,0 +1,8 @@
+<engine:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:engine="UnityEngine.UIElements" xmlns:editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <engine:VisualElement style="flex-grow: 1; align-content: flex-end; justify-content: flex-end; padding-left: 8px; padding-bottom: 4px;">
+        <engine:Label text="e: inventory&#10;" style="margin-bottom: 0; margin-right: 0; margin-top: 0; margin-left: 0; padding-top: 0; padding-right: 0; padding-bottom: 0; padding-left: 0; font-size: 12px;" />
+        <engine:Label text="f: use item/tool/interact" style="margin-bottom: 0; margin-right: 0; margin-top: 0; margin-left: 0; padding-top: 0; padding-right: 0; padding-bottom: 0; padding-left: 0; font-size: 12px;" />
+        <engine:Label text="1-4: equip items" style="margin-bottom: 0; margin-right: 0; margin-top: 0; margin-left: 0; padding-top: 0; padding-right: 0; padding-bottom: 0; padding-left: 0; font-size: 12px;" />
+        <engine:Label text="holt ctrl: open toolbar" style="margin-bottom: 0; margin-right: 0; margin-top: 0; margin-left: 0; padding-top: 0; padding-right: 0; padding-bottom: 0; padding-left: 0; font-size: 12px;" />
+    </engine:VisualElement>
+</engine:UXML>

@@ -160,7 +160,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      tile-river-transition_0: 554293657802740841
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

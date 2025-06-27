@@ -3,7 +3,7 @@
     <engine:VisualElement style="align-self: center; flex-grow: 1; justify-content: space-around; flex-direction: row; align-items: center; width: 700px;">
         <InventoryDisplay />
         <engine:VisualElement style="flex-grow: 1; margin-left: 48px;">
-            <engine:Label text="Label" name="label" />
+            <engine:Label text="Label" name="label" style="background-image: url(&quot;project://database/Assets/Art/UI/tilemap_packed.png?fileID=-4657764202658221571&amp;guid=ab2cf5e7e2a82394ebc5bd35cea2ed8f&amp;type=3#tilemap_packed_3&quot;); padding-left: 16px; padding-top: 8px; padding-bottom: 8px;" />
         </engine:VisualElement>
     </engine:VisualElement>
 </engine:UXML>

@@ -160,7 +160,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      snow-tile-river-straight_0: -3256857218418804022
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

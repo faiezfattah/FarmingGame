@@ -160,7 +160,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      enemy-ufo-beam-burst_0: 4403327200177046868
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

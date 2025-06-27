@@ -160,7 +160,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      snow-tile-wide-transition_0: 4130229818155590466
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

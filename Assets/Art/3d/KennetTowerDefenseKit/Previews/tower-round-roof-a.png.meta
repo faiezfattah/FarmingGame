@@ -160,7 +160,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      tower-round-roof-a_0: -2194017329755109241
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

@@ -160,7 +160,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      tile-river-waterfall_0: -8564467007918411927
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

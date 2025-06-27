@@ -10,7 +10,7 @@ public class InputProcessor : PlayerInput.IDefaultActions, IDisposable {
     private readonly Subject<Vector2> _moveSubject = new();
     private readonly Subject<Unit> _interactSubject = new();
     private readonly Subject<Unit> _debugSubject = new();
-    private readonly Subject<Unit> _toolbarSubject = new();
+    private readonly Subject<bool> _toolbarSubject = new();
     private readonly Subject<int> _numberSubject = new();
     private readonly Subject<Unit> _inventorySubject = new();
     private readonly Subject<Unit> _escapeSubject = new();
@@ -18,7 +18,7 @@ public class InputProcessor : PlayerInput.IDefaultActions, IDisposable {
     public Observable<Vector2> MoveEvent =>  _moveSubject;
     public Observable<Unit> InteractEvent => _interactSubject;
     public Observable<Unit> DebugEvent =>  _debugSubject;
-    public Observable<Unit> ToolbarEvent => _toolbarSubject;
+    public Observable<bool> ToolbarEvent => _toolbarSubject;
     public Observable<int> NumberEvent => _numberSubject;
     public Observable<Unit> InventoryEvent => _inventorySubject;
     public Observable<Unit> EscapeEvent => _escapeSubject;
@@ -35,7 +35,7 @@ public class InputProcessor : PlayerInput.IDefaultActions, IDisposable {
     }
 
     public void OnToolbar(InputAction.CallbackContext context) {
-        if (context.performed) _toolbarSubject.OnNext(Unit.Default);
+        _toolbarSubject.OnNext(context.performed);
     }
 
     public void OnInventory(InputAction.CallbackContext context) {

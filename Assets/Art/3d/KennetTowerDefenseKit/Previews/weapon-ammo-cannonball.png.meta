@@ -160,7 +160,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      weapon-ammo-cannonball_0: 2720017838566551591
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

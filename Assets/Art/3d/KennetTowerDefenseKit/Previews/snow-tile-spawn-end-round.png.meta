@@ -160,7 +160,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      snow-tile-spawn-end-round_0: 7847650125967302288
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

@@ -160,7 +160,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      enemy-ufo-d-weapon_0: -8813529390723220607
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

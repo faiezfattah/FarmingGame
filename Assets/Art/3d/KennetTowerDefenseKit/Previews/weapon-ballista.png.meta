@@ -160,7 +160,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      weapon-ballista_0: -698883423309402191
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
