@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e997aed65cd84f9fac70373b2c073a1b, type: 3}
   m_Name: Turnip Crop
   m_EditorClassIdentifier: 
+  ChanceToAdvance: 0.95
   itemData: {fileID: 11400000, guid: ccf8f5c89da8b894788d44e72d532837, type: 2}
   cropLevels:
   - Sprite: {fileID: -4076789495288235770, guid: 21beff7426739a04195af3d78eba3edd, type: 3}

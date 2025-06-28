@@ -12,14 +12,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e997aed65cd84f9fac70373b2c073a1b, type: 3}
   m_Name: Carrot Crop
   m_EditorClassIdentifier: 
+  ChanceToAdvance: 0.75
   itemData: {fileID: 11400000, guid: 4b309eb690463ae44b24dda6c412fe6a, type: 2}
   cropLevels:
   - Sprite: {fileID: 6041210287702828680, guid: 5386d624a77665a48a0893afca5c28de, type: 3}
     GrowthLevel: 1
     WitherLevel: 0
   - Sprite: {fileID: 7418867011399055208, guid: 5386d624a77665a48a0893afca5c28de, type: 3}
-    GrowthLevel: 4
+    GrowthLevel: 2
     WitherLevel: 0
   - Sprite: {fileID: -7245266088934790402, guid: 5386d624a77665a48a0893afca5c28de, type: 3}
-    GrowthLevel: 9
+    GrowthLevel: 4
     WitherLevel: 0

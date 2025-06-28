@@ -14,4 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemSprite: {fileID: -5545814634070559206, guid: 5386d624a77665a48a0893afca5c28de, type: 3}
   MaxStackable: 64
-  price: 0
+  price: 15
