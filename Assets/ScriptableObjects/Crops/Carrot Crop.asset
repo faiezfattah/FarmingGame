@@ -19,8 +19,8 @@ MonoBehaviour:
     GrowthLevel: 1
     WitherLevel: 0
   - Sprite: {fileID: 7418867011399055208, guid: 5386d624a77665a48a0893afca5c28de, type: 3}
-    GrowthLevel: 2
+    GrowthLevel: 5
     WitherLevel: 0
   - Sprite: {fileID: -7245266088934790402, guid: 5386d624a77665a48a0893afca5c28de, type: 3}
-    GrowthLevel: 4
+    GrowthLevel: 7
     WitherLevel: 0

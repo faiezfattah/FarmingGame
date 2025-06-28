@@ -11,7 +11,6 @@ namespace Script.Feature.Character.NPC {
     public class NPCVendor : MonoBehaviour, IInteractable {
         [SerializeField] private UIDocument uIDocument;
         [SerializeField] private SeedData[] seedData;
-        [SerializeField] private int price;
         private IInventorySystem _inventorySystem;
         private InputProcessor _inputProcessor;
         private IMoneySystem _moneySystem;
@@ -32,11 +31,14 @@ namespace Script.Feature.Character.NPC {
         private void GenerateShop() {
             var container = uIDocument.rootVisualElement.Q<VisualElement>("container");
             container.Clear();
-
             foreach (var seed in seedData) {
+                var count = _moneySystem.Money.CurrentValue / seed.price > seed.MaxStackable
+                            ? seed.MaxStackable 
+                            : _moneySystem.Money.CurrentValue / seed.price;
+
                 var slider = new SliderWithButton();
                 slider.SetInputDisplay(true)
-                      .SetMaxValue(seed.MaxStackable)
+                      .SetMaxValue(count)
                       .SetMinValue(1)
                       .SetLabel($"{seed.name} ({seed.price}$)");
 
@@ -45,7 +47,7 @@ namespace Script.Feature.Character.NPC {
             }
         }
         private void HandleBuy(SeedData seedData, int amount) {
-            if (_moneySystem.TryTransfer(-amount * price)) {
+            if (_moneySystem.TryTransfer(-amount * seedData.price)) {
                 // Debug.Log("Sold!: " + itemCount);
                 _inventorySystem.AddItem(seedData, amount);
             }
