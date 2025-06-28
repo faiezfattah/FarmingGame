@@ -1,9 +1,7 @@
-using MessagePipe;
 using R3;
 using Script.Core.Interface;
 using Script.Core.Model.Soil;
-using UnityEngine;
-using VContainer;
+
 
 namespace Script.Core.Model.Item {
     public class SeedContext : ItemContext<SeedData>, IUseable<SoilContext> {
@@ -15,7 +13,7 @@ namespace Script.Core.Model.Item {
 
             var data = (SeedData)BaseData;
             context.CropPlanted.Value = data.CropData.CreateContext();
-            Event.OnUsed.Publish(this);
+            Event.OnUsed.OnNext(this);
         }
 
         public static class Event {

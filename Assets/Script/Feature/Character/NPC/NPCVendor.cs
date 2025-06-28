@@ -38,7 +38,7 @@ namespace Script.Feature.Character.NPC {
                 slider.SetInputDisplay(true)
                       .SetMaxValue(seed.MaxStackable)
                       .SetMinValue(1)
-                      .SetLabel(seed.name);
+                      .SetLabel($"{seed.name} ({seed.price}$)");
 
                 slider.OnClick.Subscribe(x => HandleBuy(seed, x)).AddTo(ref _bag);
                 container.Add(slider);

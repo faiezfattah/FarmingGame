@@ -41,17 +41,20 @@ public class InventorySystem : IInventorySystem, IDisposable {
     }
 
     public void RemoveItem(ItemData item, int amount = 1) {
+        Debug.Log("removing item: " + item.name + " : " + amount);
+        
         var pack = _inventoryRegistry.registry
-                          .Where(x => x.ItemContext.BaseData.name == item.name)
-                          .First();
-        if (pack != null) {
-            pack.Count.Value -= amount;
-            if (pack.Count.Value == 0) {
-                _inventoryRegistry.registry.Remove(pack);
-            }
+            .FirstOrDefault(x => x.ItemContext.BaseData.name == item.name);
+
+        if (pack == null) {
+            Debug.LogWarning("Attempting to remove item that does not exist in inventory: " + item.name);
+            return;
         }
-        else {
-            Debug.LogWarning("Attempting to reduce null pack");
+
+        pack.Count.Value -= amount;
+
+        if (pack.Count.Value <= 0) {
+            _inventoryRegistry.registry.Remove(pack);
         }
     }
     public void RemoveItem(PackedItemContext packedItem, int amount = 1) {
@@ -66,15 +69,24 @@ public class InventorySystem : IInventorySystem, IDisposable {
         }
     }
     private void HandleSelect(int num) {
-        if (_inventoryRegistry.registry.Count < num - 1) return; // check for empty slots
+        var index = num - 1;
+        if (index >= _inventoryRegistry.registry.Count)
+            return;
 
+        var selectedPack = _inventoryRegistry.registry[index];
+
+        // if no item is currently active, activate and subscribe
         if (_inventoryRegistry.activeItem.Value == null) {
-            var item = _inventoryRegistry.registry[num - 1];
-            _inventoryRegistry.activeItem.Value = item.ItemContext;
-            hotbarSyncSubscription = item.Count
-                                         .Where(x => x <= 0)
-                                         .Subscribe(_ => _inventoryRegistry.activeItem.Value = null);
+            _inventoryRegistry.activeItem.Value = selectedPack.ItemContext;
+
+            hotbarSyncSubscription?.Dispose();
+
+            hotbarSyncSubscription = selectedPack.Count
+                .Where(count => count <= 0)
+                .Subscribe(_ => _inventoryRegistry.activeItem.Value = null);
         }
+
+        // if an item is already active deactivate it
         else {
             _inventoryRegistry.activeItem.Value = null;
             hotbarSyncSubscription?.Dispose();

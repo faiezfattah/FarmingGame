@@ -56,5 +56,6 @@
         "temp/": true,
         "Temp/": true
     },
-    "dotnet.defaultSolution": "FarmingGame.sln"
+    "dotnet.defaultSolution": "FarmingGame.sln",
+    "dotnetSDK.location": "/usr/lib64/dotnet"
 }

@@ -29,6 +29,6 @@ public class Inventory : MonoBehaviour {
         inventory.SetInventoryBinding(_inventoryRegistry);                  
     }
     private void OnDisable() {
-        _subscription.Dispose();
+        _subscription?.Dispose();
     }
 }
