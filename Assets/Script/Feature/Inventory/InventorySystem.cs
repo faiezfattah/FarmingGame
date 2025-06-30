@@ -42,7 +42,7 @@ public class InventorySystem : IInventorySystem, IDisposable {
 
     public void RemoveItem(ItemData item, int amount = 1) {
         Debug.Log("removing item: " + item.name + " : " + amount);
-        
+
         var pack = _inventoryRegistry.registry
             .FirstOrDefault(x => x.ItemContext.BaseData.name == item.name);
 
@@ -84,13 +84,29 @@ public class InventorySystem : IInventorySystem, IDisposable {
             hotbarSyncSubscription = selectedPack.Count
                 .Where(count => count <= 0)
                 .Subscribe(_ => _inventoryRegistry.activeItem.Value = null);
+            return;
+        }
+
+        // if there is an active item but different selected item
+        // deactive and activate the new one
+        if (_inventoryRegistry.activeItem.Value != null &&
+            _inventoryRegistry.activeItem.Value != selectedPack.ItemContext) {
+                
+            _inventoryRegistry.activeItem.Value = selectedPack.ItemContext;
+
+            hotbarSyncSubscription?.Dispose();
+
+            hotbarSyncSubscription = selectedPack.Count
+                .Where(count => count <= 0)
+                .Subscribe(_ => _inventoryRegistry.activeItem.Value = null);
+
+            return;
         }
 
         // if an item is already active deactivate it
-        else {
-            _inventoryRegistry.activeItem.Value = null;
-            hotbarSyncSubscription?.Dispose();
-        }
+
+        _inventoryRegistry.activeItem.Value = null;
+        hotbarSyncSubscription?.Dispose();
     }
     public void Dispose() {
         _bag.Dispose();
