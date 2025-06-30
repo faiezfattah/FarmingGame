@@ -3,13 +3,14 @@ using Script.Core.Model.Item;
 using UnityEngine;
 using UnityEngine.UIElements;
 
-[UxmlElement] 
+[UxmlElement]
 public partial class ToolButton : Button {
     private Sprite _itemSprite;
-    private string _toolName;
+    public ToolContext toolContext;
+    VisualElement _icon = new();
 
     [UxmlAttribute]
-    public Sprite itemSprite { 
+    public Sprite itemSprite {
         get => _itemSprite;
         set {
             _itemSprite = value;
@@ -17,30 +18,30 @@ public partial class ToolButton : Button {
         }
     }
 
-    [UxmlAttribute] 
-    public string toolName {
-        get => _toolName;
-        set {
-            _toolName = value;
-            UpdateDisplayText();
-        }
-    }
     private ItemContext contextData;
     public ToolButton() {
-        text = _toolName;
+        // text = _toolName;
+        this.text = "";
+
+        _icon.style.width = 32;
+        _icon.style.height = 32;
+        Add(_icon);
+
+        AddToClassList("tool-button");
     }
-    public void SetData(ItemContext context) {
-        contextData = context;
-    }
-    
+
     private void UpdateDisplaySprite() {
-        if (_itemSprite != null) {
-            style.backgroundImage = new StyleBackground(_itemSprite);
-        } else {
-            style.backgroundImage = new StyleBackground();
-        }
+        _icon.style.backgroundImage = new StyleBackground(_itemSprite);
     }
-    private void UpdateDisplayText() {
-        text = _toolName;
+    public ToolButton SetToolContext(ToolContext context) {
+        if (context == null) {
+            style.opacity = 0;
+            return this;
+        }
+
+        toolContext = context;
+        itemSprite = context.BaseData.itemSprite;
+
+        return this;
     }
 }

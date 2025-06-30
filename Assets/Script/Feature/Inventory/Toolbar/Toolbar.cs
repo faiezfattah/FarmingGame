@@ -1,3 +1,4 @@
+using System;
 using System.Linq;
 using PrimeTween;
 using R3;
@@ -14,6 +15,8 @@ namespace Script.Feature.Toolbar {
         private DisposableBag _bag;
         private InventoryRegistry _inventoryRegistry;
         [SerializeField] private ToolData[] toolDatas;
+        public static Subject<ToolContext> OnSelect = new();
+
         [Inject]
         public void Construct(InputProcessor input, InventoryRegistry inventoryRegistry) {
             input.ToolbarEvent.Subscribe(ToggleVisibility).AddTo(ref _bag);
@@ -28,8 +31,10 @@ namespace Script.Feature.Toolbar {
             }
         }
         private void HandleClick(ClickEvent e) {
-            var btn = e.currentTarget as Button;
-            _inventoryRegistry.activeTool.Value = _inventoryRegistry.toolbarRegistry.Where(x => x.BaseData.name == btn.text).First();
+            var btn = e.currentTarget as ToolButton;
+            _inventoryRegistry.activeTool.Value = btn.toolContext;
+            OnSelect.OnNext(btn.toolContext);
+            
             Debug.Log("equipped: " + _inventoryRegistry.activeTool.CurrentValue.BaseData.name);
         }
         private async void ToggleVisibility(bool value) {
@@ -46,13 +51,16 @@ namespace Script.Feature.Toolbar {
                 button.transform.scale = Vector3.zero;
             }
 
-            for (int i = 0; i < _inventoryRegistry.toolbarRegistry.Count; i++) {
-                var tool = _inventoryRegistry.toolbarRegistry[i];
+            for (int i = 0; i < buttons.Count; i++) {
+                var tool = i < _inventoryRegistry.toolbarRegistry.Count
+                    ? _inventoryRegistry.toolbarRegistry[i] 
+                    : null;
+
+                buttons[i].SetToolContext(tool);
 
                 if (tool is not null) {
-                    buttons[i].SetData(tool);
                     buttons[i].RegisterCallback<ClickEvent>(HandleClick);
-                    buttons[i].toolName = tools[i].BaseData.name;
+                    Disposable.Create(() =>buttons[i].UnregisterCallback<ClickEvent>(HandleClick)).AddTo(ref _bag);
                 }
             }
 

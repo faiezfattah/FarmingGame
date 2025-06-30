@@ -12,5 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5ad59a7ad41fe3248b769cfeb41d9353, type: 3}
   m_Name: Watering Can
   m_EditorClassIdentifier: 
-  itemSprite: {fileID: 0}
+  itemSprite: {fileID: -1754581418, guid: ff7774a3bbbb8a91488c660a80b6c81f, type: 3}
   MaxStackable: 64
+  price: 0

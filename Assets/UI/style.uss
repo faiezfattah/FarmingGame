@@ -72,3 +72,16 @@
     transition-timing-function: ease, ease;
     transition-delay: 0s, 0s;
 }
+
+.tool-button {
+    background-color: rgba(0, 0, 0, 0);
+    -unity-background-image-tint-color: rgb(255, 255, 255);
+    background-image: url("project://database/Assets/Art/UI/tilemap_packed.png?fileID=1263262633&guid=ab2cf5e7e2a82394ebc5bd35cea2ed8f&type=3#tilemap_packed_31");
+    flex-shrink: 0;
+    width: 64px;
+    height: 64px;
+    padding-top: 16px;
+    padding-right: 16px;
+    padding-bottom: 16px;
+    padding-left: 16px;
+}

@@ -1,0 +1,5 @@
+<engine:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:engine="UnityEngine.UIElements" xmlns:editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <engine:VisualElement enabled="true" picking-mode="Ignore" style="flex-grow: 1; width: 64px; height: 64px; max-height: 64px; background-image: url(&quot;project://database/Assets/Art/UI/tilemap_packed.png?fileID=1882937915&amp;guid=ab2cf5e7e2a82394ebc5bd35cea2ed8f&amp;type=3#tilemap_packed_30&quot;); margin-top: 16px; margin-right: 16px; margin-bottom: 16px; margin-left: 16px; padding-top: 16px; padding-right: 16px; padding-bottom: 16px; padding-left: 16px;">
+        <engine:VisualElement name="tool" picking-mode="Ignore" style="flex-grow: 1; background-image: none; width: 100%; height: 100px;" />
+    </engine:VisualElement>
+</engine:UXML>

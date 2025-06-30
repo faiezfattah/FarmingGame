@@ -12,5 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b658a1994317636479fda6250f3fb27f, type: 3}
   m_Name: Shovel
   m_EditorClassIdentifier: 
-  itemSprite: {fileID: 0}
+  itemSprite: {fileID: -368081134, guid: e741d06d53666ff3caaf49512343a110, type: 3}
   MaxStackable: 64
+  price: 0
