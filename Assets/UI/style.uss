@@ -57,3 +57,18 @@
     padding-bottom: 24px;
     padding-left: 24px;
 }
+
+.item--transition-in {
+    transition-property: all;
+    transition-duration: 0.5s;
+    transition-timing-function: ease;
+    transition-delay: 0s;
+    scale: 1 1;
+}
+
+.itemtransitionin {
+    transition-property: scale, ignored;
+    transition-duration: 0.5s, 0s;
+    transition-timing-function: ease, ease;
+    transition-delay: 0s, 0s;
+}

@@ -1,3 +1,5 @@
+using PlasticPipe.PlasticProtocol.Messages;
+using PrimeTween;
 using R3;
 using Script.Core.Interface;
 using Script.Core.Interface.Systems;
@@ -11,25 +13,22 @@ namespace Script.Feature.Character.NPC {
     public class NPCVendor : MonoBehaviour, IInteractable {
         [SerializeField] private UIDocument uIDocument;
         [SerializeField] private SeedData[] seedData;
+        [Inject]
         private IInventorySystem _inventorySystem;
+        [Inject]
         private InputProcessor _inputProcessor;
+        [Inject]
         private IMoneySystem _moneySystem;
         private DisposableBag _bag = new();
-        [Inject]
-        public void Construct(
-            IInventorySystem inventorySystem,
-            InputProcessor inputProcessor,
-            IMoneySystem moneySystem) {
 
-            _inventorySystem = inventorySystem;
-            _inputProcessor = inputProcessor;
-            _moneySystem = moneySystem;
-        }
         private void Start() {
             uIDocument.enabled = false;
         }
         private void GenerateShop() {
             var container = uIDocument.rootVisualElement.Q<VisualElement>("container");
+
+            Tween.Position(container.transform, new Vector2(0, -1000), Vector2.zero, 0.15f);
+
             container.Clear();
             foreach (var seed in seedData) {
                 var count = _moneySystem.Money.CurrentValue / seed.price > seed.MaxStackable
@@ -56,14 +55,22 @@ namespace Script.Feature.Character.NPC {
             }
         }
         public void Interact() {
+            if (uIDocument.enabled) {
+                Close();
+                return;
+            }
             uIDocument.enabled = true;
             _inputProcessor.EscapeEvent.Subscribe(_ => Close()).AddTo(ref _bag);
             GenerateShop();
         }
-        public void Close() {
+        public async void Close() {
+            var container = uIDocument.rootVisualElement.Q<VisualElement>("container");
+            await Tween.Position(container.transform, new Vector2(0, -1000), 0.25f);
+
             _bag.Dispose();
             _bag = new();
             uIDocument.enabled = false;
+            
         }
     }
 }

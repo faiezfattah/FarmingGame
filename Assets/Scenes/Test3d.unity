@@ -1300,7 +1300,6 @@ MonoBehaviour:
   seedData:
   - {fileID: 11400000, guid: 0763ec2e186998e41bd6194fdf9927e3, type: 2}
   - {fileID: 11400000, guid: 4ce44ac5bd6be45458d1383690a9cc96, type: 2}
-  price: 1
 --- !u!1 &422567073
 GameObject:
   m_ObjectHideFlags: 0

@@ -1,8 +1,8 @@
 using System.Linq;
+using PrimeTween;
 using R3;
 using Script.Core.Model.Item;
 using Script.Feature.Input;
-using TriInspector;
 using UnityEngine;
 using UnityEngine.UIElements;
 using VContainer;
@@ -32,7 +32,7 @@ namespace Script.Feature.Toolbar {
             _inventoryRegistry.activeTool.Value = _inventoryRegistry.toolbarRegistry.Where(x => x.BaseData.name == btn.text).First();
             Debug.Log("equipped: " + _inventoryRegistry.activeTool.CurrentValue.BaseData.name);
         }
-        private void ToggleVisibility(bool value) {
+        private async void ToggleVisibility(bool value) {
             uIDocument.enabled = value;
 
             if (!value) return;
@@ -42,6 +42,10 @@ namespace Script.Feature.Toolbar {
             var buttons = _root.Query<ToolButton>().ToList();
             var tools = _inventoryRegistry.toolbarRegistry.ToList();
 
+            foreach (var button in buttons) { // animation setup
+                button.transform.scale = Vector3.zero;
+            }
+
             for (int i = 0; i < _inventoryRegistry.toolbarRegistry.Count; i++) {
                 var tool = _inventoryRegistry.toolbarRegistry[i];
 
@@ -50,6 +54,13 @@ namespace Script.Feature.Toolbar {
                     buttons[i].RegisterCallback<ClickEvent>(HandleClick);
                     buttons[i].toolName = tools[i].BaseData.name;
                 }
+            }
+
+            // animation
+            foreach (var button in buttons) {
+                _ = Tween.Scale(button.transform, Vector3.zero, Vector3.one, 0.2f);
+                _ = Tween.Rotation(button.transform, Quaternion.Euler(0, 0, 180), Quaternion.Euler(0, 0, 0), 0.2f, Ease.OutSine);
+                await Tween.Delay(0.01f);
             }
         }
         public void OnDisable() {
