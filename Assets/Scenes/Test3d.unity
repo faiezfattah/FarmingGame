@@ -1387,6 +1387,9 @@ MonoBehaviour:
   seedData:
   - {fileID: 11400000, guid: 0763ec2e186998e41bd6194fdf9927e3, type: 2}
   - {fileID: 11400000, guid: 4ce44ac5bd6be45458d1383690a9cc96, type: 2}
+  - {fileID: 11400000, guid: 53f393be66964e2b891db93c5c022a62, type: 2}
+  - {fileID: 11400000, guid: 50a94ba36dd66e10c96aa593cfe69794, type: 2}
+  - {fileID: 11400000, guid: a8653d120ff68dc1983c09cbda52fe69, type: 2}
 --- !u!1 &422567073
 GameObject:
   m_ObjectHideFlags: 0
@@ -3322,8 +3325,10 @@ MonoBehaviour:
   - {fileID: 217341067}
   - {fileID: 606005582}
   - {fileID: 1920777133}
+  - {fileID: 1796402174}
   itemPool: {fileID: 164159152}
   cropSystem: {fileID: 1281231086}
+  playerProxy: {fileID: 1335049123}
 --- !u!4 &805581513
 Transform:
   m_ObjectHideFlags: 0

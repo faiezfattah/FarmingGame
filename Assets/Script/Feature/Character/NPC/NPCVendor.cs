@@ -21,6 +21,7 @@ namespace Script.Feature.Character.NPC {
 
         private void Start() {
             uIDocument.enabled = false;
+            System.Array.Sort(seedData, (a, b) => a.price.CompareTo(b.price));
         }
         private void GenerateShop() {
             var container = uIDocument.rootVisualElement.Q<VisualElement>("container");
