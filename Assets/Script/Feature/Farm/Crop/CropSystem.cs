@@ -26,7 +26,7 @@ namespace Script.Feature.Farm.Crop {
 
         private void UpdateCrop() {
             _cropRegistry.registry.ForEach(item => {
-                if (item.CropData.CanAdvance()) {
+                if (item.CropData.CanAdvance(item)) {
                     item.Growth.Value++;
                 }
             });

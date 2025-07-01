@@ -7,12 +7,15 @@ namespace Script.Core.Model.Item {
     public class SeedContext : ItemContext<SeedData>, IUseable<SoilContext> {
         public SeedContext(SeedData data) : base(data) { }
 
-        public void Use(SoilContext context) {
-            if (context.State.Value != SoilState.Watered) return;
-            if (context.CropPlanted.Value != null) return;
+        public void Use(SoilContext soilContext) {
+            if (soilContext.State.Value != SoilState.Watered) return;
+            if (soilContext.CropPlanted.Value != null) return;
 
-            var data = (SeedData)BaseData;
-            context.CropPlanted.Value = data.CropData.CreateContext();
+            var data = (SeedData) BaseData;
+            var cropContext = data.CropData.CreateContext();
+            soilContext.CropPlanted.Value = cropContext;
+            cropContext.SetSoil(soilContext);
+
             Event.OnUsed.OnNext(this);
         }
 

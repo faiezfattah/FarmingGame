@@ -26,12 +26,12 @@ public class SoilSystem : MonoBehaviour {
         foreach (var tile in farmTiles) {
             var context = soilData.CreateContext()
                                   .SetPosition(tile.transform.position);
-            context.CropPlanted.Where(x => x != null).Subscribe(_ => HandlePlanting(context));
+            context.CropPlanted.WhereNotNull().Subscribe(_ => HandlePlanting(context));
             tile.SetContext(context, (useable) => HandleSelect(context, useable));
         }
     }
     private void HandlePlanting(SoilContext context) {
-        _cropSystem.SpawnCrop(context.CropPlanted.Value, context.Position);
+        _cropSystem.SpawnCrop(context.CropPlanted.Value, context.Position + Vector3.up * 0.25f); // 0.25f above the ground. may need to change to raycast later
 
         // reset context when cropcontext is removed from the cropregistry
         _cropRegistry.registry.ObserveRemove()

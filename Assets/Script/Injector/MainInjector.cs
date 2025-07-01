@@ -12,34 +12,35 @@ using VContainer;
 using VContainer.Unity;
 
 namespace Script.Injector {
-public class MainInjector : LifetimeScope {
-    [SerializeField] private ItemPool itemPool;
-    [SerializeField] private CropSystem cropSystem;
-    protected override void Configure(IContainerBuilder builder) {
-        var options = builder.RegisterMessagePipe(/* configure option */);
-        builder.RegisterBuildCallback(c => GlobalMessagePipe.SetProvider(c.AsServiceProvider()));
-        
-        // mine
-        builder.Register<InputProcessor>(Lifetime.Singleton);
+    public class MainInjector : LifetimeScope {
+        [SerializeField] private ItemPool itemPool;
+        [SerializeField] private CropSystem cropSystem;
 
-        // Systems
-        builder.Register<TimeSystem>(Lifetime.Singleton).As<ITimeSystem>();
-        builder.Register<SoilSystem>(Lifetime.Singleton);
-        builder.Register<ItemSystem>(Lifetime.Singleton).As<IItemSystem>();
-        builder.Register<InventorySystem>(Lifetime.Singleton).As<IInventorySystem>();
-        builder.RegisterInstance(cropSystem).As<CropSystem>();
-        builder.Register<MoneySystem>(Lifetime.Singleton).As<IMoneySystem>();
+        protected override void Configure(IContainerBuilder builder) {
+            var options = builder.RegisterMessagePipe(/* configure option */);
+            builder.RegisterBuildCallback(c => GlobalMessagePipe.SetProvider(c.AsServiceProvider()));
 
-        // Registry
-        builder.Register<InventoryRegistry>(Lifetime.Singleton).As<IInventoryRegistry, IToolbarRegistry>().AsSelf();
-        builder.Register<ItemRegistry>(Lifetime.Singleton).As<IItemRegistry>().AsSelf();
-        builder.Register<SoilRegistry>(Lifetime.Singleton).As<ISoilRegistry>().AsSelf();
-        builder.Register<CropRegistry>(Lifetime.Singleton).As<ICropRegistry>().AsSelf();
+            // mine
+            builder.Register<InputProcessor>(Lifetime.Singleton);
 
-        //factory
-        builder.Register<ItemContextFactory>(Lifetime.Transient).As<IItemContextFactory>().AsSelf();
+            // Systems
+            builder.Register<TimeSystem>(Lifetime.Singleton).As<ITimeSystem>();
+            builder.Register<SoilSystem>(Lifetime.Singleton);
+            builder.Register<ItemSystem>(Lifetime.Singleton).As<IItemSystem>();
+            builder.Register<InventorySystem>(Lifetime.Singleton).As<IInventorySystem>();
+            builder.RegisterInstance(cropSystem).As<CropSystem>();
+            builder.Register<MoneySystem>(Lifetime.Singleton).As<IMoneySystem>();
 
-        builder.RegisterInstance(itemPool);
+            // Registry
+            builder.Register<InventoryRegistry>(Lifetime.Singleton).As<IInventoryRegistry, IToolbarRegistry>().AsSelf();
+            builder.Register<ItemRegistry>(Lifetime.Singleton).As<IItemRegistry>().AsSelf();
+            builder.Register<SoilRegistry>(Lifetime.Singleton).As<ISoilRegistry>().AsSelf();
+            builder.Register<CropRegistry>(Lifetime.Singleton).As<ICropRegistry>().AsSelf();
+
+            //factory
+            builder.Register<ItemContextFactory>(Lifetime.Transient).As<IItemContextFactory>().AsSelf();
+
+            builder.RegisterInstance(itemPool);
+        }
     }
-}
 }

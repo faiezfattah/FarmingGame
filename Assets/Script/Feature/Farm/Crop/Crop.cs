@@ -43,7 +43,7 @@ public class Crop : MonoBehaviour, IEntity<CropContext>, IInteractable {
     }
 
     public void Interact() {
-        if (_cropData.CanHarvest(_cropContext.Level.Value)) 
+        if (_cropData.CanHarvest(_cropContext)) 
             Harvest();
         
         else Debug.Log($"Plant is growing. Level: {_cropContext.Level.Value}, Growth: {_cropContext.Growth.Value}");
@@ -56,8 +56,7 @@ public class Crop : MonoBehaviour, IEntity<CropContext>, IInteractable {
     }
 
     private void OnDisable() {
-        _subscriptions.Dispose();
-        _cropContext?.Dispose();
+            _subscriptions.Dispose();
     }
 }
 }
