@@ -31,7 +31,7 @@ namespace Script.Injector {
             builder.Register<MoneySystem>(Lifetime.Singleton).As<IMoneySystem>();
 
             // Registry
-            builder.Register<InventoryRegistry>(Lifetime.Singleton).As<IInventoryRegistry, IToolbarRegistry>().AsSelf();
+            builder.Register<InventoryRegistry>(Lifetime.Singleton).As<IInventoryRegistry>().AsSelf();
             builder.Register<ItemRegistry>(Lifetime.Singleton).As<IItemRegistry>().AsSelf();
             builder.Register<SoilRegistry>(Lifetime.Singleton).As<ISoilRegistry>().AsSelf();
             builder.Register<CropRegistry>(Lifetime.Singleton).As<ICropRegistry>().AsSelf();

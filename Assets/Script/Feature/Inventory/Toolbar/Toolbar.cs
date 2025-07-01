@@ -32,10 +32,10 @@ namespace Script.Feature.Toolbar {
         }
         private void HandleClick(ClickEvent e) {
             var btn = e.currentTarget as ToolButton;
-            _inventoryRegistry.activeTool.Value = btn.toolContext;
+            _inventoryRegistry.activeItem.Value = btn.toolContext;
             OnSelect.OnNext(btn.toolContext);
             
-            Debug.Log("equipped: " + _inventoryRegistry.activeTool.CurrentValue.BaseData.name);
+            Debug.Log("equipped: " + _inventoryRegistry.activeItem.CurrentValue.BaseData.name);
         }
         private async void ToggleVisibility(bool value) {
             uIDocument.enabled = value;

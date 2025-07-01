@@ -36,7 +36,7 @@ public partial class InventoryDisplay : VisualElement, IDisposable {
         AddToClassList("inventory--container");
     }
     public InventoryDisplay SetInventoryBinding(IInventoryRegistry inventoryRegistry) {
-        _inventoryView = inventoryRegistry.ReadonlyRegistry.CreateView(x => x);
+        _inventoryView = inventoryRegistry.InventoryRegistry.CreateView(x => x);
         _inventoryView.ObserveChanged().Subscribe(_ => UpdateTile()).AddTo(ref _bag);
         UpdateTile();
         return this;

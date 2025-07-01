@@ -16,26 +16,26 @@ public class InventorySystem : IInventorySystem, IDisposable {
         SeedContext.Event.OnUsed.Subscribe(x => RemoveItem(x.BaseData)).AddTo(ref _bag);
     }
     public void AddItem(ItemData item, int amount = 1) {
-        var pack = _inventoryRegistry.registry
+        var pack = _inventoryRegistry.inventory
                           .Where(x => x.ItemContext.BaseData.name == item.name)
                           .FirstOrDefault();
         if (pack != null) {
             pack.Count.Value += amount;
         }
         else {
-            _inventoryRegistry.registry.Add(new(item.CreateBaseContext(), amount));
+            _inventoryRegistry.inventory.Add(new(item.CreateBaseContext(), amount));
         }
         Debug.Log("added: " + item.name + " : " + amount);
     }
     public void AddItem(PackedItemContext packedItem, int amount = 1) {
-        var pack = _inventoryRegistry.registry
+        var pack = _inventoryRegistry.inventory
                           .Where(x => x.ItemContext.BaseData.name == packedItem.ItemContext.BaseData.name)
                           .FirstOrDefault();
         if (pack != null) {
             pack.Count.Value += amount;
         }
         else {
-            _inventoryRegistry.registry.Add(packedItem);
+            _inventoryRegistry.inventory.Add(packedItem);
         }
         Debug.Log("added: " + packedItem.ItemContext.BaseData.name + " : " + amount);
     }
@@ -43,7 +43,7 @@ public class InventorySystem : IInventorySystem, IDisposable {
     public void RemoveItem(ItemData item, int amount = 1) {
         Debug.Log("removing item: " + item.name + " : " + amount);
 
-        var pack = _inventoryRegistry.registry
+        var pack = _inventoryRegistry.inventory
             .FirstOrDefault(x => x.ItemContext.BaseData.name == item.name);
 
         if (pack == null) {
@@ -54,14 +54,14 @@ public class InventorySystem : IInventorySystem, IDisposable {
         pack.Count.Value -= amount;
 
         if (pack.Count.Value <= 0) {
-            _inventoryRegistry.registry.Remove(pack);
+            _inventoryRegistry.inventory.Remove(pack);
         }
     }
     public void RemoveItem(PackedItemContext packedItem, int amount = 1) {
         if (packedItem != null) {
             packedItem.Count.Value -= amount;
             if (packedItem.Count.Value == 0) {
-                _inventoryRegistry.registry.Remove(packedItem);
+                _inventoryRegistry.inventory.Remove(packedItem);
             }
         }
         else {
@@ -70,10 +70,10 @@ public class InventorySystem : IInventorySystem, IDisposable {
     }
     private void HandleSelect(int num) {
         var index = num - 1;
-        if (index >= _inventoryRegistry.registry.Count)
+        if (index >= _inventoryRegistry.inventory.Count)
             return;
 
-        var selectedPack = _inventoryRegistry.registry[index];
+        var selectedPack = _inventoryRegistry.inventory[index];
 
         // if no item is currently active, activate and subscribe
         if (_inventoryRegistry.activeItem.Value == null) {

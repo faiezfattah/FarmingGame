@@ -16,8 +16,8 @@ public class Hotbar : MonoBehaviour {
     private InventoryRegistry _inventoryRegistry;
     private IEnumerable<PackedItemContext> hotbarView;
     [Inject] public void Construct(InventoryRegistry inventoryRegistry) {
-        inventoryRegistry.ReadonlyRegistry.ObserveAdd().Subscribe(_ => Refresh(inventoryRegistry.registry)).AddTo(ref _bag); 
-        inventoryRegistry.ReadonlyRegistry.ObserveRemove().Subscribe(_ => Refresh(inventoryRegistry.registry)).AddTo(ref _bag);
+        inventoryRegistry.inventory.ObserveAdd().Subscribe(_ => Refresh(inventoryRegistry.inventory)).AddTo(ref _bag); 
+        inventoryRegistry.inventory.ObserveRemove().Subscribe(_ => Refresh(inventoryRegistry.inventory)).AddTo(ref _bag);
         inventoryRegistry.activeItem.Subscribe(x => HandleSelect(x)).AddTo(ref _bag);
     }
     private void Start() {
@@ -43,13 +43,17 @@ public class Hotbar : MonoBehaviour {
                 activeDisplay.RemoveFromClassList("item--active");
             }
 
-            if (activeDisplay == null) {}
             return;
         }
         if (context != null) { // switching the active item
+            if (context is ToolContext) {
+                activeDisplay?.RemoveFromClassList("item--active");
+                return;
+            }
+
             if (activeDisplay != null) {
                 activeDisplay.RemoveFromClassList("item--active");
-                
+
                 activeDisplay = _slots.Where(x => x.itemContext == context).First();
                 activeDisplay.AddToClassList("item--active");
             }

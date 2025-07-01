@@ -1,20 +1,19 @@
 using ObservableCollections;
 using R3;
+using Script.Core.Interface;
 using Script.Core.Model.Item;
 
-public class InventoryRegistry : IInventoryRegistry, IToolbarRegistry {
-
-    // actual inventory
-    // public ObservableList<ItemContext> registry = new();
-    public ObservableList<PackedItemContext> registry = new();
-    public IReadOnlyObservableList<PackedItemContext> ReadonlyRegistry => registry;
-    
-    // hotbar located active item
-    public  ReactiveProperty<ItemContext> activeItem = new();
+public class InventoryRegistry : IInventoryRegistry {
+    // inventory
+    public ObservableList<PackedItemContext> inventory = new();
+    IReadOnlyObservableList<PackedItemContext> IInventoryRegistry.InventoryRegistry => inventory;
 
     // toolbar
     public ObservableList<ToolContext> toolbarRegistry = new();
-    public ReactiveProperty<ToolContext> activeTool = new();
-    public ToolContext tool => activeTool.Value;
+    public IReadOnlyObservableList<ToolContext> ToolRegistry => throw new System.NotImplementedException();
+
+    // active item
+    public ReactiveProperty<ItemContext> activeItem = new();
+    public Observable<ItemContext> ActiveItem => activeItem;
 }
 

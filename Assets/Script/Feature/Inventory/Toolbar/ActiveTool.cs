@@ -1,21 +1,22 @@
-using Cysharp.Threading.Tasks;
+using System;
 using R3;
 using Script.Core.Model.Item;
-using Script.Feature.Toolbar;
 using UnityEngine;
 using UnityEngine.UIElements;
+using VContainer;
 
 public class ActiveTool : MonoBehaviour {
     [SerializeField] private UIDocument uIDocument;
-    DisposableBag _bag = new();
+    [Inject] private IInventoryRegistry inventory;
+    IDisposable _subs;
     private void Start() {
-        Toolbar.OnSelect.Subscribe(HandleSelect).AddTo(ref _bag);
+        _subs = inventory.ActiveItem.WhereNotNull().Subscribe(HandleSelect);
     }
-    private void HandleSelect(ToolContext context) {
+    private void HandleSelect(ItemContext itemContext) {
         var display = uIDocument.rootVisualElement.Q<VisualElement>("tool");
-        display.style.backgroundImage = new StyleBackground(context.BaseData.itemSprite);
+        display.style.backgroundImage = new StyleBackground(itemContext.BaseData.itemSprite);
     }
     void OnDisable() {
-        _bag.Dispose();
+        _subs.Dispose();
     }
 }
