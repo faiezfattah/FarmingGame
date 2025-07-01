@@ -1,5 +1,4 @@
-﻿using MessagePipe;
-using Script.Core.Interface.Systems;
+﻿using Script.Core.Interface.Systems;
 using Script.Feature.DayTime;
 using Script.Feature.Farm.Crop;
 using Script.Feature.Farm.Soil;
@@ -16,10 +15,6 @@ namespace Script.Injector {
         [SerializeField] private CropSystem cropSystem;
 
         protected override void Configure(IContainerBuilder builder) {
-            var options = builder.RegisterMessagePipe(/* configure option */);
-            builder.RegisterBuildCallback(c => GlobalMessagePipe.SetProvider(c.AsServiceProvider()));
-
-            // mine
             builder.Register<InputProcessor>(Lifetime.Singleton);
 
             // Systems
