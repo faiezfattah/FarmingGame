@@ -4,6 +4,7 @@ using R3;
 using Script.Core.Interface;
 using Script.Core.Interface.Systems;
 using Script.Core.Model.Item;
+using Script.Feature.Character.Player;
 using Script.Feature.Input;
 using UnityEngine;
 using UnityEngine.Assertions.Must;
@@ -13,26 +14,22 @@ using VContainer;
 namespace Script.Feature.Character.NPC {
     public class NPCSelling : MonoBehaviour, IInteractable {
         [SerializeField] private UIDocument uIDocument;
-        IMoneySystem _moneySystem;
-        InventoryRegistry _inventoryRegistry;
-        IInventorySystem _inventorySystem;
+        [Inject] IMoneySystem _moneySystem;
+        [Inject] InventoryRegistry _inventoryRegistry;
+        [Inject] IInventorySystem _inventorySystem;
+        [Inject] InputProcessor _inputProcessor;
+        [Inject] PlayerProxy _player;
         DisposableBag _bag;
-        InputProcessor _inputProcessor;
-        [Inject]
-        public void Construct(IMoneySystem moneySystem, InputProcessor inputProcessor, InventoryRegistry inventoryRegistry, IInventorySystem inventorySystem) {
-            _moneySystem = moneySystem;
-            _inventoryRegistry = inventoryRegistry;
-            _inventorySystem = inventorySystem;
-            _inputProcessor = inputProcessor;
-        }
         public void Interact() {
             uIDocument.enabled = !uIDocument.enabled; // toggle
 
             if (!uIDocument.enabled) { // if the current switch to off
                 _bag.Dispose();
+                _player.EnableMovement();
                 return;
             }
-                _bag = new();
+            _player.DisableMovement();
+            _bag = new();
 
             _inputProcessor.EscapeEvent.Subscribe(_ => Interact()).AddTo(ref _bag);
 
@@ -48,7 +45,8 @@ namespace Script.Feature.Character.NPC {
 
             inventory.OnSelected
                      .WhereNotNull()
-                     .Subscribe(x => HandleSell(x.ItemContext.BaseData, x.Count.Value));
+                     .Subscribe(x => HandleSell(x.ItemContext.BaseData, x.Count.Value))
+                     .AddTo(ref _bag);
         }
         private void HandleSell(ItemData itemData, int amount = 1) {
             var price = itemData.price * amount;

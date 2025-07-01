@@ -17,7 +17,7 @@ public class PlayerProxy : MonoBehaviour {
     [SerializeField] private Rigidbody rb;
     [SerializeField] private SpriteRenderer sr;
     
-    private float _currentRotation;
+    private float _currentSpeed;
     private Vector3 _moveDir = Vector3.zero;
     private DisposableBag _bag;
     
@@ -35,10 +35,12 @@ public class PlayerProxy : MonoBehaviour {
         _moveDir.x = val.x;
         _moveDir.z = val.y;
     }
-
+    private void Start() {
+            EnableMovement();
+    }
     private void FixedUpdate() {
         if (_moveDir == Vector3.zero) return;
-        gameObject.transform.position += (Vector3) _moveDir * (Time.fixedDeltaTime * speed);
+        gameObject.transform.position += (Vector3) _moveDir * (Time.fixedDeltaTime * _currentSpeed);
 
         var angle = _moveDir.x > 0 ? 0f : 180f;
         
@@ -57,10 +59,15 @@ public class PlayerProxy : MonoBehaviour {
             }
         }
     }
-
+        public void DisableMovement() {
+            _currentSpeed = 0;
+        }
+        public void EnableMovement() {
+            _currentSpeed = speed;
+        }
     private void OnDisable() {
-        _bag.Dispose();
-    }
+            _bag.Dispose();
+        }
 
     private void OnDrawGizmosSelected() {
         Gizmos.DrawWireSphere(gameObject.transform.position, range);

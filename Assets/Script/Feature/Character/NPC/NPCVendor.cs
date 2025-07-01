@@ -3,6 +3,7 @@ using R3;
 using Script.Core.Interface;
 using Script.Core.Interface.Systems;
 using Script.Core.Model.Item;
+using Script.Feature.Character.Player;
 using Script.Feature.Input;
 using UnityEngine;
 using UnityEngine.UIElements;
@@ -12,12 +13,10 @@ namespace Script.Feature.Character.NPC {
     public class NPCVendor : MonoBehaviour, IInteractable {
         [SerializeField] private UIDocument uIDocument;
         [SerializeField] private SeedData[] seedData;
-        [Inject]
-        private IInventorySystem _inventorySystem;
-        [Inject]
-        private InputProcessor _inputProcessor;
-        [Inject]
-        private IMoneySystem _moneySystem;
+        [Inject] private IInventorySystem _inventorySystem;
+        [Inject] private InputProcessor _inputProcessor;
+        [Inject] private IMoneySystem _moneySystem;
+        [Inject] private PlayerProxy _player;
         private DisposableBag _bag = new();
 
         private void Start() {
@@ -58,11 +57,15 @@ namespace Script.Feature.Character.NPC {
                 Close();
                 return;
             }
+
+            _player.DisableMovement();
             uIDocument.enabled = true;
             _inputProcessor.EscapeEvent.Subscribe(_ => Close()).AddTo(ref _bag);
             GenerateShop();
         }
         public async void Close() {
+            _player.EnableMovement();
+
             var container = uIDocument.rootVisualElement.Q<VisualElement>("container");
             await Tween.Position(container.transform, new Vector2(0, -1000), 0.25f);
 

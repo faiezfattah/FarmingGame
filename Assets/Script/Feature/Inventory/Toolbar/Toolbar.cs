@@ -60,7 +60,7 @@ namespace Script.Feature.Toolbar {
 
                 if (tool is not null) {
                     buttons[i].RegisterCallback<ClickEvent>(HandleClick);
-                    Disposable.Create(() =>buttons[i].UnregisterCallback<ClickEvent>(HandleClick)).AddTo(ref _bag);
+                    Disposable.Create(() => buttons[i].UnregisterCallback<ClickEvent>(HandleClick)).AddTo(ref _bag);
                 }
             }
 

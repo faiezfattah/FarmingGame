@@ -1,4 +1,5 @@
 ﻿using Script.Core.Interface.Systems;
+using Script.Feature.Character.Player;
 using Script.Feature.DayTime;
 using Script.Feature.Farm.Crop;
 using Script.Feature.Farm.Soil;
@@ -13,6 +14,7 @@ namespace Script.Injector {
     public class MainInjector : LifetimeScope {
         [SerializeField] private ItemPool itemPool;
         [SerializeField] private CropSystem cropSystem;
+        [SerializeField] private PlayerProxy playerProxy;
 
         protected override void Configure(IContainerBuilder builder) {
             builder.Register<InputProcessor>(Lifetime.Singleton);
@@ -35,6 +37,9 @@ namespace Script.Injector {
             builder.Register<ItemContextFactory>(Lifetime.Transient).As<IItemContextFactory>().AsSelf();
 
             builder.RegisterInstance(itemPool);
+
+            // player... idk what else to do. the ui need controll to the player movement
+            builder.RegisterInstance(playerProxy).As<PlayerProxy>();
         }
     }
 }
