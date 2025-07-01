@@ -9,13 +9,9 @@ namespace Script.Feature.Farm.Soil {
     public class Soil : MonoBehaviour, IActionable {
         [SerializeField] private MeshFilter mesh;
         [ShowInInspector, ReadOnly] private bool HasCropContext => _context?.CropPlanted != null;
+        [ShowInInspector, ReadOnly] private string contextState => _context.State.Value.ToString() ?? "no-state";
         private SoilContext _context;
         private Action<IUseable> _onAction;
-        private IToolbarRegistry _toolbar;
-        [Inject]
-        public void Construct(IToolbarRegistry tool) { // TODO: remove this 
-            _toolbar = tool;
-        }
         public Vector3 GetPointerPosition() {
             return transform.position + Vector3.up * 0.2f;
         }

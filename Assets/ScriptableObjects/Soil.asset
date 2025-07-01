@@ -15,3 +15,4 @@ MonoBehaviour:
   initial: {fileID: -4855243574250553854, guid: af87a506a4061ca429908f2a5bb84590, type: 3}
   tilled: {fileID: 4164624499741299792, guid: bd535d8be913b254e8d5361af468354f, type: 3}
   watered: {fileID: -4529347935720394536, guid: 807a3e00333a65c429ba4732757234de, type: 3}
+  soilUnwateredChance: 0.9

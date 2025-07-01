@@ -8,7 +8,7 @@ namespace Script.Core.Model.Item {
         public SeedContext(SeedData data) : base(data) { }
 
         public void Use(SoilContext soilContext) {
-            if (soilContext.State.Value != SoilState.Watered) return;
+            if (soilContext.State.Value != SoilState.Tilled) return;
             if (soilContext.CropPlanted.Value != null) return;
 
             var data = (SeedData) BaseData;
