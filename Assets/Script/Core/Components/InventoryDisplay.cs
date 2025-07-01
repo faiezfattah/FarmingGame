@@ -69,14 +69,16 @@ public partial class InventoryDisplay : VisualElement, IDisposable {
             for (int j = 0; j < _tilePerRow; j++) {
                 var item = new ItemDisplay();
 
-                item.PointerEnter.Subscribe(HandleHoverEnter).AddTo(ref _bag);
-                item.PointerExit.Subscribe(HandleHoverExit).AddTo(ref _bag);
-                item.OnClick.Subscribe(HandleClick).AddTo(ref _bag);
 
                 _itemDisplay.Add(item);
                 container.Add(item);
             }
         }
+        
+        ItemDisplay.Event.OnPointerEnter.WhereNotNull().Subscribe(HandleHoverEnter).AddTo(ref _bag);
+        ItemDisplay.Event.OnPointerExit.WhereNotNull().Subscribe(HandleHoverExit).AddTo(ref _bag);
+        ItemDisplay.Event.OnClick.WhereNotNull().Subscribe(HandleClick).AddTo(ref _bag);
+        
     }
     private void HandleHoverEnter(ItemDisplay display) {
         _currentHover.Value = display;

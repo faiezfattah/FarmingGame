@@ -15,12 +15,14 @@ public partial class ItemDisplay : VisualElement, IDisposable {
     public ItemContext itemContext;
 
     // events will not fire if there no item context
-    private Subject<ItemDisplay> _pointerEnter = new();
-    private Subject<ItemDisplay> _pointerExit = new();
-    private Subject<ItemDisplay> _onClick = new();
-    public Observable<ItemDisplay> PointerEnter => _pointerEnter;
-    public Observable<ItemDisplay> PointerExit => _pointerExit;
-    public Observable<ItemDisplay> OnClick => _onClick;
+    public static class Event {
+        internal static Subject<ItemDisplay> onPointerEnter = new();
+        internal static Subject<ItemDisplay> onPointerExit = new();
+        internal static Subject<ItemDisplay> onClick = new();
+        public static Observable<ItemDisplay> OnPointerEnter => onPointerEnter;
+        public static Observable<ItemDisplay> OnPointerExit => onPointerExit;
+        public static Observable<ItemDisplay> OnClick => onClick;
+    }
 
     [UxmlAttribute]
     public Sprite itemSprite { 
@@ -47,17 +49,24 @@ public partial class ItemDisplay : VisualElement, IDisposable {
             _itemName = value;
         }
     }
+    public ItemDisplay Reset() {
+        _itemCount = 0;
+        _itemSprite = null;
+        _itemName = null;
+
+        return this;
+    }
     public ItemDisplay() {
         AddToClassList("item--display");
-        
-         _countLabel = new Label();
+
+        _countLabel = new Label();
         _countLabel.AddToClassList("item--count-label");
         // _countLabel.style.position = Position.Absolute;
         // _countLabel.style.bottom = 0;
         // _countLabel.style.right = 0;
 
-        
-        
+
+
         Add(_countLabel);
         UpdateCountLabel();
     }
@@ -66,9 +75,9 @@ public partial class ItemDisplay : VisualElement, IDisposable {
         itemContext = packedItemContext.ItemContext;
         subscription = packedItemContext.Count.Subscribe(x => itemCount = x);
 
-        RegisterCallback<PointerEnterEvent>(_ => _pointerEnter.OnNext(this));
-        RegisterCallback<PointerLeaveEvent>(_ => _pointerExit.OnNext(this));
-        RegisterCallback<ClickEvent>(_ => _onClick.OnNext(this));
+        RegisterCallback<PointerEnterEvent>(_ => Event.onPointerEnter.OnNext(this));
+        RegisterCallback<PointerLeaveEvent>(_ => Event.onPointerExit.OnNext(this));
+        RegisterCallback<ClickEvent>(_ => Event.onClick.OnNext(this));
 
         return this;
     }
@@ -91,6 +100,5 @@ public partial class ItemDisplay : VisualElement, IDisposable {
 
     public void Dispose() {
         subscription.Dispose();
-        _pointerEnter.Dispose();
     }
 }
