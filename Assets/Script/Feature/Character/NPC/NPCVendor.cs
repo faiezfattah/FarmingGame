@@ -16,7 +16,7 @@ namespace Script.Feature.Character.NPC {
         [Inject] private IInventorySystem _inventorySystem;
         [Inject] private InputProcessor _inputProcessor;
         [Inject] private IMoneySystem _moneySystem;
-        [Inject] private PlayerProxy _player;
+        [Inject] private PlayerController _player;
         private DisposableBag _bag = new();
 
         private void Start() {

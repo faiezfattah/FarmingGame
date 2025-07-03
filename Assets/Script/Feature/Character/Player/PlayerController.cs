@@ -7,7 +7,7 @@ using UnityEngine;
 using VContainer;
 
 namespace Script.Feature.Character.Player {
-public class PlayerProxy : MonoBehaviour {
+public class PlayerController : MonoBehaviour {
     [SerializeField] private float speed;
     [SerializeField] private float range;
     [SerializeField] private LayerMask interactableLayer;

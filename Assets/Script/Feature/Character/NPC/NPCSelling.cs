@@ -18,7 +18,7 @@ namespace Script.Feature.Character.NPC {
         [Inject] InventoryRegistry _inventoryRegistry;
         [Inject] IInventorySystem _inventorySystem;
         [Inject] InputProcessor _inputProcessor;
-        [Inject] PlayerProxy _player;
+        [Inject] PlayerController _player;
         DisposableBag _bag;
         public void Interact() {
             uIDocument.enabled = !uIDocument.enabled; // toggle

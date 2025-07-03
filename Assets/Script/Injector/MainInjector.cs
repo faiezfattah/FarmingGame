@@ -14,7 +14,7 @@ namespace Script.Injector {
     public class MainInjector : LifetimeScope {
         [SerializeField] private ItemPool itemPool;
         [SerializeField] private CropSystem cropSystem;
-        [SerializeField] private PlayerProxy playerProxy;
+        [SerializeField] private PlayerController playerProxy;
 
         protected override void Configure(IContainerBuilder builder) {
             builder.Register<InputProcessor>(Lifetime.Singleton);
@@ -39,7 +39,7 @@ namespace Script.Injector {
             builder.RegisterInstance(itemPool);
 
             // player... idk what else to do. the ui need controll to the player movement
-            builder.RegisterInstance(playerProxy).As<PlayerProxy>();
+            builder.RegisterInstance(playerProxy).As<PlayerController>();
         }
     }
 }

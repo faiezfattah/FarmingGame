@@ -46,6 +46,15 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": false
                 },
                 {
+                    ""name"": ""Action"",
+                    ""type"": ""Button"",
+                    ""id"": ""7e7d1dd1-a422-49f1-afe2-44cbcb1d2799"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
                     ""name"": ""Debug"",
                     ""type"": ""Button"",
                     ""id"": ""9fd2b4be-af10-4e5b-8f8d-2a32f4474a26"",
@@ -292,6 +301,17 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
                     ""action"": ""Escape"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""a14d2bd5-1fcd-42f5-bb66-eef6364199fb"",
+                    ""path"": ""<Mouse>/leftButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Action"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -302,6 +322,7 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         m_Default = asset.FindActionMap("Default", throwIfNotFound: true);
         m_Default_Move = m_Default.FindAction("Move", throwIfNotFound: true);
         m_Default_Interact = m_Default.FindAction("Interact", throwIfNotFound: true);
+        m_Default_Action = m_Default.FindAction("Action", throwIfNotFound: true);
         m_Default_Debug = m_Default.FindAction("Debug", throwIfNotFound: true);
         m_Default_Toolbar = m_Default.FindAction("Toolbar", throwIfNotFound: true);
         m_Default_Inventory = m_Default.FindAction("Inventory", throwIfNotFound: true);
@@ -379,6 +400,7 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
     private List<IDefaultActions> m_DefaultActionsCallbackInterfaces = new List<IDefaultActions>();
     private readonly InputAction m_Default_Move;
     private readonly InputAction m_Default_Interact;
+    private readonly InputAction m_Default_Action;
     private readonly InputAction m_Default_Debug;
     private readonly InputAction m_Default_Toolbar;
     private readonly InputAction m_Default_Inventory;
@@ -394,6 +416,7 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         public DefaultActions(@PlayerInput wrapper) { m_Wrapper = wrapper; }
         public InputAction @Move => m_Wrapper.m_Default_Move;
         public InputAction @Interact => m_Wrapper.m_Default_Interact;
+        public InputAction @Action => m_Wrapper.m_Default_Action;
         public InputAction @Debug => m_Wrapper.m_Default_Debug;
         public InputAction @Toolbar => m_Wrapper.m_Default_Toolbar;
         public InputAction @Inventory => m_Wrapper.m_Default_Inventory;
@@ -418,6 +441,9 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
             @Interact.started += instance.OnInteract;
             @Interact.performed += instance.OnInteract;
             @Interact.canceled += instance.OnInteract;
+            @Action.started += instance.OnAction;
+            @Action.performed += instance.OnAction;
+            @Action.canceled += instance.OnAction;
             @Debug.started += instance.OnDebug;
             @Debug.performed += instance.OnDebug;
             @Debug.canceled += instance.OnDebug;
@@ -455,6 +481,9 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
             @Interact.started -= instance.OnInteract;
             @Interact.performed -= instance.OnInteract;
             @Interact.canceled -= instance.OnInteract;
+            @Action.started -= instance.OnAction;
+            @Action.performed -= instance.OnAction;
+            @Action.canceled -= instance.OnAction;
             @Debug.started -= instance.OnDebug;
             @Debug.performed -= instance.OnDebug;
             @Debug.canceled -= instance.OnDebug;
@@ -503,6 +532,7 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
     {
         void OnMove(InputAction.CallbackContext context);
         void OnInteract(InputAction.CallbackContext context);
+        void OnAction(InputAction.CallbackContext context);
         void OnDebug(InputAction.CallbackContext context);
         void OnToolbar(InputAction.CallbackContext context);
         void OnInventory(InputAction.CallbackContext context);

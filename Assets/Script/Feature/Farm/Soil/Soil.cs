@@ -5,11 +5,13 @@ using Script.Core.Model.Soil;
 using UnityEngine;
 using VContainer;
 using TriInspector;
+using UnityEngine.UIElements;
+using UnityEngine.EventSystems;
 namespace Script.Feature.Farm.Soil {
     public class Soil : MonoBehaviour, IActionable {
         [SerializeField] private MeshFilter mesh;
         [ShowInInspector, ReadOnly] private bool HasCropContext => _context?.CropPlanted != null;
-        [ShowInInspector, ReadOnly] private string contextState => _context.State.Value.ToString() ?? "no-state";
+        [ShowInInspector, ReadOnly] private string contextState => _context?.State.Value.ToString() ?? "no-state";
         private SoilContext _context;
         private Action<IUseable> _onAction;
         public Vector3 GetPointerPosition() {
@@ -39,6 +41,12 @@ namespace Script.Feature.Farm.Soil {
                     Debug.Log("state updated: " + _context.State.Value);
                 }
             });
+        }
+        private void OnMouseEnter() {
+            IActionable.Event.OnPointerHovered.OnNext(this);
+        }
+        private void OnMouseExit() {
+            IActionable.Event.OnPointerExited.OnNext(this);
         }
     }
 }
