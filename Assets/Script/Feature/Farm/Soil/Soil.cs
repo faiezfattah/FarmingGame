@@ -38,7 +38,7 @@ namespace Script.Feature.Farm.Soil {
                 };
 
                 if (_context.State.Value != SoilState.Initial) {
-                    Debug.Log("state updated: " + _context.State.Value);
+                    // Debug.Log("state updated: " + _context.State.Value);
                 }
             });
         }

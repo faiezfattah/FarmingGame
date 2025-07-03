@@ -12,15 +12,18 @@ using VContainer;
 namespace Script.Feature.Character.Player {
     public class PlayerPointer : MonoBehaviour {
         [SerializeField] private GameObject indicator;
+        [SerializeField] private float range;
         private IActionable _currentSelection;
         private DisposableBag _bag;
         private InventoryRegistry _inventoryRegistry;
+        private PlayerController _playerController;
         [Inject]
-        public void Construct(InputProcessor inputProcessor, InventoryRegistry inventoryRegistry) {
+        public void Construct(InputProcessor inputProcessor, InventoryRegistry inventoryRegistry, PlayerController playerController) {
             inputProcessor.ActionEvent.Subscribe(_ => Action()).AddTo(ref _bag);
             IActionable.Event.OnPointerHovered.Subscribe(HandleEnter).AddTo(ref _bag);
             IActionable.Event.OnPointerExited.Subscribe(HandleExit).AddTo(ref _bag);
             _inventoryRegistry = inventoryRegistry;
+            _playerController = playerController;
         }
         private void Action() {
             if (_currentSelection == null) return;
@@ -30,7 +33,14 @@ namespace Script.Feature.Character.Player {
                 _currentSelection.Action(useable);
             }
         }
+        private bool Check(IActionable actionable) {
+            var dist = Vector3.Distance(_playerController.transform.position, actionable.GetPointerPosition());
+
+            return dist < range;
+        }
         private void HandleEnter(IActionable actionable) {
+            if (!Check(actionable)) return;
+            
             if (_currentSelection == null) {
                 _currentSelection = actionable;
                 indicator.SetActive(true);
