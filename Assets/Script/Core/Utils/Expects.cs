@@ -22,22 +22,10 @@ namespace Script.Core.Utils {
             return default!;
         }
 
-        public static T ExpectWithMessage<T>(this T? value, string message) {
+        public static T Expect<T>(this T? value, string message) {
             if (value is not null) return value;
             Debug.LogError($"[Expect] {message}");
             return default!;
-        }
-        public static T ExpectOrDefault<T>(this T? value, T defaultValue) {
-            return value ?? defaultValue;
-        }
-        public static T ExpectOrCreate<T>(this T? value) where T : class, new() {
-            return value ?? new T();
-        }
-        public static T ExpectOrCreate<T>(this T? value, Func<T> factory) {
-            return value ?? factory();
-        }
-        public static T ExpectOrCreate<T>(this T? value) where T : struct {
-            return value ?? new T();
         }
     }
 }

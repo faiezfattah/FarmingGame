@@ -11,6 +11,7 @@ using VContainer;
 namespace Script.Feature.Toolbar {
     public class Toolbar : MonoBehaviour {
         [SerializeField] private UIDocument uIDocument;
+        [SerializeField] private Core.Utils.Logger logger;
         private VisualElement _root;
         private DisposableBag _bag;
         private InventoryRegistry _inventoryRegistry;
@@ -35,7 +36,7 @@ namespace Script.Feature.Toolbar {
             _inventoryRegistry.activeItem.Value = btn.toolContext;
             OnSelect.OnNext(btn.toolContext);
             
-            Debug.Log("equipped: " + _inventoryRegistry.activeItem.CurrentValue.BaseData.name);
+            logger.Log("equipped: " + _inventoryRegistry.activeItem.CurrentValue.BaseData.name);
         }
         private async void ToggleVisibility(bool value) {
             uIDocument.enabled = value;
@@ -56,9 +57,9 @@ namespace Script.Feature.Toolbar {
                     ? _inventoryRegistry.toolbarRegistry[i] 
                     : null;
 
-                buttons[i].SetToolContext(tool);
 
                 if (tool is not null) {
+                    buttons[i].SetToolContext(tool);
                     buttons[i].RegisterCallback<ClickEvent>(HandleClick);
                     Disposable.Create(() => buttons[i].UnregisterCallback<ClickEvent>(HandleClick)).AddTo(ref _bag);
                 }

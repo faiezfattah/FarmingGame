@@ -1,35 +1,30 @@
-﻿using R3;
-using Script.Core.Interface;
+﻿using ObservableCollections;
+using R3;
 using Script.Core.Interface.Systems;
 using Script.Core.Model.Crop;
-using TriInspector;
 using UnityEngine;
 using VContainer;
 
 namespace Script.Feature.Farm.Crop {
     public class CropSystem : MonoBehaviour {
-        [SerializeField] private Crop testingCrop;
-        [SerializeField] private Transform spawningPointer;
-        [SerializeField] private CropData debugCropData;
-
-        [Inject]
-        private CropRegistry _cropRegistry;
-        [Inject]
-        private ITimeSystem _timeSystem;
-        [Inject]
-        private IItemSystem _itemSystem;
-        private DisposableBag _bag;
+        [SerializeField] Crop testingCrop;
+        [SerializeField] Transform spawningPointer;
+        [SerializeField] CropData debugCropData;
+        [SerializeField] Core.Utils.Logger logger;
+        [Inject] CropRegistry _cropRegistry;
+        [Inject] ITimeSystem _timeSystem;
+        [Inject] IItemSystem _itemSystem;
+        DisposableBag _bag;
 
         private void Start() {
             _timeSystem.DayCount.Subscribe(_ => UpdateCrop()).AddTo(ref _bag);
         }
 
         private void UpdateCrop() {
-            _cropRegistry.registry.ForEach(item => {
-                if (item.CropData.CanAdvance(item)) {
-                    item.Growth.Value++;
-                }
-            });
+            using var view = _cropRegistry.registry.ToViewList();
+            foreach (var item in view) {
+                item.Growth.Value++;
+            }
         }
 
         private void AddCrop(CropContext cropContext) {
@@ -61,7 +56,7 @@ namespace Script.Feature.Farm.Crop {
             instance.Initialize(context, () => RemoveCrop(context, position));
             AddCrop(context);
 
-            Debug.Log($"made a new plant on: {context.DayPlanted}");
+            logger.Log($"made a new plant on: {context.DayPlanted}");
 
             return context;
         }
