@@ -10,7 +10,7 @@ using UnityEngine;
 using VContainer;
 using VContainer.Unity;
 
-namespace Script.Injector {
+namespace Script.Game {
     public class MainInjector : LifetimeScope {
         [SerializeField] private ItemPool itemPool;
         [SerializeField] private CropSystem cropSystem;
