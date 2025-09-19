@@ -41,5 +41,15 @@ namespace Script.Game {
             // player... idk what else to do. the ui need controll to the player movement
             builder.RegisterInstance(playerProxy).As<PlayerController>();
         }
+        protected override void Awake() {
+            base.Awake();
+            Game();
+        }
+        protected void Game() {
+            var playerInputBridge = new PlayerInputBridge(
+                Container.Resolve<InputProcessor>(),
+                Container.Resolve<PlayerController>()
+            );
+        }
     }
 }
