@@ -1,7 +1,8 @@
 ﻿using ObservableCollections;
 using R3;
-using Script.Core.Interface.Systems;
 using Script.Core.Model.Crop;
+using Script.Core.Model.Item;
+using Script.Core.Model.Soil;
 using UnityEngine;
 using VContainer;
 
@@ -12,16 +13,11 @@ namespace Script.Feature.Farm.Crop {
         [SerializeField] CropData debugCropData;
         [SerializeField] Core.Utils.Logger logger;
         [Inject] CropRegistry _cropRegistry;
-        [Inject] ITimeSystem _timeSystem;
-        [Inject] IItemSystem _itemSystem;
         DisposableBag _bag;
-
-        private void Start() {
-            _timeSystem.DayCount.Subscribe(_ => UpdateCrop()).AddTo(ref _bag);
-        }
-
-        private void UpdateCrop() {
-            using var view = _cropRegistry.registry.ToViewList();
+        public Subject<(ItemData, Vector3)> OnHarvest = new();
+        public void UpdateCrop() {
+            using var view = _cropRegistry.registry.CreateView(x => x);
+            view.AttachFilter(x => x.SoilContext.State.CurrentValue == SoilState.Watered);
             foreach (var item in view) {
                 item.Growth.Value++;
             }
@@ -36,7 +32,7 @@ namespace Script.Feature.Farm.Crop {
                 Debug.LogWarning("Failed to remove crop");
                 return;
             }
-            _itemSystem.SpawnItem(cropContext.CropData.itemData, itemSpawnPosition);
+            OnHarvest.OnNext((cropContext.CropData.itemData, itemSpawnPosition));
         }
 
         public CropContext SpawnCrop(CropData cropData, Vector3 position) {

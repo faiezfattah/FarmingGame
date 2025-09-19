@@ -1,4 +1,6 @@
-﻿using Script.Core.Interface.Systems;
+﻿using System;
+using R3;
+using Script.Core.Interface.Systems;
 using Script.Feature.Character.Player;
 using Script.Feature.DayTime;
 using Script.Feature.Farm.Crop;
@@ -15,17 +17,17 @@ namespace Script.Game {
         [SerializeField] private ItemPool itemPool;
         [SerializeField] private CropSystem cropSystem;
         [SerializeField] private PlayerController playerProxy;
-
+        IDisposable _disposeable;
         protected override void Configure(IContainerBuilder builder) {
             builder.Register<InputProcessor>(Lifetime.Singleton);
 
             // Systems
-            builder.Register<TimeSystem>(Lifetime.Singleton).As<ITimeSystem>();
+            builder.Register<TimeSystem>(Lifetime.Singleton).As<ITimeSystem>().AsSelf();
             builder.Register<SoilSystem>(Lifetime.Singleton);
-            builder.Register<ItemSystem>(Lifetime.Singleton).As<IItemSystem>();
-            builder.Register<InventorySystem>(Lifetime.Singleton).As<IInventorySystem>();
-            builder.RegisterInstance(cropSystem).As<CropSystem>();
-            builder.Register<MoneySystem>(Lifetime.Singleton).As<IMoneySystem>();
+            builder.Register<ItemSystem>(Lifetime.Singleton).As<IItemSystem>().AsSelf();
+            builder.Register<InventorySystem>(Lifetime.Singleton).As<IInventorySystem>().AsSelf();
+            builder.RegisterInstance(cropSystem).As<CropSystem>().AsSelf();
+            builder.Register<MoneySystem>(Lifetime.Singleton).As<IMoneySystem>().AsSelf();
 
             // Registry
             builder.Register<InventoryRegistry>(Lifetime.Singleton).As<IInventoryRegistry>().AsSelf();
@@ -46,10 +48,24 @@ namespace Script.Game {
             Game();
         }
         protected void Game() {
+            DisposableBuilder builder = new();
+
             var playerInputBridge = new PlayerInputBridge(
                 Container.Resolve<InputProcessor>(),
                 Container.Resolve<PlayerController>()
-            );
+            ).AddTo(ref builder);
+
+            var farmingManager = new FarmingManager(
+                Container.Resolve<CropSystem>(),
+                Container.Resolve<TimeSystem>(),
+                Container.Resolve<ItemSystem>()
+            ).AddTo(ref builder);
+
+            builder.Build();
+        }
+        protected override void OnDestroy() {
+            base.OnDestroy();
+            _disposeable?.Dispose();
         }
     }
 }
