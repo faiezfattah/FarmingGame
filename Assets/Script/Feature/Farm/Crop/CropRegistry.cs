@@ -1,8 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using ObservableCollections;
-using Script.Core;
-using Script.Core.Base;
+﻿using ObservableCollections;
 using Script.Core.Model.Crop;
 
 namespace Script.Feature.Farm.Crop {

@@ -1,9 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using ObservableCollections;
-using R3;
-using Script.Core;
-using Script.Core.Base;
+﻿using ObservableCollections;
 using Script.Core.Model.Soil;
 
 namespace Script.Feature.Farm.Soil {
