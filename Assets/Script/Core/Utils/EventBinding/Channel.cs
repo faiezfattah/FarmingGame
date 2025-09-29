@@ -4,12 +4,12 @@ using UnityEngine;
 namespace OneiricFarming.Core.Utils.EventBinding {
 
     /// <summary>
-    /// This class is a wrapper for values that emit events value changed. Internally this uses <see cref="ReactiveSubject"/>
+    /// This class is a wrapper for values that emit events value changed. Internally this uses <see cref="Signal"/>
     /// Use it if you need to track changes within a class. Can be used with <see cref="SubscriptionBag"/>
     /// </summary>
     /// <typeparam name="T">The type of data. Can be int, float, vector, anything really</typeparam>
     [Serializable]
-    public class ReactiveProperty<T> : IDisposable, IEventHook<T> {
+    public class Channel<T> : IDisposable, IEventHook<T> {
         bool _isDisposed = false;
 
         [SerializeField]
@@ -27,8 +27,8 @@ namespace OneiricFarming.Core.Utils.EventBinding {
                 }
             }
         }
-        ReactiveSubject<T> _subscriber = new();
-        public ReactiveProperty(T initialValue) {
+        Signal<T> _subscriber = new();
+        public Channel(T initialValue) {
             _value = initialValue;
         }
         public IDisposable Subscribe(Action<T> action) {

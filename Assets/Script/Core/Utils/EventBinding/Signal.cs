@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using UnityEngine.Events;
 
 namespace OneiricFarming.Core.Utils.EventBinding { 
 
@@ -8,13 +9,16 @@ namespace OneiricFarming.Core.Utils.EventBinding {
     /// Use this instead of Action to work with <see cref="SubscriptionBag"/>
     /// Use it if you need to track changes within a class.
     /// </summary>
-    public class ReactiveSubject : IDisposable, IEventHook {
+    [Serializable]
+    public class Signal : IDisposable, IEventHook {
+        [SerializeField] UnityEvent OnRaise;
         Action _subscriber;
         bool _isDisposed = false;
         public void Raise() {
             if (_isDisposed) throw new ObjectDisposedException("Trying to access disposed ReactiveSubject. Cannot resume because listener is discarded. Do no reuse this class, it may cause race conditions.");
 
             _subscriber?.Invoke();
+            OnRaise?.Invoke();
         }
         public IDisposable Subscribe(Action action) {
             if (_isDisposed) throw new ObjectDisposedException("Trying to access disposed ReactiveSubject. Cannot resume because listener is discarded. Do no reuse this class, it may cause race conditions.");
@@ -35,16 +39,19 @@ namespace OneiricFarming.Core.Utils.EventBinding {
         }
     }
     /// <summary>
-    /// <inheritdoc cref="ReactiveSubject"/>
+    /// <inheritdoc cref="Signal"/>
     /// This generic version can be used if the event needs some argument
     /// </summary>
     /// <typeparam name="T"></typeparam>
-    public class ReactiveSubject<T> : IDisposable, IEventHook<T> {
+    [Serializable]
+    public class Signal<T> : IDisposable, IEventHook<T> {
+        [SerializeField] UnityEvent<T> OnRaise;
         Action<T> _subscriber;
         bool _isDisposed = false;
         public void Raise(T value) {
             if (_isDisposed) throw new ObjectDisposedException("Trying to access disposed ReactiveSubject. Cannot resume because listener is discarded. Do no reuse this class, it may cause race conditions.");
-            
+
+            OnRaise?.Invoke(value);
             _subscriber?.Invoke(value);
         }
         public IDisposable Subscribe(Action<T> action) {
@@ -63,6 +70,7 @@ namespace OneiricFarming.Core.Utils.EventBinding {
             if (_isDisposed) return;
             _subscriber = null;
             _isDisposed = true;
+            OnRaise.RemoveAllListeners();
         }
     }
 }
