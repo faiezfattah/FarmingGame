@@ -43,26 +43,6 @@ namespace Script.Injector {
             // player... idk what else to do. the ui need controll to the player movement
             builder.RegisterInstance(playerProxy).As<PlayerController>();
         }
-        protected override void Awake() {
-            base.Awake();
-            Game();
-        }
-        protected void Game() {
-            DisposableBuilder builder = new();
-
-            var playerInputBridge = new PlayerInputBridge(
-                Container.Resolve<InputProcessor>(),
-                Container.Resolve<PlayerController>()
-            ).AddTo(ref builder);
-
-            var farmingManager = new FarmingManager(
-                Container.Resolve<CropSystem>(),
-                Container.Resolve<TimeSystem>(),
-                Container.Resolve<ItemSystem>()
-            ).AddTo(ref builder);
-
-            builder.Build();
-        }
         protected override void OnDestroy() {
             base.OnDestroy();
             _disposeable?.Dispose();
