@@ -3,10 +3,8 @@ using R3;
 using Script.Core.Interface;
 using Script.Core.Model.Soil;
 using UnityEngine;
-using VContainer;
 using TriInspector;
-using UnityEngine.UIElements;
-using UnityEngine.EventSystems;
+
 namespace Script.Feature.Farm.Soil {
     public class Soil : MonoBehaviour, IActionable {
         [SerializeField] private MeshFilter mesh;
