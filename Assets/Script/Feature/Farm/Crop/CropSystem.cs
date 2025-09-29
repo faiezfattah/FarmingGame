@@ -1,5 +1,6 @@
 ﻿using ObservableCollections;
 using R3;
+using Script.Core.Interface.Systems;
 using Script.Core.Model.Crop;
 using Script.Core.Model.Item;
 using Script.Core.Model.Soil;
@@ -15,6 +16,13 @@ namespace Script.Feature.Farm.Crop {
         [Inject] CropRegistry _cropRegistry;
         DisposableBag _bag;
         public Subject<(ItemData, Vector3)> OnHarvest = new();
+        [Inject]
+        public void Construct(ITimeSystem timeSystem) {
+            _bag = new DisposableBag();
+            timeSystem.DayCount.Subscribe(day => {
+                UpdateCrop();
+            }).AddTo(ref _bag);
+        }
         public void UpdateCrop() {
             using var view = _cropRegistry.registry.CreateView(x => x);
             view.AttachFilter(x => x.SoilContext.State.CurrentValue == SoilState.Watered);
