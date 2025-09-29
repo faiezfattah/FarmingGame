@@ -1,4 +1,3 @@
-using System;
 using System.Linq;
 using R3;
 using Script.Core.Interface;
@@ -7,9 +6,8 @@ using Script.Core.Model.Item;
 using Script.Feature.Character.Player;
 using Script.Feature.Input;
 using UnityEngine;
-using UnityEngine.Assertions.Must;
 using UnityEngine.UIElements;
-using VContainer;
+using Reflex.Attributes;
 
 namespace Script.Feature.Character.NPC {
     public class NPCSelling : MonoBehaviour, IInteractable {

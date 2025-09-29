@@ -6,7 +6,7 @@ using Script.Core.Model.Item;
 using Script.Feature.Input;
 using UnityEngine;
 using UnityEngine.UIElements;
-using VContainer;
+using Reflex.Attributes;
 
 namespace Script.Feature.Toolbar {
     public class Toolbar : MonoBehaviour {

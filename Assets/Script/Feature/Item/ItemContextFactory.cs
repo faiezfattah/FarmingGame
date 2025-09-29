@@ -2,14 +2,15 @@ using System.Runtime.InteropServices.WindowsRuntime;
 using Script.Core.Interface.Systems;
 using Script.Core.Model.Item;
 using UnityEngine;
-using VContainer;
+using Reflex.Core;
+using Reflex.Injectors;
 
 namespace Script.Feature.Item {
 public class ItemContextFactory : IItemContextFactory {
-    private IObjectResolver _resolver;
+    private Container _container;
 
-    public ItemContextFactory(IObjectResolver resolver) {
-        _resolver = resolver;
+    public ItemContextFactory(Container container) {
+        _container = container;
     }
 
     public ItemContext Create(ItemData itemData) {
@@ -31,7 +32,7 @@ public class ItemContextFactory : IItemContextFactory {
     }
 
     private T InjectHelper<T>(T context) {
-        _resolver.Inject(context);
+        AttributeInjector.Inject(context, _container);
         return context;
     }
 }

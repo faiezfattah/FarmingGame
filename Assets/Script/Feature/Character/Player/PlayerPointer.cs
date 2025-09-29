@@ -4,7 +4,7 @@ using Script.Core.Interface;
 using Script.Core.Utils;
 using Script.Feature.Input;
 using UnityEngine;
-using VContainer;
+using Reflex.Attributes;
 
 namespace Script.Feature.Character.Player {
     public class PlayerPointer : MonoBehaviour {

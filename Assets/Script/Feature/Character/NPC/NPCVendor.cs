@@ -7,7 +7,7 @@ using Script.Feature.Character.Player;
 using Script.Feature.Input;
 using UnityEngine;
 using UnityEngine.UIElements;
-using VContainer;
+using Reflex.Attributes;
 
 namespace Script.Feature.Character.NPC {
     public class NPCVendor : MonoBehaviour, IInteractable {

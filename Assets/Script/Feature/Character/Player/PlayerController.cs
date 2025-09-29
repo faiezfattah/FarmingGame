@@ -7,7 +7,7 @@ using Script.Core.Interface.Systems;
 using Script.Feature.Input;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using VContainer;
+using Reflex.Attributes;
 
 namespace Script.Feature.Character.Player {
     public class PlayerController : MonoBehaviour {

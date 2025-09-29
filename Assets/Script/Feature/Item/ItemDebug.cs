@@ -2,7 +2,7 @@ using Script.Core.Interface.Systems;
 using Script.Core.Model.Item;
 using TriInspector;
 using UnityEngine;
-using VContainer;
+using Reflex.Attributes;
 namespace Script.Feature.Item {
 public class ItemDebug : MonoBehaviour {
     [SerializeField] private ItemData itemToSpawn;

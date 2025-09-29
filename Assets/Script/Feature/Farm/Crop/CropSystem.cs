@@ -1,11 +1,11 @@
 ﻿using ObservableCollections;
 using R3;
+using Reflex.Attributes;
 using Script.Core.Interface.Systems;
 using Script.Core.Model.Crop;
 using Script.Core.Model.Item;
 using Script.Core.Model.Soil;
 using UnityEngine;
-using VContainer;
 
 namespace Script.Feature.Farm.Crop {
     public class CropSystem : MonoBehaviour {

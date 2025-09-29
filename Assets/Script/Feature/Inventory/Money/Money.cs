@@ -3,7 +3,7 @@ using R3;
 using Script.Core.Interface.Systems;
 using UnityEngine;
 using UnityEngine.UIElements;
-using VContainer;
+using Reflex.Attributes;
 
 namespace Script.Feature.Inventory {
 public class Money : MonoBehaviour {

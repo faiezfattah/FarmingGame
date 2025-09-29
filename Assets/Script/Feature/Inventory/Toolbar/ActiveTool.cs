@@ -3,7 +3,7 @@ using R3;
 using Script.Core.Model.Item;
 using UnityEngine;
 using UnityEngine.UIElements;
-using VContainer;
+using Reflex.Attributes;
 
 public class ActiveTool : MonoBehaviour {
     [SerializeField] private UIDocument uIDocument;

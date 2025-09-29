@@ -6,7 +6,7 @@ using Script.Core.Model.Soil;
 using Script.Feature.Farm.Crop;
 using TriInspector;
 using UnityEngine;
-using VContainer;
+using Reflex.Attributes;
 
 namespace Script.Feature.Farm.Soil {
     public class SoilSystem : MonoBehaviour {

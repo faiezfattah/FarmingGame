@@ -5,7 +5,7 @@ using R3;
 using Script.Core.Model.Item;
 using UnityEngine;
 using UnityEngine.UIElements;
-using VContainer;
+using Reflex.Attributes;
 
 public class Hotbar : MonoBehaviour {
     [SerializeField] private UIDocument _hotbarDocument;

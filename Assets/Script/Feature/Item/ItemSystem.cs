@@ -1,7 +1,6 @@
 ﻿using Script.Core.Interface.Systems;
 using Script.Core.Model.Item;
 using UnityEngine;
-using VContainer;
 namespace Script.Feature.Item {
 public class ItemSystem : IItemSystem {
     private ItemPool _pool;
