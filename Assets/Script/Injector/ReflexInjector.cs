@@ -26,12 +26,12 @@ namespace Script.Game {
             // builder.RegisterInstance(cropSystem).As<CropSystem>().AsSelf();
             // builder.Register<MoneySystem>(Lifetime.Singleton).As<IMoneySystem>().AsSelf();
 
-            builder.AddSingleton(new TimeSystem(), typeof(ITimeSystem));
-            builder.AddSingleton(typeof(SoilSystem));
-            builder.AddSingleton(typeof(ItemSystem), typeof(IItemSystem));
-            builder.AddSingleton(typeof(InventorySystem));
-            builder.AddSingleton(cropSystem);
-            builder.AddSingleton(typeof(MoneySystem), typeof(IMoneySystem));
+            builder.AddSingleton(new TimeSystem(),typeof(TimeSystem), typeof(ITimeSystem));
+            builder.AddSingleton(typeof(SoilSystem), typeof(SoilSystem));
+            builder.AddSingleton(typeof(ItemSystem), typeof(ItemSystem),typeof(IItemSystem));
+            builder.AddSingleton(typeof(InventorySystem), typeof(InventorySystem), typeof(IInventorySystem));
+            builder.AddSingleton(cropSystem, typeof(CropSystem));
+            builder.AddSingleton(typeof(MoneySystem), typeof(MoneySystem), typeof(IMoneySystem));
 
             // // Registry
             // builder.Register<InventoryRegistry>(Lifetime.Singleton).As<IInventoryRegistry>().AsSelf();
@@ -39,15 +39,15 @@ namespace Script.Game {
             // builder.Register<SoilRegistry>(Lifetime.Singleton).As<ISoilRegistry>().AsSelf();
             // builder.Register<CropRegistry>(Lifetime.Singleton).As<ICropRegistry>().AsSelf();
 
-            builder.AddSingleton(new InventoryRegistry(), typeof(IInventoryRegistry));
-            builder.AddSingleton(new ItemRegistry(), typeof(IItemRegistry));
-            builder.AddSingleton(new SoilRegistry(), typeof(ISoilRegistry));
-            builder.AddSingleton(new CropRegistry(), typeof(ICropRegistry));
+            builder.AddSingleton(new InventoryRegistry(), typeof(InventoryRegistry), typeof(IInventoryRegistry));
+            builder.AddSingleton(new ItemRegistry(), typeof(ItemRegistry), typeof(IItemRegistry));
+            builder.AddSingleton(new SoilRegistry(), typeof(SoilRegistry), typeof(ISoilRegistry));
+            builder.AddSingleton(new CropRegistry(), typeof(CropRegistry), typeof(ICropRegistry));
 
             // //factory
             // builder.Register<ItemContextFactory>(Lifetime.Transient).As<IItemContextFactory>().AsSelf();
 
-            builder.AddTransient(typeof(IItemContextFactory), typeof(ItemContextFactory));
+            builder.AddTransient(typeof(ItemContextFactory), typeof(ItemContextFactory), typeof(IItemContextFactory));
 
             // builder.RegisterInstance(itemPool);
             builder.AddSingleton(itemPool);
