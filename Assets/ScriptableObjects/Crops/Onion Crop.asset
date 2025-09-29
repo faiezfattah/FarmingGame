@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ChanceToAdvance: 0.9
   itemData: {fileID: 11400000, guid: 62b59238677f1a06d8c46b13a687fe73, type: 2}
-  cropLevels:
+  CropLevels:
   - Sprite: {fileID: 4140360251420805661, guid: 9e7ec994f983d59408891a54b6a327fe, type: 3}
     GrowthLevel: 0
     WitherLevel: 0

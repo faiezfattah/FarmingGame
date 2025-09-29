@@ -14,13 +14,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ChanceToAdvance: 0.5
   itemData: {fileID: 11400000, guid: 39b546a007ef7659590861dda6769a5b, type: 2}
-  cropLevels:
+  CropLevels:
   - Sprite: {fileID: -1796422604881817343, guid: 4d3bc0971cc867443949654e68e2c352, type: 3}
-    GrowthLevel: 0
+    GrowthLevel: 1
     WitherLevel: 0
   - Sprite: {fileID: 8590243918613441174, guid: 4d3bc0971cc867443949654e68e2c352, type: 3}
-    GrowthLevel: 2
+    GrowthLevel: 3
     WitherLevel: 0
   - Sprite: {fileID: -5329570080710357390, guid: 4d3bc0971cc867443949654e68e2c352, type: 3}
-    GrowthLevel: 5
+    GrowthLevel: 12
     WitherLevel: 0

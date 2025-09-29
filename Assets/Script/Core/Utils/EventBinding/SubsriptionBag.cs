@@ -8,14 +8,12 @@ namespace OneiricFarming.Core.Utils.EventBinding {
     /// This is some nice things Fafa made to manage subscription with IDiposeable interface.
     /// Fafa recommends to use Subject and Reactive Property instead of Action to work with this.
     /// </summary>
-    public class SubscriptionBag : IDisposable {
-        List<IDisposable> _subcription = new();
-        bool _isDisposed = false;
-        public SubscriptionBag() {
-            _subcription = new(5);
-        }
-        public SubscriptionBag(int capacity) {
+    public struct SubscriptionBag : IDisposable {
+        List<IDisposable> _subcription;
+        bool _isDisposed;
+        public SubscriptionBag(int capacity = 3) {
             _subcription = new(capacity);
+            _isDisposed = false;
         }
         public void Add(IDisposable disposable) {
             if (_isDisposed) {
@@ -37,7 +35,7 @@ namespace OneiricFarming.Core.Utils.EventBinding {
         }
     }
     public static class IDisposeableExtension {
-        public static void AddTo(this IDisposable disposable, SubscriptionBag bag) {
+        public static void AddTo(this IDisposable disposable, ref SubscriptionBag bag) {
             bag.Add(disposable);
         }
     }

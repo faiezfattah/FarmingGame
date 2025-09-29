@@ -1,47 +1,47 @@
 ﻿using System;
-using R3;
+using OneiricFarming.Core.Utils.EventBinding;
 using Script.Core.Interface;
 using Script.Core.Model.Crop;
+using Script.Core.Utils;
+using TriInspector;
 using UnityEngine;
 
 namespace Script.Feature.Farm.Crop {
 public class Crop : MonoBehaviour, IEntity<CropContext>, IInteractable {
-    
+
     [SerializeField] private SpriteRenderer sr;
 
-    private CropData _cropData;
-    private CropContext _cropContext;
-    private DisposableBag _subscriptions = new();
+    [SerializeField, ReadOnly] private CropContext _cropContext;
+    private SubscriptionBag _subscriptions = new();
     private Action _onHarvest;
 
     public void Initialize(CropContext context, Action onHarvest) {
-        _cropContext = context;
+        _cropContext = context.Expect("CropContext is null");
         _onHarvest = onHarvest;
-        _cropData = _cropContext.CropData;
 
         UpdateVisuals(_cropContext.Level.Value);
 
         _cropContext.Growth
-                    .Subscribe(_ => CheckForLevelAdvancement())
+                    .Subscribe(CheckForLevelAdvancement)
                     .AddTo(ref _subscriptions);
 
         _cropContext.Level
-                    .Subscribe(level => UpdateVisuals(level))
+                    .Subscribe(UpdateVisuals)
                     .AddTo(ref _subscriptions);
     }
 
-    private void CheckForLevelAdvancement() {
-        if (!_cropData.ShouldAdvanceToNextLevel(_cropContext)) return;
+    private void CheckForLevelAdvancement(int level) {
+        if (!_cropContext.CanAdvance()) return;
         
         _cropContext.Level.Value++;
     }
 
     private void UpdateVisuals(int level) {
-        sr.sprite = _cropData.GetData(level)?.Sprite;
+        sr.sprite = _cropContext.CropData.GetData(level)?.Sprite;
     }
 
     public void Interact() {
-        if (_cropData.CanHarvest(_cropContext)) 
+        if (_cropContext.CanHarvest()) 
             Harvest();
         
         else Debug.Log($"Plant is growing. Level: {_cropContext.Level.Value}, Growth: {_cropContext.Growth.Value}");

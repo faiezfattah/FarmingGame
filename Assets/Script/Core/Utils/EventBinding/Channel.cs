@@ -9,30 +9,32 @@ namespace OneiricFarming.Core.Utils.EventBinding {
     /// </summary>
     /// <typeparam name="T">The type of data. Can be int, float, vector, anything really</typeparam>
     [Serializable]
-    public class Channel<T> : IDisposable, IEventHook<T> {
-        bool _isDisposed = false;
+    public struct Channel<T> : IDisposable, IEventHook<T> {
+        byte _isDisposed;
 
         [SerializeField]
         T _value;
         public T Value {
             get {
-                if (_isDisposed) throw new ObjectDisposedException("Trying to access disposed ReactiveProperty. Cannot resume because value is discarded.");
+                if (_isDisposed == 1) throw new ObjectDisposedException("Trying to access disposed ReactiveProperty. Cannot resume because value is discarded.");
                 else return _value;
             }
             set {
-                if (_isDisposed) throw new ObjectDisposedException("Trying to access disposed ReactiveProperty. Cannot resume because value is discarded.");
+                if (_isDisposed == 1) throw new ObjectDisposedException("Trying to access disposed ReactiveProperty. Cannot resume because value is discarded.");
                 if (!Equals(_value, value)) { // note: if the value is the same. doesnt trigger.
                     _value = value;
                     TriggerChange();
                 }
             }
         }
-        Signal<T> _subscriber = new();
+        Signal<T> _subscriber;
         public Channel(T initialValue) {
             _value = initialValue;
+            _isDisposed = 0;
+            _subscriber = new Signal<T>();
         }
         public IDisposable Subscribe(Action<T> action) {
-            if (_isDisposed) throw new ObjectDisposedException("Trying to access disposed ReactiveProperty. Cannot resume because value is discarded.");
+            if (_isDisposed == 1) throw new ObjectDisposedException("Trying to access disposed ReactiveProperty. Cannot resume because value is discarded.");
 
             action?.Invoke(Value); // give the first value
 
@@ -42,10 +44,10 @@ namespace OneiricFarming.Core.Utils.EventBinding {
             _subscriber?.Raise(_value);
         }
         public void Dispose() {
-            if (_isDisposed) return;
+            if (_isDisposed == 1) return;
             _value = default(T);
             _subscriber.Dispose();
-            _isDisposed = true;
+            _isDisposed = 1;
         }
     }
 
