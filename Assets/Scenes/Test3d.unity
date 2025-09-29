@@ -5642,6 +5642,7 @@ MonoBehaviour:
   rb: {fileID: 1335049122}
   sr: {fileID: 1335049119}
   moveAction: {fileID: -7287572653062136067, guid: dc838750b7b62f34299cc118cd546d1d, type: 3}
+  interactAction: {fileID: -2533241903833310305, guid: dc838750b7b62f34299cc118cd546d1d, type: 3}
 --- !u!1001 &1353638596
 PrefabInstance:
   m_ObjectHideFlags: 0
